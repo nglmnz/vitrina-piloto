@@ -152,7 +152,57 @@
   .filtro-grupo{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--piedra)}
   .chips-sec{margin-bottom:18px}
   .sin-resultados{background:#fff;border:1px dashed var(--piedra);padding:24px;font-style:italic;color:var(--piedra);text-align:center;margin:18px 0}
-  @media(max-width:720px){.barrow{grid-template-columns:120px 1fr 48px}.paso{border-right:none;border-bottom:1px solid #3D3833}.nodo u{display:none}.evento{grid-template-columns:1fr;gap:8px}.ev-fecha{border-right:none;border-bottom:2px solid var(--rojo);padding:0 0 8px 0;display:flex;gap:10px;align-items:baseline}}
+  /* trayectorias */
+  .paradoja{background:var(--papel);border:1px solid var(--linea);border-left:4px solid var(--rojo);padding:22px 26px;margin:18px 0;max-width:72ch}
+  .paradoja b{color:var(--rojo)}
+  .viz-mapa{background:#fff;border:1px solid var(--linea);padding:24px;margin:18px 0}
+  .viz-mapa h3{font-family:'Source Serif 4',serif;font-size:20px;margin-bottom:4px}
+  .viz-mapa .sub{margin-bottom:14px}
+  .viz-mapa svg{width:100%;height:auto;display:block}
+  .viz-mapa circle.nodo-voto{cursor:pointer;transition:transform .15s,opacity .15s;transform-origin:center;transform-box:fill-box}
+  .viz-mapa circle.nodo-voto:hover{transform:scale(1.08)}
+  .viz-mapa text.lbl-voto{font-family:'Archivo';font-size:11px;font-weight:700;fill:#fff;pointer-events:none;text-anchor:middle}
+  .viz-mapa text.lbl-n{font-family:'Archivo';font-size:10px;fill:rgba(255,255,255,.85);pointer-events:none;text-anchor:middle}
+  .viz-mapa text.eje-lbl{font-family:'Archivo';font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;fill:var(--piedra);text-anchor:middle}
+  .viz-mapa text.eje-tit{font-family:'Source Serif 4',serif;font-size:13px;fill:var(--tinta);text-anchor:middle;font-style:italic}
+  .viz-mapa line.eje{stroke:var(--tinta);stroke-width:1.5}
+  .viz-mapa line.grid{stroke:var(--linea);stroke-width:1;stroke-dasharray:3 4}
+  .viz-leyenda{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--carbon)}
+  .viz-leyenda b{display:block;color:var(--tinta);margin-bottom:3px;font-family:'Source Serif 4',serif;font-size:14px}
+  .tray-perfiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;margin:18px 0}
+  .tray-perfil{background:#fff;border:1px solid var(--linea);padding:24px;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+  .tray-perfil:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+  .tray-perfil .num{font-family:'Source Serif 4',serif;font-size:42px;color:var(--rojo);line-height:1;margin-bottom:4px}
+  .tray-perfil .de{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--piedra);text-transform:uppercase;margin-bottom:14px}
+  .tray-perfil h4{font-family:'Source Serif 4',serif;font-size:20px;margin-bottom:10px;line-height:1.2}
+  .tray-perfil p{font-size:13.5px;color:var(--carbon);margin-bottom:14px}
+  .tray-perfil .voto-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;background:var(--tinta);color:#fff;padding:3px 9px;border-radius:3px;align-self:flex-start;margin-bottom:14px}
+  .tray-perfil blockquote{margin:0 0 14px 0;padding:14px 16px;background:var(--papel);border-left:3px solid var(--rojo);font-size:13.5px;font-style:italic;color:var(--carbon);line-height:1.55}
+  .tray-perfil blockquote cite{display:block;margin-top:8px;font-style:normal;font-size:11.5px;color:var(--piedra);font-weight:700;letter-spacing:.04em}
+  .tray-descarte{background:var(--tinta);color:var(--papel);padding:38px 30px;margin:30px 0}
+  .tray-descarte h3{color:#fff;font-family:'Source Serif 4',serif;font-size:26px;margin-bottom:10px}
+  .tray-descarte h3 .num-resaltado{color:#fff;background:var(--rojo);padding:2px 10px;border-radius:4px;font-size:18px;vertical-align:middle;margin-right:8px}
+  .tray-descarte .sub-blanca{color:#B8B2AB;font-size:15px;max-width:64ch;margin-bottom:24px}
+  .tray-descarte blockquote{margin:0 0 18px 0;padding:16px 20px;background:#3D3833;border-left:3px solid var(--rojo);color:#fff;font-size:15px;font-style:italic;line-height:1.55}
+  .tray-descarte blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:11.5px;color:#B8B2AB;font-weight:700;letter-spacing:.04em}
+  .tray-descarte .cierre{padding:18px 20px;background:#3D3833;border-top:2px solid var(--rojo);font-size:14px;color:#fff;max-width:66ch;line-height:1.6}
+  .tray-descarte .cierre b{color:#fff}
+  .tray-dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:18px 0}
+  .tray-dim{background:#fff;border:1px solid var(--linea);padding:20px;position:relative}
+  .tray-dim .dim-num{position:absolute;top:14px;right:18px;font-family:'Source Serif 4',serif;font-size:38px;color:var(--rojo);opacity:.18;line-height:1}
+  .tray-dim h4{font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:8px;padding-right:40px}
+  .tray-dim p{font-size:13.5px;color:var(--carbon);margin-bottom:12px}
+  .tray-dim blockquote{margin:0;padding:12px 14px;background:var(--papel);border-left:3px solid var(--rojo);font-size:12.5px;font-style:italic;color:var(--carbon);line-height:1.5}
+  .tray-dim blockquote cite{display:block;margin-top:6px;font-style:normal;font-size:10.5px;color:var(--piedra);font-weight:700}
+  .metod-box{background:#fff;border:1px solid var(--linea);padding:24px 28px;margin:18px 0;max-width:74ch}
+  .metod-box h4{font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:10px}
+  .metod-box .metod-grid{display:grid;grid-template-columns:140px 1fr;gap:8px 18px;font-size:13.5px;color:var(--carbon);margin-top:14px}
+  .metod-box .metod-grid b{color:var(--tinta);font-weight:700}
+  .metod-box .anon{font-size:12.5px;color:var(--piedra);margin-top:14px;padding-top:14px;border-top:1px solid var(--linea)}
+  .tray-hallazgos{font-size:15.5px;color:var(--carbon);max-width:68ch;line-height:1.7;margin:14px 0}
+  .tray-hallazgos p{margin-bottom:14px}
+  .tray-hallazgos p b{color:var(--tinta)}
+  @media(max-width:720px){.barrow{grid-template-columns:120px 1fr 48px}.paso{border-right:none;border-bottom:1px solid #3D3833}.nodo u{display:none}.evento{grid-template-columns:1fr;gap:8px}.ev-fecha{border-right:none;border-bottom:2px solid var(--rojo);padding:0 0 8px 0;display:flex;gap:10px;align-items:baseline}.viz-leyenda{grid-template-columns:1fr}.metod-box .metod-grid{grid-template-columns:1fr;gap:4px 0}.metod-box .metod-grid b{padding-top:8px}}
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -197,11 +247,11 @@ const PIEZAS = [
   },
   {
     id:"trayectorias", institucion:"UAH", metodo:"CUALITATIVO", badge:"b-cuali",
-    formato:"Narrativa interactiva", ejes:["demo"],
-    titulo:"Trayectorias: mujeres jóvenes y el voto por la derecha radical",
-    desc:"Recorrido narrativo por los marcos discursivos y trayectorias identificadas en una investigación cualitativa. Material anonimizado, publicado dentro de los términos del consentimiento informado original.",
-    autoria:"Seminario de grado · Sociología UAH, 2026",
-    metrica:"lecturas completas", externa:false, ruta:"#/trayectorias"
+    formato:"Mapa de subjetividades", ejes:["demo"],
+    titulo:"Cuando el movimiento feminista no representa: jóvenes electoras de la nueva derecha",
+    desc:"Mapa 2x2 de las subjetividades políticas de 15 mujeres jóvenes (18–28) votantes de la nueva derecha en las elecciones 2025, en tres regiones. Tres trayectorias, cuatro dimensiones discursivas, y el hallazgo central: 8 de 15 votó por descarte, no por convicción.",
+    autoria:"Gabriela Mardones Gómez · Seminario de grado, Sociología UAH, 2026",
+    metrica:"exploraciones del mapa", externa:false, ruta:"#/trayectorias"
   },
   {
     id:"hostil", institucion:"UAH", metodo:"CUALITATIVO", badge:"b-cuali",
@@ -337,7 +387,7 @@ function registrarEvento(pieza, evento){ /* fetch(ENDPOINT,{method:'POST',body:.
 const app = document.getElementById('app');
 const rutas = { "":vistaHome, "#/":vistaHome, "#/hostil":vistaHostil, "#/defender":vistaDefender,
                 "#/parisi":vistaParisi, "#/sustancia":vistaSustancia,
-                "#/trayectorias":()=>vistaSkeleton("trayectorias"),
+                "#/trayectorias":vistaTrayectorias,
                 "#/agenda":vistaAgenda };
 function render(){ (rutas[location.hash]||vistaHome)(); window.scrollTo(0,0); marcarNavActivo(); }
 window.addEventListener('hashchange', render);
@@ -689,6 +739,197 @@ function vistaAgenda(){
   wire('agenda-chips-tipo','tipo',    v => { fTipo=v;    repintar(); });
   wire('agenda-chips-eje','eje',      v => { fEje=v;     repintar(); });
   repintar();
+}
+
+/* ============ TRAYECTORIAS · DATOS ============ */
+const TRAY_DATA = {
+  meta: {
+    autoria: "Gabriela Mardones Gómez",
+    guia: "Alexis Cortés",
+    formato: "Artículo para Revista Última Década",
+    n: 15,
+    regiones: "Metropolitana, Valparaíso y Maule",
+    edades: "18–28 años",
+    fechas: "14 mayo – 17 junio 2026",
+    software: "ATLAS.ti (análisis) · Clipto (transcripción asistida)",
+    drive: "https://drive.google.com/drive/folders/1v2Cjar2W4mW7zgcBaMPTm0EUJnYTKOr6?usp=drive_link"
+  },
+  /* Posición normalizada (0–1) en el mapa 2x2: x = ideológica, y = motivación */
+  voto: [
+    {id:"kast-kast", label:"Kast → Kast", n:7, tipo:"convicción", scroll:"perfil-individualistas", x:0.78, y:0.78, color:"#C8102E",
+     desc:"Voto de convicción conservadora. Siete mujeres identificadas con el proyecto tradicional-religioso de Kast desde primera vuelta: la religión, la familia, el orden."},
+    {id:"matthei-kast", label:"Matthei → Kast", n:4, tipo:"descarte", scroll:"perfil-individualistas", x:0.78, y:0.22, color:"#6E5A3A",
+     desc:"Voto de descarte conservador. Arrancaron en la derecha tradicional (Matthei) y migraron a Kast en segunda vuelta para bloquear a la izquierda."},
+    {id:"kaiser-kast", label:"Kaiser → Kast", n:4, tipo:"descarte", scroll:"perfil-libertarias", x:0.22, y:0.22, color:"#3A566E",
+     desc:"Voto de descarte libertario. Primera vuelta por el libertarismo de Kaiser; en segunda, apoyo a Kast como voto útil anti-izquierda."}
+  ],
+  perfiles: [
+    {id:"libertarias", nombre:"Libertarias", n:"≈ 4",
+     desc:"Mujeres que se identifican con el libertarismo: Estado mínimo, libertad individual por encima de la colectividad, distancia con el componente religioso de Kast. Prefieren a Kaiser en primera vuelta; varias se declaran ateas o descreídas.",
+     votoTendencia:"Kaiser → Kast",
+     cita:{texto:"Hay muchas cosas de Kast, como personales que en realidad no estoy a favor. Yo soy atea. Y otras cosas como es que no. Como que en realidad no, o sea, respeto su ideología, pero en realidad no estoy. No estoy de acuerdo con todas las cosas que dice él.", fuente:"Entrevistada n.° 5, 24 años, estudiante universitaria, Valparaíso"}},
+    {id:"individualistas", nombre:"Individualistas meritocráticas", n:"transversal",
+     desc:"El arquetipo de la «mujer de esfuerzo»: se esmera por su título, su trabajo, su familia. La meritocracia se aprende en casa — la madre como modelo. Rechazan los programas paritarios porque, en su lectura, le quitan valor al mérito individual.",
+     votoTendencia:"transversal (los 3 patrones de voto)",
+     cita:{texto:"Una mujer de esfuerzo es aquella mujer que lucha por lo que quiere, trabaja por lo que quiere. Y no, claro, a pesar de las adversidades que conlleva cumplir una de sus metas, objetivos o sueños. Que siga adelante, una mujer que se esfuerza por tener lo suyo.", fuente:"Entrevistada n.° 1, 24 años, ingeniería en construcción, Región Metropolitana"}},
+    {id:"distantes", nombre:"Distantes del feminismo", n:"transversal",
+     desc:"Posición que cruza los otros dos perfiles y los tres patrones de voto. Coinciden en que el movimiento feminista «se ha desvirtuado»: lo ven ideologizado, excluyente con las mujeres de derecha, y centrado en una agenda (paridad, derechos sexuales) que no las representa.",
+     votoTendencia:"transversal (los 3 patrones de voto)",
+     cita:{texto:"Se suponía que es un movimiento que es para igualar al sexo femenino y el masculino en una misma línea y todo eso. Pero me he dado cuenta con el tiempo de que no es tan así. De que yo, como mujer de derecha, tengo menos posibilidad de expresarme que es mujer de izquierda.", fuente:"Entrevistada n.° 10, 18 años, estudiante universitaria, Región Metropolitana"}}
+  ],
+  dimensiones: [
+    {id:"antisistema", n:1, nombre:"Antisistema",
+     desc:"Descontento profundo con las élites políticas y las instituciones. El sistema «ha abandonado a la población». Lectura de la política como un abandono estructural, no coyuntural.",
+     cita:{texto:"el partido en sí qué hizo, aparte de generar temor en la gente, aparte de generar destrucción en las vías públicas", fuente:"Entrevistada n.° 14, 26 años, ing. en admin. pública, Región Metropolitana"}},
+    {id:"nativismo", n:2, nombre:"Nativismo",
+     desc:"Barrera simbólica entre chilenos y extranjeros. La migración irregular aparece como amenaza al orden, al empleo y a la seguridad cotidiana. Construcción de un «otro» problemático que la nueva derecha canaliza.",
+     cita:{texto:"el tema de la seguridad que siempre lo mencionó, siempre dijo que era necesario que hubiera más seguridad en el país. Y eso también se relaciona con el tema de los migrantes ilegales", fuente:"Entrevistada n.° 15, 27 años, en formación en institución de seguridad, votó Matthei→Kast"}},
+    {id:"conservadurismo", n:3, nombre:"Conservadurismo",
+     desc:"Defensa de los valores tradicionales: familia, roles de género, mérito personal, distancia con los derechos sexuales y reproductivos como bandera. La «batalla cultural» aparece en segundo plano, no como tema de voto principal.",
+     cita:{texto:"yo no creo que a alguien le vaya mejor en la vida por ser hombre o mujer. A ti te va mejor o peor en la vida si eres bueno o penca. Pero eso, eso es el feminismo, lograr esa equidad entre hombres y mujeres", fuente:"Entrevistada n.° 11, 28 años, área de comunicaciones, Región Metropolitana"}},
+    {id:"orden", n:4, nombre:"Orden público y seguridad",
+     desc:"Llamado a la «mano dura», apoyo irrestricto a las fuerzas de seguridad, crítica a la permisividad institucional con el delito y la protesta. Es la dimensión más transversalmente presente entre las entrevistadas.",
+     cita:{texto:"Siento que tiene que llevarse a cabo, porque yo ya no puedo seguir escuchando, así como, ‘oh, sí, es que vamos a hacer’, es como, no, por favor, mándenlo, apruébenlo", fuente:"Entrevistada n.° 12, 21 años, relaciones públicas, Valparaíso"}}
+  ],
+  descarte: {
+    n: 8,
+    subtotal: "4 Matthei→Kast + 4 Kaiser→Kast",
+    explicacion: "De las 15 entrevistadas, 8 no eligieron a la derecha en primera vuelta. Votaron por Matthei o por Kaiser, y en segunda vuelta apoyaron a Kast — pero no por convicción, sino como voto útil anti-izquierda. La investigadora lo llama «el descarte».",
+    cita1:{texto:"Porque yo sé que, siendo jóvenes, tenemos muchas más oportunidades. Tenemos más fuerza, tenemos más voluntad. Sé que, como jóvenes, estudiantes. Lo que sea. podemos lograr, pero los adultos mayores, como es un sector más vulnerable, y a lo mejor el Estado no le está dando mucha prioridad. Yo preferí como votar por Kast por ellos.", fuente:"Entrevistada n.° 2, 19 años, estudiante universitaria, Región Metropolitana (votó Matthei→Kast)"},
+    cita2:{texto:"votaban por Kast, también lo hacían para no perder su voto, pues entre las entrevistadas que preferían apoyar a Kaiser, dieron un paso al costado para que la candidata Jara no obtuviera la victoria", fuente:"Observación de la investigadora (Mardones, 2026)"},
+    cierre: "Este hallazgo obliga a leer el resultado electoral con cuidado: cuando 8 de 15 mujeres entrevistadas dicen haber votado por descarte, lo que se moviliza no es adhesión ideológica a la nueva derecha, sino un voto de rechazo cuya capacidad de consolidar una identidad política de derecha es, al menos, discutible."
+  }
+};
+
+function vistaTrayectorias(){
+  registrarEvento('trayectorias','vista');
+  const D = TRAY_DATA;
+  const M = D.meta;
+
+  // 2x2 SVG
+  const W = 500, H = 400;
+  const xMin = 80, xMax = 460, yMin = 50, yMax = 360;
+  const cx = (xMin+xMax)/2, cy = (yMin+yMax)/2;
+  const xPos = v => xMin + v*(xMax-xMin);
+  const yPos = v => yMax - v*(yMax-yMin); // inversión: convicción arriba
+
+  const circulos = D.voto.map(v=>{
+    const r = 12 + Math.sqrt(v.n) * 16; // escala: 7→54, 4→44
+    const tgt = v.scroll;
+    return `<g class="nodo-voto-grupo" style="cursor:pointer" onclick="var t=document.getElementById('${tgt}');if(t){t.scrollIntoView({behavior:'smooth',block:'center'});document.querySelectorAll('.tray-perfil').forEach(function(p){p.style.boxShadow='';});t.style.boxShadow='0 0 0 3px var(--rojo)';setTimeout(function(){t.style.boxShadow='';},2400);}">
+      <circle class="nodo-voto" cx="${xPos(v.x)}" cy="${yPos(v.y)}" r="${r}" fill="${v.color}" fill-opacity="0.85" stroke="#fff" stroke-width="2.5"/>
+      <text class="lbl-voto" x="${xPos(v.x)}" y="${yPos(v.y)-2}">${v.label}</text>
+      <text class="lbl-n" x="${xPos(v.x)}" y="${yPos(v.y)+12}">${v.n} mujeres</text>
+    </g>`;
+  }).join('');
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mapa de subjetividades: 2x2 ejes motivación por estilo ideológico">
+    <line class="grid" x1="${cx}" y1="${yMin}" x2="${cx}" y2="${yMax}"/>
+    <line class="grid" x1="${xMin}" y1="${cy}" x2="${xMax}" y2="${yMax}"/>
+    <line class="eje" x1="${xMin-8}" y1="${yMax}" x2="${xMax+8}" y2="${yMax}"/>
+    <line class="eje" x1="${xMin}" y1="${yMin-8}" x2="${xMin}" y2="${yMax+8}"/>
+    <text class="eje-lbl" x="${xMin+30}" y="${yMin+10}">Convicción</text>
+    <text class="eje-lbl" x="${xMin+30}" y="${yMax-8}">Descarte</text>
+    <text class="eje-lbl" x="${xMin+30}" y="${yMin+24}" style="font-size:9px;letter-spacing:.06em">(voto por la derecha)</text>
+    <text class="eje-lbl" x="${xMin+30}" y="${yMax+2}" style="font-size:9px;letter-spacing:.06em">(voto contra la izquierda)</text>
+    <text class="eje-lbl" x="${xMax-30}" y="${yMax+18}">Conservadora</text>
+    <text class="eje-lbl" x="${xMin+10}" y="${yMax+18}">Libertaria</text>
+    <text class="eje-tit" x="${(xMin+xMax)/2}" y="${yMax+38}">Estilo ideológico</text>
+    <text class="eje-tit" x="${xMin-50}" y="${(yMin+yMax)/2}" transform="rotate(-90, ${xMin-50}, ${(yMin+yMax)/2})">Motivación del voto</text>
+    <text x="${xMin+90}" y="${yMin+90}" font-family="Source Serif 4" font-size="11" fill="#9C9690" font-style="italic" opacity="0.6">— ninguna entrevistada cae aquí —</text>
+    ${circulos}
+  </svg>`;
+
+  const perfilesCards = D.perfiles.map(p=>`
+    <article class="tray-perfil" id="perfil-${p.id}">
+      <span class="num">${p.n}</span>
+      <span class="de">${p.votoTendencia}</span>
+      <h4>${p.nombre}</h4>
+      <p>${p.desc}</p>
+      <blockquote>“${p.cita.texto}”<cite>— ${p.cita.fuente}</cite></blockquote>
+    </article>`).join('');
+
+  const dimCards = D.dimensiones.map(d=>`
+    <div class="tray-dim">
+      <span class="dim-num">${d.n}</span>
+      <h4>${d.nombre}</h4>
+      <p>${d.desc}</p>
+      <blockquote>“${d.cita.texto}”<cite>— ${d.cita.fuente}</cite></blockquote>
+    </div>`).join('');
+
+  app.innerHTML = `
+  ${migas("Trayectorias")}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge b-cuali">CUALITATIVO</span><span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">Mapa de subjetividades · ${D.perfiles.length} trayectorias + 4 dimensiones</span></div>
+    <h1>Cuando el movimiento feminista no representa</h1>
+    <div class="credito">A partir de: Mardones Gómez, G. (2026). <i>${'Cuando el movimiento feminista no representa: jóvenes electoras de la nueva derecha en las elecciones presidenciales de 2025 en Chile'}</i>. Seminario de grado, Sociología UAH. Profesora guía: Alexis Cortés. Formato: artículo para Revista Última Década.</div>
+  </div>
+
+  <section class="wrap" style="padding-top:14px">
+    <div class="paradoja">
+      <p style="margin:0;font-size:15.5px;color:var(--carbon);line-height:1.65"><b>La paradoja:</b> las mujeres representan el 52,36% del padrón electoral chileno y las jóvenes (18–29) cerca de una quinta parte. La investigación las estudia como actoras, no como apáticas — y encuentra que su adhesión a la <b>nueva derecha</b> se construye en gran parte <b>por descarte</b> y por el desencanto con un feminismo que perciben como ideologizado, excluyente y desconectado de sus vidas.</p>
+    </div>
+
+    <div class="stats" style="margin-top:24px">
+      <div class="stat"><b>15</b><span>entrevistas semiestructuradas</span></div>
+      <div class="stat"><b>3</b><span>regiones (RM, Valparaíso, Maule)</span></div>
+      <div class="stat"><b>18–28</b><span>rango etario</span></div>
+      <div class="stat"><b>4</b><span>dimensiones discursivas + 3 trayectorias</span></div>
+    </div>
+
+    <h3 class="sec" style="margin-top:34px">El mapa de subjetividades</h3>
+    <p class="txt">Cada círculo representa a las mujeres que compartieron un mismo patrón de voto (primera vuelta → segunda vuelta). El tamaño es proporcional al número de entrevistadas. Los dos ejes son: <b>motivación del voto</b> (convicción vs. descarte) y <b>estilo ideológico</b> (libertaria vs. conservadora/religiosa). Hacé clic en un círculo para saltar a su trayectoria.</p>
+
+    <div class="viz-mapa">
+      ${svg}
+      <div class="viz-leyenda">
+        <div><b>Cómo leerlo</b>El cuadrante superior derecho es el de mayor convicción y orientación conservadora (voto de adhesión). El cuadrante inferior es el del voto de descarte: la motivación no es «quiero a Kast» sino «no quiero a la izquierda». El cuadrante superior izquierdo queda vacío: no hay libertarias de convicción en la muestra.</div>
+        <div><b>Lo que muestra</b>El peso de la convicción es apenas mayor al del descarte (7 vs. 8), pero los dos cuadrantes inferiores — los del voto de rechazo — son los que más cuestionarían la lectura ideológica del resultado electoral.</div>
+      </div>
+    </div>
+
+    <h3 class="sec" style="margin-top:36px">Las tres trayectorias</h3>
+    <p class="txt">Tres perfiles que emergen del análisis cualitativo. Dos son transversales a los patrones de voto; uno (Libertarias) se concentra en el voto de descarte Kaiser→Kast.</p>
+    <div class="tray-perfiles">${perfilesCards}</div>
+
+    <div class="tray-descarte">
+      <h3><span class="num-resaltado">8 / 15</span>El descarte: el hallazgo que obliga a leer con cuidado el resultado</h3>
+      <p class="sub-blanca">${D.descarte.explicacion}</p>
+      <blockquote>“${D.descarte.cita1.texto}”<cite>— ${D.descarte.cita1.fuente}</cite></blockquote>
+      <blockquote>“${D.descarte.cita2.texto}”<cite>— ${D.descarte.cita2.fuente}</cite></blockquote>
+      <div class="cierre">${D.descarte.cierre}</div>
+    </div>
+
+    <h3 class="sec" style="margin-top:36px">Los cuatro marcos discursivos</h3>
+    <p class="txt">Las cuatro dimensiones que articulan el discurso de la nueva derecha, leídas acá a través de las 15 voces. Cada dimensión se ancla en una cita representativa.</p>
+    <div class="tray-dims">${dimCards}</div>
+
+    <h3 class="sec" style="margin-top:36px">Discusión: lo que estos hallazgos cuestionan</h3>
+    <div class="tray-hallazgos">
+      <p>Cuando se miran los datos sin prisa, lo que aparece no es un bloque ideológico compacto sino una <b>constelación de desencantos</b>: desencanto con las élites tradicionales (antisistema), con la migración (nativismo), con el feminismo hegemónico (distancia), con la permisividad institucional (orden). La nueva derecha no construyó estas demandas — las <b>leyó</b> y las tradujo a una oferta electoral que ofrece respuestas simples.</p>
+      <p>El voto de descarte añade un matiz crucial: una parte significativa de las mujeres que apoyaron a Kast en segunda vuelta no lo hicieron por adhesión a un proyecto, sino por <b>bloqueo</b>. Si mañana la izquierda reencuentra una narrativa que les devuelva la esperanza, ese segmento es móvil. La nueva derecha lo sabe — y por eso trabaja en la conversión del descarte en identidad, tema a tema, ciclo a ciclo.</p>
+      <p>Finalmente, la pieza invita a revisar una idea cómoda: que las mujeres jóvenes son, por defecto, <b>progresistas</b>. La investigación muestra otra cosa: que la brecha está en la <b>calidad de la representación</b>, no en el género. Cuando un movimiento se vuelve «ideológico» (en palabras de las entrevistadas), deja fuera a una porción del grupo que dice representar — y ese vacío lo ocupa otro discurso. Eso es lo que esta tesis pone sobre la mesa.</p>
+    </div>
+
+    <div class="metod-box">
+      <h4>Ficha técnica y resguardos éticos</h4>
+      <p style="font-size:13.5px;color:var(--carbon);margin:0">La pieza se construyó íntegramente con citas textuales presentes en la tesis original. Todas las voces usan el seudónimo «Entrevistada n.° X» definido por la autora. No se incluye material que exceda lo publicado.</p>
+      <div class="metod-grid">
+        <b>Autora</b><span>${M.autoria}</span>
+        <b>Prof. guía</b><span>${M.guia}</span>
+        <b>Formato</b><span>${M.formato}</span>
+        <b>Método</b><span>Cualitativo descriptivo-interpretativo, 15 entrevistas semiestructuradas</span>
+        <b>Muestra</b><span>${M.n} mujeres, ${M.edades}, ${M.regiones}</span>
+        <b>Trabajo de campo</b><span>${M.fechas}</span>
+        <b>Software</b><span>${M.software}</span>
+        <b>Composición voto</b><span>7 Kast→Kast · 4 Matthei→Kast · 4 Kaiser→Kast</span>
+        <b>Transcripciones</b><span><a href="${M.drive}" target="_blank" rel="noopener" style="color:var(--rojo);font-weight:700">Google Drive (enlace)</a> — material crudo anonimizado</span>
+      </div>
+      <div class="anon"><b>Resguardo ético.</b> Las entrevistadas dieron su consentimiento voluntario. Sus identidades están protegidas por seudónimo. La pieza no incluye datos sensibles (orientación sexual, salud, etc.) ni situaciones que puedan re-identificar a las participantes. La publicación en la vitrina fue autorizada por la autora, bajo licencia CC BY-NC-SA.</div>
+    </div>
+
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
 }
 
 function vistaSkeleton(id){
