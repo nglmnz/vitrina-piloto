@@ -469,10 +469,11 @@ function vistaSustancia(){
   <section class="wrap" style="padding-top:10px">
     <p class="txt">Sustancia convierte los resultados de una investigación real en un entrenamiento de interpretación estadística: la app presenta datos y modelos publicados, el usuario escribe su interpretación, y una evaluación automatizada la clasifica en cinco niveles de profundidad interpretativa — de la lectura literal a la inferencia crítica — con retroalimentación inmediata.</p>
     
-    <!-- CONTENEDOR DE LOS DOS BOTONES -->
+    <!-- CONTENEDOR DE LOS DOS BOTONES CON AJUSTE FLEXBOX Y MARGEN -->
     <div style="display: flex; gap: 10px; margin-bottom: 20px;">
       <a class="btn" href="${ENLACE_SUSTANCIA}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','abrir')">Abrir Sustancia ↗</a>
-      <a class="btn" style="background-color: transparent; border: 1px solid currentColor;" href="${ENLACE_SUSTANCIA_PROYECTO}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','conoce_mas')">Conoce más ↗</a>
+      <!-- ESTE ES EL BOTÓN QUE AHORA SÍ TIENE EL COLOR ROJO -->
+      <a class="btn" style="background-color: var(--rojo); color: white;" href="${ENLACE_SUSTANCIA_PROYECTO}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','conoce_mas')">Conoce más ↗</a>
     </div>
 
     <h3 class="sec">La investigación detrás de la app</h3>
