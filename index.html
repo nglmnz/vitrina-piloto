@@ -20,6 +20,9 @@
   .uah-nav .wrap{display:flex;align-items:center;gap:28px;padding-top:14px;padding-bottom:14px}
   .uah-logo{font-weight:800;font-stretch:112%;font-size:17px;line-height:1.1;cursor:pointer}
   .uah-logo span{display:block;font-weight:400;font-size:11px;color:var(--piedra);letter-spacing:.04em}
+  .nav-link{font-size:13px;font-weight:600;color:var(--tinta);text-decoration:none;padding:8px 14px;border-radius:99px;transition:all .12s}
+  .nav-link:hover{background:var(--tinta);color:#fff}
+  .nav-link.activo{background:var(--rojo);color:#fff}
   .crumbs{font-size:12px;color:var(--piedra);padding:14px 0 0}
   .crumbs b{color:var(--tinta);font-weight:600}
   .crumbs a{text-decoration:none;border-bottom:1px dotted var(--piedra)}
@@ -48,6 +51,7 @@
   .chip:hover{background:var(--tinta);color:#fff}
   .chip.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
   .chip.trans{border-style:dashed}
+  .chip.sm{font-size:12px;padding:6px 13px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
   .ficha{background:#fff;border:1px solid var(--linea);display:flex;flex-direction:column;transition:opacity .2s}
   .ficha.oculta{opacity:.18;pointer-events:none}
@@ -126,7 +130,29 @@
   .subtab{font-family:'Archivo';font-size:12.5px;font-weight:700;border:1.5px solid var(--tinta);background:none;padding:6px 14px;border-radius:99px;cursor:pointer}
   .subtab.on{background:var(--tinta);color:#fff}
   .nota-shiny{border-left:3px solid var(--piedra);background:#fff;padding:10px 14px;font-size:13px;color:var(--piedra);max-width:70ch;margin:16px 0}
-  @media(max-width:720px){.barrow{grid-template-columns:120px 1fr 48px}.paso{border-right:none;border-bottom:1px solid #3D3833}.nodo u{display:none}}
+  /* agenda */
+  .evento{background:#fff;border:1px solid var(--linea);padding:18px 20px;display:grid;grid-template-columns:108px 1fr;gap:18px;margin:12px 0;transition:opacity .2s}
+  .evento.oculto{opacity:.22;pointer-events:none}
+  .ev-fecha{border-right:2px solid var(--rojo);padding-right:14px}
+  .ev-fecha b{display:block;font-family:'Source Serif 4',serif;font-size:15px;color:var(--tinta);line-height:1.2}
+  .ev-fecha span{font-size:10.5px;color:var(--piedra);letter-spacing:.05em;text-transform:uppercase;display:block;margin-top:2px}
+  .ev-tipo{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.09em;padding:3px 9px;border-radius:3px;color:#fff;margin-bottom:6px}
+  .t-taller{background:#3A566E}.t-recorrido{background:#4A6E3A}.t-conversatorio{background:#6E5A3A}.t-lanzamiento{background:#C8102E}.t-congreso{background:#1C1917}.t-coloquio{background:#5A3A6E}.t-seminario{background:#2B2724}.t-conferencia{background:#3A4A6E}.t-defensa{background:#6E3A3A}
+  .evento h4{font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:5px;line-height:1.25}
+  .evento p{font-size:13.5px;color:var(--carbon);max-width:66ch}
+  .ev-meta{font-size:12px;color:var(--piedra);margin-top:7px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+  .ev-meta a{color:var(--rojo);font-weight:700;text-decoration:none}
+  .ev-unidad{font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--tinta);background:var(--papel);border:1px solid var(--linea);padding:2px 8px;border-radius:3px}
+  .porconf{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;border:1px dashed var(--piedra);color:var(--piedra);padding:2px 8px;border-radius:3px;margin-left:6px}
+  .agenda-resumen{background:var(--tinta);color:var(--papel);padding:30px 24px;margin:30px 0}
+  .agenda-resumen h3{color:#fff;font-family:'Source Serif 4',serif;font-size:20px;margin-bottom:8px}
+  .agenda-resumen p{color:#B8B2AB;font-size:14px;margin-bottom:14px;max-width:62ch}
+  .agenda-resumen .btn{background:#fff;color:var(--tinta);margin-top:0}
+  .agenda-resumen .btn:hover{background:var(--rojo);color:#fff}
+  .filtro-grupo{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--piedra)}
+  .chips-sec{margin-bottom:18px}
+  .sin-resultados{background:#fff;border:1px dashed var(--piedra);padding:24px;font-style:italic;color:var(--piedra);text-align:center;margin:18px 0}
+  @media(max-width:720px){.barrow{grid-template-columns:120px 1fr 48px}.paso{border-right:none;border-bottom:1px solid #3D3833}.nodo u{display:none}.evento{grid-template-columns:1fr;gap:8px}.ev-fecha{border-right:none;border-bottom:2px solid var(--rojo);padding:0 0 8px 0;display:flex;gap:10px;align-items:baseline}}
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -135,6 +161,10 @@
 <div class="uah-top"><div class="wrap"><span>UNIVERSIDAD ALBERTO HURTADO</span><span>PORTAL · BIBLIOTECA · CORREO</span></div></div>
 <div class="uah-nav"><div class="wrap">
   <div class="uah-logo" onclick="location.hash=''">Facultad de<br>Ciencias Sociales<span>Universidad Alberto Hurtado</span></div>
+  <nav style="margin-left:auto;display:flex;gap:6px">
+    <a class="nav-link" href="#/">Vitrina</a>
+    <a class="nav-link" href="#/agenda">Agenda UAH</a>
+  </nav>
 </div></div>
 
 <main id="app"></main>
@@ -144,9 +174,8 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ============ ENLACES EXTERNOS ============ */
-const ENLACE_SUSTANCIA = "https://tbu8oh-angel0dario-munoz0ra0iman.shinyapps.io/sustancia-v2/"; /* <-- pegar aquí la URL de shinyapps de Sustancia */
-
-const ENLACE_SUSTANCIA_PROYECTO = "https://nglmnz.github.io/sustancia/"; /* <-- pegar aquí la URL de shinyapps de Sustancia */
+const ENLACE_SUSTANCIA = "https://tbu8oh-angel0dario-munoz0ra0iman.shinyapps.io/sustancia-v2/";
+const ENLACE_SUSTANCIA_PROYECTO = "https://nglmnz.github.io/sustancia/";
 
 /* ============ CONTENIDO COMO DATOS (modelo multi-institución) ============ */
 const PIEZAS = [
@@ -234,6 +263,71 @@ const MECANISMOS = [
    q:"Sirve cuando: una denuncia ambiental pública deriva en querellas por injurias o calumnias; el estándar interamericano protege la denuncia de asuntos de interés público."}
 ];
 
+/* ============ AGENDA FEDERADA UAH ============
+   Modelo: cada evento tiene unidad, tipo, ejes temáticos, fecha, descripción.
+   Una sola página (con filtros) centraliza lo que organizan las distintas unidades
+   de la universidad, en lugar de tener que visitar cinco calendarios.
+
+   Cómo se alimenta (producción): cada unidad carga sus eventos en un formulario
+   compartido (Apps Script → Google Sheet), y el Sheet se exporta a este array.
+   En el piloto, los datos están acá mismos para iterar rápido.
+
+   dateOrden = número entero (1..n) que se usa para ordenar cronológicamente.
+   En producción, esto se calcula desde una fecha real (ISO). */
+const EVENTOS = [
+  /* ---- Eventos del piloto de la Vitrina ---- */
+  {id:"t-int", unidad:"Fac. Cs. Sociales", tipo:"Taller", clase:"t-taller", ejes:["metodo","digital"],
+   fecha:"Sem. 3", fechaOrden:1, titulo:"Interpretar sin miedo",
+   desc:"Taller práctico de interpretación estadística usando Sustancia, abierto a estudiantes de primer año. Se sale sabiendo distinguir una correlación de un mecanismo.",
+   lugar:"Sala por confirmar, Facultad de Ciencias Sociales", pieza:"#/sustancia", piezaNombre:"Sustancia", abierto:true, confirmado:false},
+
+  {id:"r-hostil", unidad:"Fac. Cs. Sociales", tipo:"Recorrido", clase:"t-recorrido", ejes:["territorio","metodo"],
+   fecha:"Sem. 5", fechaOrden:2, titulo:"La ciudad hostil: caminata por Santiago Centro",
+   desc:"Recorrido a pie por puntos del mapa de arquitectura hostil, guiado junto a la autora de la investigación. El mapa en el teléfono; los dispositivos, frente a los ojos.",
+   lugar:"Punto de encuentro por confirmar, Santiago Centro", pieza:"#/hostil", piezaNombre:"Mapa de arquitectura hostil", abierto:true, confirmado:false},
+
+  {id:"c-algoritmo", unidad:"Fac. Cs. Sociales", tipo:"Conversatorio", clase:"t-conversatorio", ejes:["demo","digital"],
+   fecha:"Sem. 6", fechaOrden:3, titulo:"Votar en la era del algoritmo",
+   desc:"Tecnopopulismo, afectos digitales y nuevos electorados: conversación con las autoras de las investigaciones sobre la estrategia de Parisi en Facebook y el voto de mujeres jóvenes por la derecha radical.",
+   lugar:"Auditorio por confirmar, UAH", pieza:"#/parisi", piezaNombre:"Tecnopopulismo en Facebook", abierto:true, confirmado:false},
+
+  {id:"c-tierra", unidad:"Fac. Cs. Sociales", tipo:"Conversatorio", clase:"t-conversatorio", ejes:["territorio","inter"],
+   fecha:"Sem. 7", fechaOrden:4, titulo:"Defender la tierra: mesa sobre derechos y territorio",
+   desc:"Violencia contra activistas medioambientales y herramientas jurídicas de defensa, junto al autor de la pieza invitada del CESI.",
+   lugar:"Por confirmar", pieza:"#/defender", piezaNombre:"Defender la tierra", abierto:true, confirmado:false},
+
+  {id:"l-piloto", unidad:"Fac. Cs. Sociales", tipo:"Lanzamiento", clase:"t-lanzamiento", ejes:["metodo","inter"],
+   fecha:"Sem. 8", fechaOrden:5, titulo:"Presentación de resultados del piloto",
+   desc:"Cierre del piloto ante la comunidad de la Facultad: las cinco piezas, los indicadores comprometidos y la propuesta de continuidad. Abierto a todas las carreras.",
+   lugar:"Por confirmar, con patrocinio de la Decanatura", pieza:null, piezaNombre:null, abierto:true, confirmado:false},
+
+  {id:"c-cesi", unidad:"Fac. Cs. Sociales", tipo:"Congreso", clase:"t-congreso", ejes:["metodo","inter"],
+   fecha:"Anual", fechaOrden:6, titulo:"Congreso Estudiantil de Sociología Interdisciplinaria",
+   desc:"Instancia anual de exhibición e ingreso de nuevas investigaciones a la vitrina: las piezas de la próxima cohorte se presentan y reclutan aquí.",
+   lugar:"UAH", pieza:null, piezaNombre:null, abierto:true, confirmado:false},
+
+  /* ---- Eventos de OTRAS unidades (modelo federado) ---- */
+  {id:"col-filo", unidad:"Instituto de Filosofía", tipo:"Coloquio", clase:"t-coloquio", ejes:["inter","cult"],
+   fecha:"Mensual", fechaOrden:7, titulo:"Coloquio del Instituto de Filosofía",
+   desc:"Sesión mensual abierta: presentación de investigadores/as en curso, discusión de textos en diálogo con la realidad nacional. Coordinado por el Instituto de Filosofía UAH.",
+   lugar:"Sala de Seminarios, Instituto de Filosofía", pieza:null, piezaNombre:null, abierto:true, confirmado:false},
+
+  {id:"sem-idea", unidad:"IDEA", tipo:"Seminario", clase:"t-seminario", ejes:["inter","demo"],
+   fecha:"Quincenal", fechaOrden:8, titulo:"Seminario de Investigación IDEA",
+   desc:"Seminario quincenal de discusión de avances de investigación del Instituto de Estudios Avanzados. Este semestre: democracias, territorio, futuro del trabajo.",
+   lugar:"IDEA, Casa Central UAH", pieza:null, piezaNombre:null, abierto:false, confirmado:false},
+
+  {id:"def-tesis", unidad:"Fac. Cs. Sociales", tipo:"Defensa", clase:"t-defensa", ejes:["metodo"],
+   fecha:"Variable", fechaOrden:9, titulo:"Defensas públicas de tesis",
+   desc:"Defensas públicas de memorias y seminarios de grado de la cohorte. Abiertas a toda la comunidad UAH; varias incluyen espacio de conversación posterior con la autora o autor.",
+   lugar:"Salas de Defensa, Facultad de Ciencias Sociales", pieza:null, piezaNombre:null, abierto:true, confirmado:false},
+
+  {id:"conf-inter", unidad:"Multi-unidad", tipo:"Conferencia", clase:"t-conferencia", ejes:["inter","cult"],
+   fecha:"Trimestral", fechaOrden:10, titulo:"Conferencia interuniversitaria de humanidades digitales",
+   desc:"Conferencia organizada en conjunto por la UAH y universidades invitadas. Ponencias de investigadores/as en formación, abiertas a estudiantes de todas las carreras.",
+   lugar:"Aula Magna, UAH", pieza:null, piezaNombre:null, abierto:true, confirmado:false}
+];
+
 /* ============ MÉTRICAS (stub) ============
    registrarEvento() enviará {pieza, evento, ts} a un endpoint de Apps Script → Google Sheets.
    Sin claves en el cliente. Ver ARQUITECTURA.md. */
@@ -243,9 +337,18 @@ function registrarEvento(pieza, evento){ /* fetch(ENDPOINT,{method:'POST',body:.
 const app = document.getElementById('app');
 const rutas = { "":vistaHome, "#/":vistaHome, "#/hostil":vistaHostil, "#/defender":vistaDefender,
                 "#/parisi":vistaParisi, "#/sustancia":vistaSustancia,
-                "#/trayectorias":()=>vistaSkeleton("trayectorias") };
-function render(){ (rutas[location.hash]||vistaHome)(); window.scrollTo(0,0); }
+                "#/trayectorias":()=>vistaSkeleton("trayectorias"),
+                "#/agenda":vistaAgenda };
+function render(){ (rutas[location.hash]||vistaHome)(); window.scrollTo(0,0); marcarNavActivo(); }
 window.addEventListener('hashchange', render);
+
+function marcarNavActivo(){
+  document.querySelectorAll('.nav-link').forEach(a=>{
+    const h = a.getAttribute('href');
+    const activo = (h==='#/' && (location.hash===''||location.hash==='#/')) || (h===location.hash);
+    a.classList.toggle('activo', activo);
+  });
+}
 
 /* ============ VISTAS ============ */
 function migas(nombre){ return `<div class="wrap crumbs"><a href="#/">Vitrina</a> / <b>${nombre}</b></div>`; }
@@ -262,6 +365,8 @@ function vistaHome(){
         ${p.externa?'<a class="abrir ext" href="#" onclick="registrarEvento(\''+p.id+'\',\'abrir\')">Abrir pieza</a>'
                    :`<a class="abrir" href="${p.ruta}">Abrir pieza</a>`}</div>
     </article>`).join('');
+  // Próximos 3 eventos del piloto (no todos, los más inmediatos)
+  const proximos = [...EVENTOS].sort((a,b)=>a.fechaOrden-b.fechaOrden).slice(0,3);
   app.innerHTML = `
   <div class="wrap crumbs">Inicio / Investigación / <b>Vitrina de Investigación Interactiva</b></div>
   <header class="hero wrap">
@@ -301,7 +406,14 @@ function vistaHome(){
       <div class="paso"><div class="n">TRADUCCIÓN</div><h4>Construcción de la pieza</h4><p>Desarrollo con infraestructura ya probada. Costo directo: $0.</p></div>
       <div class="paso"><div class="n">CIRCULACIÓN</div><h4>Uso público medido</h4><p>Cada pieza registra sus interacciones de forma anónima y agregada. Informe con indicadores al cierre.</p></div>
     </div>
-  </div></section>`;
+  </div></section>
+  <section class="wrap">
+    <div class="kicker" style="margin-bottom:8px">Próximos encuentros · UAH</div>
+    <h2>La vitrina fuera de la pantalla, y la vida académica de la UAH en un solo lugar.</h2>
+    <p class="sub">Talleres, coloquios, seminarios, defensas, conversatorios. Lo que organizan las unidades de la UAH, filtrable por lo que te interesa — no por la orgánica.</p>
+    ${proximos.map(tarjetaEvento).join('')}
+    <a class="abrir" href="#/agenda" style="display:inline-block;margin-top:14px">Ver agenda completa</a>
+  </section>`;
   document.querySelectorAll('.chip').forEach(ch=>{
     ch.addEventListener('click',()=>{
       document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
@@ -420,7 +532,7 @@ function vistaParisi(){
     <h3 class="sec">Anatomía del contenido</h3>
     <div class="stats">
       <div class="stat"><b>62,7%</b><span>de las publicaciones son videos (34 seg – 4 min)</span></div>
-      <div class="stat"><b>52,7%</b><span>usa un estilo comunicativo cercano y cotidiano</span></div>
+      <div class="stat"><b>52,7%</b><span>usa un estilo comunicacional cercano y cotidiano</span></div>
       <div class="stat"><b>82,3%</b><span>tiene a Parisi como protagonista único</span></div>
     </div>
     <p class="txt">Predomina el <b>infoentretenimiento</b>: formatos breves, música en tendencia, mensaje diseñado para consumo inmediato. Tonalidad discursiva de las 220 publicaciones:</p>
@@ -468,11 +580,8 @@ function vistaSustancia(){
   </div>
   <section class="wrap" style="padding-top:10px">
     <p class="txt">Sustancia convierte los resultados de una investigación real en un entrenamiento de interpretación estadística: la app presenta datos y modelos publicados, el usuario escribe su interpretación, y una evaluación automatizada la clasifica en cinco niveles de profundidad interpretativa — de la lectura literal a la inferencia crítica — con retroalimentación inmediata.</p>
-    
-    <!-- CONTENEDOR DE LOS DOS BOTONES CON AJUSTE FLEXBOX Y MARGEN -->
     <div style="display: flex; gap: 10px; margin-bottom: 20px;">
       <a class="btn" href="${ENLACE_SUSTANCIA}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','abrir')">Abrir Sustancia ↗</a>
-      <!-- ESTE ES EL BOTÓN QUE AHORA SÍ TIENE EL COLOR ROJO -->
       <a class="btn" style="background-color: var(--rojo); color: white;" href="${ENLACE_SUSTANCIA_PROYECTO}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','conoce_mas')">Conoce más ↗</a>
     </div>
 
@@ -489,6 +598,97 @@ function vistaSustancia(){
     <p class="txt">Sustancia es la prueba de concepto del piloto: demuestra que una tesis puede circular no como texto que se lee, sino como experiencia que se usa — y registra automáticamente cada interacción, alimentando los indicadores comprometidos.</p>
     <a class="volver" href="#/">Volver a la vitrina</a>
   </section>`;
+}
+
+function tarjetaEvento(e){
+  return `<div class="evento" data-unidad="${e.unidad}" data-tipo="${e.tipo}" data-ejes="${e.ejes.join(' ')}">
+    <div class="ev-fecha"><b>${e.fecha}</b><span>${e.abierto?'abierto a todo público':'restringido'}</span></div>
+    <div>
+      <span class="ev-tipo ${e.clase}">${e.tipo.toUpperCase()}</span>${e.confirmado?'':'<span class="porconf">FECHA POR CONFIRMAR</span>'}
+      <h4>${e.titulo}</h4>
+      <p>${e.desc}</p>
+      <div class="ev-meta">
+        <span class="ev-unidad">${e.unidad}</span>
+        <span>${e.lugar}</span>
+        ${e.pieza?`· <a href="${e.pieza}">Pieza relacionada: ${e.piezaNombre}</a>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function vistaAgenda(){
+  registrarEvento('agenda','vista');
+  // Construir las listas de filtros desde los datos (no hardcodeadas)
+  const unidades = ["Todas", ...Array.from(new Set(EVENTOS.map(e=>e.unidad)))];
+  const tipos = ["Todos", ...Array.from(new Set(EVENTOS.map(e=>e.tipo)))];
+  const todosEjes = ["digital","demo","territorio","metodo","inter","cult"];
+  const etiquetasEje = {digital:"Vida digital", demo:"Democracia", territorio:"Territorio", metodo:"Métodos", inter:"Interdisciplinariedad", cult:"Cultura y pensamiento"};
+  const ejes = ["Todos", ...todosEjes];
+
+  app.innerHTML = `
+  ${migas("Agenda UAH")}
+  <div class="wrap pieza-head">
+    <div class="kicker">Vida académica · toda la UAH</div>
+    <h1>Una sola puerta a la vida académica de la universidad.</h1>
+    <p class="lede">Coloquios, seminarios, talleres, defensas, conversatorios y conferencias. Lo que organizan las distintas unidades, filtrable por <em>lo que te interesa</em> — no por la orgánica.</p>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <p class="txt">¿La idea de fondo? Estudias X cosa, te interesa Y tema. Acá están los eventos que articulan lo que hace cada unidad de la UAH — para que te introduzcas a la interdisciplinariedad, armes redes con gente de otras carreras, y te enteres de cosas que no están en el calendario de tu programa.</p>
+
+    <div class="filtro-grupo">Unidad académica</div>
+    <div class="chips chips-sec" id="agenda-chips-unidad">
+      ${unidades.map((u,i)=>`<button class="chip sm ${i===0?'on':''}" data-unidad="${u}">${u}</button>`).join('')}
+    </div>
+
+    <div class="filtro-grupo">Tipo de evento</div>
+    <div class="chips chips-sec" id="agenda-chips-tipo">
+      ${tipos.map((t,i)=>`<button class="chip sm ${i===0?'on':''}" data-tipo="${t}">${t}</button>`).join('')}
+    </div>
+
+    <div class="filtro-grupo">Interés temático</div>
+    <div class="chips chips-sec" id="agenda-chips-eje">
+      ${ejes.map((e,i)=>`<button class="chip sm ${i===0?'on':''}" data-eje="${e}">${e==='Todos'?'Todos':etiquetasEje[e]}</button>`).join('')}
+    </div>
+
+    <div id="agenda-listado" style="margin-top:8px"></div>
+
+    <div class="agenda-resumen">
+      <h3>¿Organizás eventos en una unidad de la UAH?</h3>
+      <p>Cargalos en el formulario único de la agenda. Cinco minutos por evento, queda publicado al instante. Así no hay que visitar cinco calendarios distintos — y los estudiantes descubren tu unidad desde sus intereses, no desde la orgánica.</p>
+      <a class="btn" href="#" onclick="alert('Próximamente: formulario único en Apps Script')">Cargar un evento</a>
+    </div>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+
+  // Estado de filtros y repintado
+  let fUnidad = 'Todas', fTipo = 'Todos', fEje = 'Todos';
+  function repintar(){
+    const filtrados = EVENTOS.filter(e=>
+      (fUnidad==='Todas' || e.unidad===fUnidad) &&
+      (fTipo==='Todos' || e.tipo===fTipo) &&
+      (fEje==='Todos' || e.ejes.includes(fEje))
+    ).sort((a,b)=>a.fechaOrden-b.fechaOrden);
+
+    const cont = document.getElementById('agenda-listado');
+    if(filtrados.length===0){
+      cont.innerHTML = `<div class="sin-resultados">No hay eventos con esa combinación de filtros. Probá ampliar la unidad, el tipo o el interés temático.</div>`;
+      return;
+    }
+    cont.innerHTML = filtrados.map(tarjetaEvento).join('');
+  }
+  function wire(group, prop, onChange){
+    document.querySelectorAll(`#${group} .chip`).forEach(ch=>{
+      ch.addEventListener('click',()=>{
+        document.querySelectorAll(`#${group} .chip`).forEach(c=>c.classList.remove('on'));
+        ch.classList.add('on');
+        onChange(ch.dataset[prop]);
+      });
+    });
+  }
+  wire('agenda-chips-unidad','unidad', v => { fUnidad=v; repintar(); });
+  wire('agenda-chips-tipo','tipo',    v => { fTipo=v;    repintar(); });
+  wire('agenda-chips-eje','eje',      v => { fEje=v;     repintar(); });
+  repintar();
 }
 
 function vistaSkeleton(id){
