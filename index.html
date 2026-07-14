@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitrina de Investigación Interactiva · Facultad de Ciencias Sociales UAH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rojo:#C8102E;
+    --tinta:#1C1917;
+    --papel:#FBF9F6;
+    --piedra:#6E6862;
+    --linea:#E4DFD8;
+    --carbon:#2B2724;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Archivo',sans-serif;background:var(--papel);color:var(--tinta);line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ——— simulación del chrome institucional UAH ——— */
+  .uah-top{background:var(--rojo);color:#fff;font-size:12px;letter-spacing:.06em}
+  .uah-top .wrap{display:flex;justify-content:space-between;padding-top:7px;padding-bottom:7px}
+  .uah-nav{background:#fff;border-bottom:1px solid var(--linea)}
+  .uah-nav .wrap{display:flex;align-items:center;gap:28px;padding-top:14px;padding-bottom:14px}
+  .uah-logo{font-weight:800;font-stretch:112%;font-size:17px;line-height:1.1}
+  .uah-logo span{display:block;font-weight:400;font-size:11px;color:var(--piedra);letter-spacing:.04em}
+  .uah-nav nav{display:flex;gap:22px;font-size:13.5px;color:var(--carbon)}
+  .uah-nav nav a{text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+  .uah-nav nav a.act{border-bottom-color:var(--rojo);font-weight:600}
+  .crumbs{font-size:12px;color:var(--piedra);padding:14px 0 0}
+  .crumbs b{color:var(--tinta);font-weight:600}
+
+  /* ——— hero ——— */
+  header.hero{padding:44px 0 0}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--rojo);text-transform:uppercase}
+  h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:clamp(30px,4.6vw,46px);line-height:1.12;max-width:19ch;margin:10px 0 16px}
+  .lede{font-size:17px;color:var(--carbon);max-width:62ch}
+  .lede em{font-style:normal;box-shadow:inset 0 -8px 0 rgba(200,16,46,.14)}
+
+  /* ——— firma: espectro metodológico ——— */
+  .espectro{margin:40px 0 8px;padding:26px 0 30px;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+  .espectro .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--piedra);margin-bottom:22px}
+  .track{position:relative;height:2px;background:var(--linea);margin:0 8px}
+  .track::before,.track::after{content:"";position:absolute;top:-3px;width:8px;height:8px;background:var(--tinta);border-radius:50%}
+  .track::before{left:-4px}.track::after{right:-4px}
+  .ends{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--piedra);margin-top:10px}
+  .nodo{position:absolute;top:-7px;transform:translateX(-50%);cursor:pointer;text-decoration:none}
+  .nodo i{display:block;width:16px;height:16px;border-radius:50%;background:var(--rojo);border:3px solid var(--papel);box-shadow:0 0 0 1px var(--rojo);transition:transform .15s}
+  .nodo:hover i{transform:scale(1.35)}
+  .nodo b{position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:600;background:var(--tinta);color:#fff;padding:3px 9px;border-radius:3px;opacity:0;transition:opacity .15s;pointer-events:none}
+  .nodo:hover b{opacity:1}
+  .nodo u{position:absolute;top:22px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11.5px;color:var(--carbon);text-decoration:none;font-weight:600}
+
+  /* ——— ejes ——— */
+  section{padding:44px 0}
+  h2{font-family:'Source Serif 4',serif;font-weight:600;font-size:26px;margin-bottom:6px}
+  .sub{color:var(--piedra);font-size:14.5px;max-width:60ch;margin-bottom:22px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+  .chip{font-family:'Archivo';font-size:13px;font-weight:600;border:1.5px solid var(--tinta);background:transparent;color:var(--tinta);padding:8px 16px;border-radius:99px;cursor:pointer;transition:all .12s}
+  .chip:hover{background:var(--tinta);color:#fff}
+  .chip.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
+  .chip.trans{border-style:dashed}
+
+  /* ——— fichas de proyecto ——— */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .ficha{background:#fff;border:1px solid var(--linea);display:flex;flex-direction:column;transition:opacity .2s, transform .2s}
+  .ficha.oculta{opacity:.18;pointer-events:none}
+  .ficha .cab{padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center}
+  .badge{font-size:10.5px;font-weight:800;letter-spacing:.1em;padding:4px 9px;border-radius:3px;color:#fff}
+  .b-cuanti{background:#1C1917}.b-mixto{background:#6E5A3A}.b-cuali{background:#3A566E}.b-doc{background:#4A3A5E}
+  .invitada{font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--rojo);border:1px solid var(--rojo);padding:3px 8px;border-radius:3px}
+  .formato{font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase}
+  .ficha h3{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;line-height:1.28;padding:12px 20px 6px}
+  .ficha .desc{font-size:14px;color:var(--carbon);padding:0 20px;flex:1}
+  .ficha .aut{font-size:12.5px;color:var(--piedra);padding:14px 20px 0}
+  .ficha .pie{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:13px 20px;border-top:1px solid var(--linea)}
+  .metr{font-size:12px;color:var(--piedra)}
+  .metr b{color:var(--tinta);font-size:14px;font-weight:700}
+  .abrir{font-size:13px;font-weight:700;color:var(--rojo);text-decoration:none;letter-spacing:.02em}
+  .abrir::after{content:" ↗"}
+  .eje-tag{font-size:11px;color:var(--piedra);padding:0 20px;margin-top:8px}
+
+  /* ——— cómo funciona ——— */
+  .proceso{background:var(--tinta);color:var(--papel)}
+  .proceso h2{color:#fff}
+  .proceso .sub{color:#B8B2AB}
+  .pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border:1px solid #3D3833}
+  .paso{padding:22px;border-right:1px solid #3D3833}
+  .paso:last-child{border-right:none}
+  .paso .n{font-size:12px;font-weight:700;color:var(--rojo);letter-spacing:.1em}
+  .paso h4{font-size:15.5px;margin:8px 0 6px}
+  .paso p{font-size:13px;color:#B8B2AB;line-height:1.5}
+
+  /* ——— convocatoria + pie ——— */
+  .convo{border:1.5px solid var(--tinta);padding:28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .convo h3{font-family:'Source Serif 4',serif;font-size:21px;font-weight:600}
+  .convo p{font-size:14px;color:var(--carbon);max-width:52ch}
+  .btn{background:var(--rojo);color:#fff;font-weight:700;font-size:14px;padding:12px 22px;text-decoration:none;white-space:nowrap}
+  footer{border-top:1px solid var(--linea);padding:22px 0 40px;font-size:12px;color:var(--piedra)}
+
+  @media(max-width:720px){
+    .uah-nav nav{display:none}
+    .nodo u{display:none}
+    .paso{border-right:none;border-bottom:1px solid #3D3833}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- chrome institucional simulado -->
+<div class="uah-top"><div class="wrap"><span>UNIVERSIDAD ALBERTO HURTADO</span><span>PORTAL · BIBLIOTECA · CORREO</span></div></div>
+<div class="uah-nav"><div class="wrap">
+  <div class="uah-logo">Facultad de<br>Ciencias Sociales<span>Universidad Alberto Hurtado</span></div>
+  <nav>
+    <a href="#">Carreras</a><a href="#">Postgrados</a><a href="#" class="act">Investigación</a><a href="#">Extensión</a><a href="#">Noticias</a>
+  </nav>
+</div></div>
+
+<div class="wrap crumbs">Inicio / Investigación / <b>Vitrina de Investigación Interactiva</b></div>
+
+<header class="hero wrap">
+  <div class="kicker">Qué hacemos · Piloto 2026</div>
+  <h1>La investigación de la Facultad, en formatos que se pueden usar.</h1>
+  <p class="lede">Cada pieza de esta vitrina nace de un seminario de grado real y traduce sus hallazgos a una experiencia interactiva: <em>explorar los datos, recorrer los relatos, poner a prueba la propia interpretación</em>. La difusión no es una etapa posterior a la investigación — es uno de sus formatos.</p>
+
+  <!-- FIRMA: espectro metodológico -->
+  <div class="espectro">
+    <div class="lbl">Cinco piezas, todo el espectro metodológico de la disciplina</div>
+    <div class="track">
+      <a class="nodo" style="left:8%" href="#p1"><i></i><b>Sustancia — app pedagógica</b><u>Cuantitativo</u></a>
+      <a class="nodo" style="left:42%" href="#p2"><i></i><b>Dashboard electoral Parisi</b><u>Mixto</u></a>
+      <a class="nodo" style="left:66%" href="#p4"><i></i><b>Mapa de arquitectura hostil</b><u>Cualitativo</u></a>
+      <a class="nodo" style="left:82%" href="#p3"><i></i><b>Pieza narrativa interactiva</b><u>Cualitativo</u></a>
+      <a class="nodo" style="left:95%" href="#p5"><i></i><b>Cronología + guía jurídica</b><u>Documental</u></a>
+    </div>
+    <div class="ends"><span>Datos y modelos</span><span>Relatos y sentidos</span></div>
+  </div>
+</header>
+
+<section class="wrap" id="proyectos">
+  <h2>Piezas del piloto</h2>
+  <p class="sub">Organizadas en tres ejes temáticos alineados con las líneas de investigación de la Facultad, más un eje transversal de método. Las piezas se alojan en plataformas externas y se abren en una pestaña nueva.</p>
+
+  <div class="chips">
+    <button class="chip on" data-eje="todos">Todas</button>
+    <button class="chip" data-eje="digital">Vida digital y subjetividad</button>
+    <button class="chip" data-eje="demo">Democracia y nuevos electorados</button>
+    <button class="chip" data-eje="territorio">Territorio, violencia y convivencia</button>
+    <button class="chip trans" data-eje="metodo">⌁ Métodos públicos</button>
+  </div>
+
+  <div class="grid">
+    <article class="ficha" id="p1" data-ejes="digital metodo">
+      <div class="cab"><span class="badge b-cuanti">CUANTITATIVO</span><span class="formato">App pedagógica</span></div>
+      <h3>Sustancia: aprender a interpretar estadística con datos reales</h3>
+      <p class="desc">Aplicación gamificada que enseña interpretación estadística usando los resultados de una investigación sobre hábitus tecnológico y salud mental en estudiantes de primer año (n=276). Cinco niveles interpretativos, retroalimentación automatizada.</p>
+      <div class="eje-tag">Ejes: Vida digital y subjetividad · Métodos públicos</div>
+      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
+      <div class="pie"><span class="metr"><b>—</b> interpretaciones registradas</span><a class="abrir" href="#">Abrir pieza</a></div>
+    </article>
+
+    <article class="ficha" id="p2" data-ejes="demo digital">
+      <div class="cab"><span class="badge b-mixto">MIXTO</span><span class="formato">Dashboard interactivo</span></div>
+      <h3>Populismo digital: explorar el fenómeno Parisi</h3>
+      <p class="desc">Panel interactivo con los datos de una investigación sobre populismo digital: geografía del voto, perfiles de adherentes y dinámicas de campaña sin territorio. El usuario filtra, compara y descarga.</p>
+      <div class="eje-tag">Ejes: Democracia y nuevos electorados · Vida digital y subjetividad</div>
+      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
+      <div class="pie"><span class="metr"><b>—</b> consultas al panel</span><a class="abrir" href="#">Abrir pieza</a></div>
+    </article>
+
+    <article class="ficha" id="p4" data-ejes="territorio metodo">
+      <div class="cab"><span class="badge b-cuali">CUALITATIVO</span><span class="formato">Mapa interactivo</span></div>
+      <h3>Arquitectura hostil: cartografía de la exclusión en Santiago Centro</h3>
+      <p class="desc">Mapa interactivo de los dispositivos hostiles registrados en una investigación con teoría del actor-red: 22 puntos georreferenciados, filtrables por tipo de dispositivo y sujeto que se busca evitar, con registro fotográfico y análisis por punto.</p>
+      <div class="eje-tag">Ejes: Territorio, violencia y convivencia · Métodos públicos</div>
+      <div class="aut">Seminario de grado · Sociología UAH, 2024</div>
+      <div class="pie"><span class="metr"><b>—</b> exploraciones del mapa</span><a class="abrir" href="#">Abrir pieza</a></div>
+    </article>
+
+    <article class="ficha" id="p3" data-ejes="demo">
+      <div class="cab"><span class="badge b-cuali">CUALITATIVO</span><span class="formato">Narrativa interactiva</span></div>
+      <h3>Trayectorias: mujeres jóvenes y el voto por la derecha radical</h3>
+      <p class="desc">Recorrido narrativo por los marcos discursivos y trayectorias identificadas en una investigación cualitativa. Material anonimizado, publicado dentro de los términos del consentimiento informado original.</p>
+      <div class="eje-tag">Eje: Democracia y nuevos electorados</div>
+      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
+      <div class="pie"><span class="metr"><b>—</b> lecturas completas</span><a class="abrir" href="#">Abrir pieza</a></div>
+    </article>
+
+    <article class="ficha" id="p5" data-ejes="territorio">
+      <div class="cab"><span class="badge b-doc">DOCUMENTAL</span><span class="invitada">PIEZA INVITADA · CESI</span></div>
+      <h3>Defender la tierra: violencia contra activistas medioambientales y herramientas para su defensa</h3>
+      <p class="desc">Cronología documentada de casos emblemáticos en Chile y Brasil, y guía navegable de mecanismos jurídicos de defensa (Acuerdo de Escazú, Protocolo de la Esperanza): qué herramienta sirve ante qué situación. Basada íntegramente en fuentes judiciales y de prensa citadas.</p>
+      <div class="eje-tag">Eje: Territorio, violencia y convivencia</div>
+      <div class="aut">Artículo · Congreso Estudiantil de Sociología Interdisciplinaria, 2025</div>
+      <div class="pie"><span class="metr"><b>—</b> consultas a la guía</span><a class="abrir" href="#">Abrir pieza</a></div>
+    </article>
+  </div>
+</section>
+
+<section class="proceso">
+  <div class="wrap">
+    <h2>Cómo funciona</h2>
+    <p class="sub">Un proceso replicable: cualquier seminario de grado de la Facultad puede entrar al circuito.</p>
+    <div class="pasos">
+      <div class="paso"><div class="n">TESIS</div><h4>Investigación finalizada</h4><p>Un seminario de grado aprobado, con autorización escrita de sus autoras y resguardos éticos verificados.</p></div>
+      <div class="paso"><div class="n">TRIAJE</div><h4>Un formato por tesis</h4><p>El formato lo eligen los datos, no el espectáculo: app, dashboard o narrativa según lo que el material permite.</p></div>
+      <div class="paso"><div class="n">TRADUCCIÓN</div><h4>Construcción de la pieza</h4><p>Desarrollo con infraestructura ya probada (R/Shiny, registro automático de uso). Costo directo: $0.</p></div>
+      <div class="paso"><div class="n">CIRCULACIÓN</div><h4>Uso público medido</h4><p>Cada pieza registra sus interacciones. Al cierre del piloto: informe con indicadores a la Decanatura.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="convo">
+    <div>
+      <h3>¿Tu seminario de grado podría ser la próxima pieza?</h3>
+      <p>Si el piloto cumple sus indicadores, la segunda cohorte se abrirá por convocatoria, con exhibición en el Congreso Estudiantil de Sociología Interdisciplinaria.</p>
+    </div>
+    <a class="btn" href="#">Dejar mi interés</a>
+  </div>
+</section>
+
+<footer><div class="wrap">Vitrina de Investigación Interactiva · Piloto 2026 · Con el patrocinio de la Facultad de Ciencias Sociales, Universidad Alberto Hurtado. Una iniciativa estudiantil independiente. Las piezas enlazadas se alojan en plataformas externas y se publican bajo licencia Creative Commons BY-NC-SA, con atribución a sus autoras. [MOCKUP — no es el sitio oficial]</div></footer>
+
+<script>
+document.querySelectorAll('.chip').forEach(ch=>{
+  ch.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+    ch.classList.add('on');
+    const eje=ch.dataset.eje;
+    document.querySelectorAll('.ficha').forEach(f=>{
+      f.classList.toggle('oculta', eje!=='todos' && !f.dataset.ejes.split(' ').includes(eje));
+    });
+  });
+});
+</script>
+</body>
+</html>
