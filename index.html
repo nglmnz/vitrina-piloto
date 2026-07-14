@@ -6,42 +6,29 @@
 <title>Vitrina de Investigación Interactiva · Facultad de Ciencias Sociales UAH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-  :root{
-    --rojo:#C8102E;
-    --tinta:#1C1917;
-    --papel:#FBF9F6;
-    --piedra:#6E6862;
-    --linea:#E4DFD8;
-    --carbon:#2B2724;
-  }
+  :root{--rojo:#C8102E;--tinta:#1C1917;--papel:#FBF9F6;--piedra:#6E6862;--linea:#E4DFD8;--carbon:#2B2724}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Archivo',sans-serif;background:var(--papel);color:var(--tinta);line-height:1.55}
   a{color:inherit}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-
-  /* ——— simulación del chrome institucional UAH ——— */
+  .preview-banner{background:#6E5A3A;color:#fff;font-size:12px;letter-spacing:.05em;text-align:center;padding:6px 12px}
   .uah-top{background:var(--rojo);color:#fff;font-size:12px;letter-spacing:.06em}
   .uah-top .wrap{display:flex;justify-content:space-between;padding-top:7px;padding-bottom:7px}
   .uah-nav{background:#fff;border-bottom:1px solid var(--linea)}
   .uah-nav .wrap{display:flex;align-items:center;gap:28px;padding-top:14px;padding-bottom:14px}
-  .uah-logo{font-weight:800;font-stretch:112%;font-size:17px;line-height:1.1}
+  .uah-logo{font-weight:800;font-stretch:112%;font-size:17px;line-height:1.1;cursor:pointer}
   .uah-logo span{display:block;font-weight:400;font-size:11px;color:var(--piedra);letter-spacing:.04em}
-  .uah-nav nav{display:flex;gap:22px;font-size:13.5px;color:var(--carbon)}
-  .uah-nav nav a{text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
-  .uah-nav nav a.act{border-bottom-color:var(--rojo);font-weight:600}
   .crumbs{font-size:12px;color:var(--piedra);padding:14px 0 0}
   .crumbs b{color:var(--tinta);font-weight:600}
-
-  /* ——— hero ——— */
-  header.hero{padding:44px 0 0}
+  .crumbs a{text-decoration:none;border-bottom:1px dotted var(--piedra)}
+  header.hero{padding:38px 0 0}
   .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--rojo);text-transform:uppercase}
-  h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:clamp(30px,4.6vw,46px);line-height:1.12;max-width:19ch;margin:10px 0 16px}
-  .lede{font-size:17px;color:var(--carbon);max-width:62ch}
+  h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:clamp(28px,4.4vw,44px);line-height:1.12;max-width:22ch;margin:10px 0 16px}
+  .lede{font-size:16.5px;color:var(--carbon);max-width:64ch}
   .lede em{font-style:normal;box-shadow:inset 0 -8px 0 rgba(200,16,46,.14)}
-
-  /* ——— firma: espectro metodológico ——— */
-  .espectro{margin:40px 0 8px;padding:26px 0 30px;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+  .espectro{margin:38px 0 8px;padding:26px 0 30px;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
   .espectro .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--piedra);margin-bottom:22px}
   .track{position:relative;height:2px;background:var(--linea);margin:0 8px}
   .track::before,.track::after{content:"";position:absolute;top:-3px;width:8px;height:8px;background:var(--tinta);border-radius:50%}
@@ -50,40 +37,33 @@
   .nodo{position:absolute;top:-7px;transform:translateX(-50%);cursor:pointer;text-decoration:none}
   .nodo i{display:block;width:16px;height:16px;border-radius:50%;background:var(--rojo);border:3px solid var(--papel);box-shadow:0 0 0 1px var(--rojo);transition:transform .15s}
   .nodo:hover i{transform:scale(1.35)}
-  .nodo b{position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:600;background:var(--tinta);color:#fff;padding:3px 9px;border-radius:3px;opacity:0;transition:opacity .15s;pointer-events:none}
-  .nodo:hover b{opacity:1}
-  .nodo u{position:absolute;top:22px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11.5px;color:var(--carbon);text-decoration:none;font-weight:600}
-
-  /* ——— ejes ——— */
-  section{padding:44px 0}
-  h2{font-family:'Source Serif 4',serif;font-weight:600;font-size:26px;margin-bottom:6px}
-  .sub{color:var(--piedra);font-size:14.5px;max-width:60ch;margin-bottom:22px}
-  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+  .nodo u{position:absolute;top:22px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;color:var(--carbon);text-decoration:none;font-weight:600}
+  section{padding:40px 0}
+  h2{font-family:'Source Serif 4',serif;font-weight:600;font-size:25px;margin-bottom:6px}
+  h3.sec{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;margin:26px 0 8px}
+  .sub{color:var(--piedra);font-size:14.5px;max-width:62ch;margin-bottom:22px}
+  p.txt{font-size:15px;color:var(--carbon);max-width:70ch;margin-bottom:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
   .chip{font-family:'Archivo';font-size:13px;font-weight:600;border:1.5px solid var(--tinta);background:transparent;color:var(--tinta);padding:8px 16px;border-radius:99px;cursor:pointer;transition:all .12s}
   .chip:hover{background:var(--tinta);color:#fff}
   .chip.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
   .chip.trans{border-style:dashed}
-
-  /* ——— fichas de proyecto ——— */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
-  .ficha{background:#fff;border:1px solid var(--linea);display:flex;flex-direction:column;transition:opacity .2s, transform .2s}
+  .ficha{background:#fff;border:1px solid var(--linea);display:flex;flex-direction:column;transition:opacity .2s}
   .ficha.oculta{opacity:.18;pointer-events:none}
-  .ficha .cab{padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center}
+  .ficha .cab{padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
   .badge{font-size:10.5px;font-weight:800;letter-spacing:.1em;padding:4px 9px;border-radius:3px;color:#fff}
   .b-cuanti{background:#1C1917}.b-mixto{background:#6E5A3A}.b-cuali{background:#3A566E}.b-doc{background:#4A3A5E}
   .invitada{font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--rojo);border:1px solid var(--rojo);padding:3px 8px;border-radius:3px}
-  .formato{font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase}
   .ficha h3{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;line-height:1.28;padding:12px 20px 6px}
   .ficha .desc{font-size:14px;color:var(--carbon);padding:0 20px;flex:1}
   .ficha .aut{font-size:12.5px;color:var(--piedra);padding:14px 20px 0}
   .ficha .pie{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:13px 20px;border-top:1px solid var(--linea)}
   .metr{font-size:12px;color:var(--piedra)}
   .metr b{color:var(--tinta);font-size:14px;font-weight:700}
-  .abrir{font-size:13px;font-weight:700;color:var(--rojo);text-decoration:none;letter-spacing:.02em}
-  .abrir::after{content:" ↗"}
-  .eje-tag{font-size:11px;color:var(--piedra);padding:0 20px;margin-top:8px}
-
-  /* ——— cómo funciona ——— */
+  .abrir{font-size:13px;font-weight:700;color:var(--rojo);text-decoration:none;letter-spacing:.02em;background:none;border:none;cursor:pointer;font-family:'Archivo'}
+  .abrir::after{content:" →"}
+  .abrir.ext::after{content:" ↗"}
   .proceso{background:var(--tinta);color:var(--papel)}
   .proceso h2{color:#fff}
   .proceso .sub{color:#B8B2AB}
@@ -93,150 +73,447 @@
   .paso .n{font-size:12px;font-weight:700;color:var(--rojo);letter-spacing:.1em}
   .paso h4{font-size:15.5px;margin:8px 0 6px}
   .paso p{font-size:13px;color:#B8B2AB;line-height:1.5}
-
-  /* ——— convocatoria + pie ——— */
-  .convo{border:1.5px solid var(--tinta);padding:28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-  .convo h3{font-family:'Source Serif 4',serif;font-size:21px;font-weight:600}
-  .convo p{font-size:14px;color:var(--carbon);max-width:52ch}
-  .btn{background:var(--rojo);color:#fff;font-weight:700;font-size:14px;padding:12px 22px;text-decoration:none;white-space:nowrap}
-  footer{border-top:1px solid var(--linea);padding:22px 0 40px;font-size:12px;color:var(--piedra)}
-
-  @media(max-width:720px){
-    .uah-nav nav{display:none}
-    .nodo u{display:none}
-    .paso{border-right:none;border-bottom:1px solid #3D3833}
-  }
+  footer{border-top:1px solid var(--linea);padding:22px 0 40px;font-size:12px;color:var(--piedra);margin-top:20px}
+  /* páginas de pieza */
+  .pieza-head{padding:34px 0 10px}
+  .pieza-head .badges{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .pieza-head h1{font-size:clamp(26px,3.8vw,38px)}
+  .credito{font-size:13.5px;color:var(--piedra);margin-top:8px}
+  .aviso{border-left:3px solid #6E5A3A;background:#fff;padding:12px 16px;font-size:13.5px;color:var(--carbon);max-width:70ch;margin:18px 0}
+  .aviso.abierto{border-left-color:var(--rojo)}
+  #mapa{height:480px;border:1px solid var(--linea);margin:10px 0 6px}
+  .mapnote{font-size:12px;color:var(--piedra);margin-bottom:20px}
+  table.datos{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;background:#fff}
+  table.datos th{background:var(--tinta);color:#fff;text-align:left;font-size:12px;letter-spacing:.06em;padding:9px 12px}
+  table.datos td{border:1px solid var(--linea);padding:9px 12px;vertical-align:top}
+  .tl{border-left:2px solid var(--linea);margin:20px 0;padding-left:0;list-style:none}
+  .tl li{position:relative;padding:0 0 26px 26px;max-width:68ch}
+  .tl li::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--rojo);border:2px solid var(--papel)}
+  .tl li.abierto::before{background:#fff;border:3px solid var(--rojo)}
+  .tl .fecha{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--rojo);text-transform:uppercase}
+  .tl h4{font-family:'Source Serif 4',serif;font-size:17px;margin:3px 0 5px}
+  .tl p{font-size:14px;color:var(--carbon)}
+  .tl .estado{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:3px}
+  .e-cerrado{background:#E7E2DA;color:var(--carbon)}
+  .e-abierto{background:var(--rojo);color:#fff}
+  .tabs{display:flex;gap:0;border-bottom:2px solid var(--tinta);margin:24px 0 0}
+  .tab{font-family:'Archivo';font-size:14px;font-weight:700;padding:10px 20px;background:none;border:none;cursor:pointer;color:var(--piedra)}
+  .tab.on{background:var(--tinta);color:#fff}
+  .mecanismo{background:#fff;border:1px solid var(--linea);margin:14px 0}
+  .mecanismo>button{width:100%;text-align:left;font-family:'Source Serif 4',serif;font-weight:600;font-size:17px;padding:16px 20px;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .mecanismo>button::after{content:"+";font-family:'Archivo';font-weight:400;font-size:22px;color:var(--rojo)}
+  .mecanismo.open>button::after{content:"–"}
+  .mecanismo .cuerpo{display:none;padding:0 20px 18px;font-size:14.5px;color:var(--carbon)}
+  .mecanismo.open .cuerpo{display:block}
+  .mecanismo .cuando{margin-top:10px;padding:10px 14px;background:var(--papel);border-left:3px solid var(--rojo);font-size:13.5px}
+  .skeleton{border:1.5px dashed var(--piedra);background:#fff;padding:26px;max-width:72ch;margin:20px 0}
+  .skeleton h4{font-size:15px;margin-bottom:8px}
+  .skeleton p{font-size:14px;color:var(--carbon);margin-bottom:8px}
+  .estado-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;background:#6E5A3A;color:#fff;padding:4px 10px;border-radius:3px;margin-bottom:14px}
+  .volver{display:inline-block;font-size:13px;font-weight:700;color:var(--rojo);text-decoration:none;margin-top:26px}
+  .volver::before{content:"← "}
+  .btn{display:inline-block;background:var(--rojo);color:#fff;font-weight:700;font-size:14px;padding:12px 22px;text-decoration:none;margin-top:10px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:14px 0 6px}
+  .stat{background:#fff;border:1px solid var(--linea);padding:14px 16px}
+  .stat b{display:block;font-family:'Source Serif 4',serif;font-size:26px;color:var(--rojo)}
+  .stat span{font-size:12.5px;color:var(--piedra)}
+  .barrow{display:grid;grid-template-columns:180px 1fr 54px;align-items:center;gap:10px;margin:7px 0;font-size:13.5px}
+  .barrow .lab{color:var(--carbon)}
+  .barrow .pista{background:#EDE9E2;height:16px;position:relative}
+  .barrow .pista i{position:absolute;left:0;top:0;bottom:0;background:var(--rojo);opacity:.85}
+  .barrow .val{font-weight:700;font-size:12.5px;text-align:right;color:var(--tinta)}
+  .subtabs{display:flex;gap:8px;margin:14px 0 10px;flex-wrap:wrap}
+  .subtab{font-family:'Archivo';font-size:12.5px;font-weight:700;border:1.5px solid var(--tinta);background:none;padding:6px 14px;border-radius:99px;cursor:pointer}
+  .subtab.on{background:var(--tinta);color:#fff}
+  .nota-shiny{border-left:3px solid var(--piedra);background:#fff;padding:10px 14px;font-size:13px;color:var(--piedra);max-width:70ch;margin:16px 0}
+  @media(max-width:720px){.barrow{grid-template-columns:120px 1fr 48px}.paso{border-right:none;border-bottom:1px solid #3D3833}.nodo u{display:none}}
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-
-<!-- chrome institucional simulado -->
+<div class="preview-banner">VISTA PREVIA INTERNA · Contenidos sujetos a autorización escrita de autores/as antes de su publicación</div>
 <div class="uah-top"><div class="wrap"><span>UNIVERSIDAD ALBERTO HURTADO</span><span>PORTAL · BIBLIOTECA · CORREO</span></div></div>
 <div class="uah-nav"><div class="wrap">
-  <div class="uah-logo">Facultad de<br>Ciencias Sociales<span>Universidad Alberto Hurtado</span></div>
-  <nav>
-    <a href="#">Carreras</a><a href="#">Postgrados</a><a href="#" class="act">Investigación</a><a href="#">Extensión</a><a href="#">Noticias</a>
-  </nav>
+  <div class="uah-logo" onclick="location.hash=''">Facultad de<br>Ciencias Sociales<span>Universidad Alberto Hurtado</span></div>
 </div></div>
 
-<div class="wrap crumbs">Inicio / Investigación / <b>Vitrina de Investigación Interactiva</b></div>
+<main id="app"></main>
 
-<header class="hero wrap">
-  <div class="kicker">Qué hacemos · Piloto 2026</div>
-  <h1>La investigación de la Facultad, en formatos que se pueden usar.</h1>
-  <p class="lede">Cada pieza de esta vitrina nace de un seminario de grado real y traduce sus hallazgos a una experiencia interactiva: <em>explorar los datos, recorrer los relatos, poner a prueba la propia interpretación</em>. La difusión no es una etapa posterior a la investigación — es uno de sus formatos.</p>
+<footer><div class="wrap">Vitrina de Investigación Interactiva · Piloto 2026 · Con el patrocinio de la Facultad de Ciencias Sociales, Universidad Alberto Hurtado. Una iniciativa estudiantil independiente. Las piezas se publican bajo licencia Creative Commons BY-NC-SA, con atribución a sus autoras/es.</div></footer>
 
-  <!-- FIRMA: espectro metodológico -->
-  <div class="espectro">
-    <div class="lbl">Cinco piezas, todo el espectro metodológico de la disciplina</div>
-    <div class="track">
-      <a class="nodo" style="left:8%" href="#p1"><i></i><b>Sustancia — app pedagógica</b><u>Cuantitativo</u></a>
-      <a class="nodo" style="left:42%" href="#p2"><i></i><b>Dashboard electoral Parisi</b><u>Mixto</u></a>
-      <a class="nodo" style="left:66%" href="#p4"><i></i><b>Mapa de arquitectura hostil</b><u>Cualitativo</u></a>
-      <a class="nodo" style="left:82%" href="#p3"><i></i><b>Pieza narrativa interactiva</b><u>Cualitativo</u></a>
-      <a class="nodo" style="left:95%" href="#p5"><i></i><b>Cronología + guía jurídica</b><u>Documental</u></a>
-    </div>
-    <div class="ends"><span>Datos y modelos</span><span>Relatos y sentidos</span></div>
-  </div>
-</header>
-
-<section class="wrap" id="proyectos">
-  <h2>Piezas del piloto</h2>
-  <p class="sub">Organizadas en tres ejes temáticos alineados con las líneas de investigación de la Facultad, más un eje transversal de método. Las piezas se alojan en plataformas externas y se abren en una pestaña nueva.</p>
-
-  <div class="chips">
-    <button class="chip on" data-eje="todos">Todas</button>
-    <button class="chip" data-eje="digital">Vida digital y subjetividad</button>
-    <button class="chip" data-eje="demo">Democracia y nuevos electorados</button>
-    <button class="chip" data-eje="territorio">Territorio, violencia y convivencia</button>
-    <button class="chip trans" data-eje="metodo">⌁ Métodos públicos</button>
-  </div>
-
-  <div class="grid">
-    <article class="ficha" id="p1" data-ejes="digital metodo">
-      <div class="cab"><span class="badge b-cuanti">CUANTITATIVO</span><span class="formato">App pedagógica</span></div>
-      <h3>Sustancia: aprender a interpretar estadística con datos reales</h3>
-      <p class="desc">Aplicación gamificada que enseña interpretación estadística usando los resultados de una investigación sobre hábitus tecnológico y salud mental en estudiantes de primer año (n=276). Cinco niveles interpretativos, retroalimentación automatizada.</p>
-      <div class="eje-tag">Ejes: Vida digital y subjetividad · Métodos públicos</div>
-      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
-      <div class="pie"><span class="metr"><b>—</b> interpretaciones registradas</span><a class="abrir" href="#">Abrir pieza</a></div>
-    </article>
-
-    <article class="ficha" id="p2" data-ejes="demo digital">
-      <div class="cab"><span class="badge b-mixto">MIXTO</span><span class="formato">Dashboard interactivo</span></div>
-      <h3>Populismo digital: explorar el fenómeno Parisi</h3>
-      <p class="desc">Panel interactivo con los datos de una investigación sobre populismo digital: geografía del voto, perfiles de adherentes y dinámicas de campaña sin territorio. El usuario filtra, compara y descarga.</p>
-      <div class="eje-tag">Ejes: Democracia y nuevos electorados · Vida digital y subjetividad</div>
-      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
-      <div class="pie"><span class="metr"><b>—</b> consultas al panel</span><a class="abrir" href="#">Abrir pieza</a></div>
-    </article>
-
-    <article class="ficha" id="p4" data-ejes="territorio metodo">
-      <div class="cab"><span class="badge b-cuali">CUALITATIVO</span><span class="formato">Mapa interactivo</span></div>
-      <h3>Arquitectura hostil: cartografía de la exclusión en Santiago Centro</h3>
-      <p class="desc">Mapa interactivo de los dispositivos hostiles registrados en una investigación con teoría del actor-red: 22 puntos georreferenciados, filtrables por tipo de dispositivo y sujeto que se busca evitar, con registro fotográfico y análisis por punto.</p>
-      <div class="eje-tag">Ejes: Territorio, violencia y convivencia · Métodos públicos</div>
-      <div class="aut">Seminario de grado · Sociología UAH, 2024</div>
-      <div class="pie"><span class="metr"><b>—</b> exploraciones del mapa</span><a class="abrir" href="#">Abrir pieza</a></div>
-    </article>
-
-    <article class="ficha" id="p3" data-ejes="demo">
-      <div class="cab"><span class="badge b-cuali">CUALITATIVO</span><span class="formato">Narrativa interactiva</span></div>
-      <h3>Trayectorias: mujeres jóvenes y el voto por la derecha radical</h3>
-      <p class="desc">Recorrido narrativo por los marcos discursivos y trayectorias identificadas en una investigación cualitativa. Material anonimizado, publicado dentro de los términos del consentimiento informado original.</p>
-      <div class="eje-tag">Eje: Democracia y nuevos electorados</div>
-      <div class="aut">Seminario de grado · Sociología UAH, 2026</div>
-      <div class="pie"><span class="metr"><b>—</b> lecturas completas</span><a class="abrir" href="#">Abrir pieza</a></div>
-    </article>
-
-    <article class="ficha" id="p5" data-ejes="territorio">
-      <div class="cab"><span class="badge b-doc">DOCUMENTAL</span><span class="invitada">PIEZA INVITADA · CESI</span></div>
-      <h3>Defender la tierra: violencia contra activistas medioambientales y herramientas para su defensa</h3>
-      <p class="desc">Cronología documentada de casos emblemáticos en Chile y Brasil, y guía navegable de mecanismos jurídicos de defensa (Acuerdo de Escazú, Protocolo de la Esperanza): qué herramienta sirve ante qué situación. Basada íntegramente en fuentes judiciales y de prensa citadas.</p>
-      <div class="eje-tag">Eje: Territorio, violencia y convivencia</div>
-      <div class="aut">Artículo · Congreso Estudiantil de Sociología Interdisciplinaria, 2025</div>
-      <div class="pie"><span class="metr"><b>—</b> consultas a la guía</span><a class="abrir" href="#">Abrir pieza</a></div>
-    </article>
-  </div>
-</section>
-
-<section class="proceso">
-  <div class="wrap">
-    <h2>Cómo funciona</h2>
-    <p class="sub">Un proceso replicable: cualquier seminario de grado de la Facultad puede entrar al circuito.</p>
-    <div class="pasos">
-      <div class="paso"><div class="n">TESIS</div><h4>Investigación finalizada</h4><p>Un seminario de grado aprobado, con autorización escrita de sus autoras y resguardos éticos verificados.</p></div>
-      <div class="paso"><div class="n">TRIAJE</div><h4>Un formato por tesis</h4><p>El formato lo eligen los datos, no el espectáculo: app, dashboard o narrativa según lo que el material permite.</p></div>
-      <div class="paso"><div class="n">TRADUCCIÓN</div><h4>Construcción de la pieza</h4><p>Desarrollo con infraestructura ya probada (R/Shiny, registro automático de uso). Costo directo: $0.</p></div>
-      <div class="paso"><div class="n">CIRCULACIÓN</div><h4>Uso público medido</h4><p>Cada pieza registra sus interacciones. Al cierre del piloto: informe con indicadores a la Decanatura.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <div class="convo">
-    <div>
-      <h3>¿Tu seminario de grado podría ser la próxima pieza?</h3>
-      <p>Si el piloto cumple sus indicadores, la segunda cohorte se abrirá por convocatoria, con exhibición en el Congreso Estudiantil de Sociología Interdisciplinaria.</p>
-    </div>
-    <a class="btn" href="#">Dejar mi interés</a>
-  </div>
-</section>
-
-<footer><div class="wrap">Vitrina de Investigación Interactiva · Piloto 2026 · Con el patrocinio de la Facultad de Ciencias Sociales, Universidad Alberto Hurtado. Una iniciativa estudiantil independiente. Las piezas enlazadas se alojan en plataformas externas y se publican bajo licencia Creative Commons BY-NC-SA, con atribución a sus autoras. [MOCKUP — no es el sitio oficial]</div></footer>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-document.querySelectorAll('.chip').forEach(ch=>{
-  ch.addEventListener('click',()=>{
-    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-    ch.classList.add('on');
-    const eje=ch.dataset.eje;
-    document.querySelectorAll('.ficha').forEach(f=>{
-      f.classList.toggle('oculta', eje!=='todos' && !f.dataset.ejes.split(' ').includes(eje));
+/* ============ ENLACES EXTERNOS ============ */
+const ENLACE_SUSTANCIA = "https://tbu8oh-angel0dario-munoz0ra0iman.shinyapps.io/sustancia-v2/"; /* <-- pegar aquí la URL de shinyapps de Sustancia */
+
+const ENLACE_SUSTANCIA_PROYECTO = "https://nglmnz.github.io/sustancia/"; /* <-- pegar aquí la URL de shinyapps de Sustancia */
+
+/* ============ CONTENIDO COMO DATOS (modelo multi-institución) ============ */
+const PIEZAS = [
+  {
+    id:"sustancia", institucion:"UAH", metodo:"CUANTITATIVO", badge:"b-cuanti",
+    formato:"App pedagógica", ejes:["digital","metodo"],
+    titulo:"Sustancia: aprender a interpretar estadística con datos reales",
+    desc:"Aplicación gamificada que enseña interpretación estadística usando los resultados de una investigación sobre hábitus tecnológico y salud mental en estudiantes de primer año (n=276). Cinco niveles interpretativos, retroalimentación automatizada.",
+    autoria:"Seminario de grado · Sociología UAH, 2026",
+    metrica:"interpretaciones registradas", externa:false, ruta:"#/sustancia"
+  },
+  {
+    id:"parisi", institucion:"UAH", metodo:"MIXTO", badge:"b-mixto",
+    formato:"Dashboard interactivo", ejes:["demo","digital"],
+    titulo:"Tecnopopulismo en Facebook: la estrategia de Franco Parisi",
+    desc:"Exploración interactiva de la estrategia comunicacional del excandidato en la campaña 2025: anatomía del contenido, antagonismo selectivo, economía de los afectos y el fenómeno espejo de su comunidad virtual (220 publicaciones, 200 comentarios).",
+    autoria:"Antonia Bravo Carmona · Seminario de grado, Sociología UAH, 2026",
+    metrica:"consultas al panel", externa:false, ruta:"#/parisi"
+  },
+  {
+    id:"trayectorias", institucion:"UAH", metodo:"CUALITATIVO", badge:"b-cuali",
+    formato:"Narrativa interactiva", ejes:["demo"],
+    titulo:"Trayectorias: mujeres jóvenes y el voto por la derecha radical",
+    desc:"Recorrido narrativo por los marcos discursivos y trayectorias identificadas en una investigación cualitativa. Material anonimizado, publicado dentro de los términos del consentimiento informado original.",
+    autoria:"Seminario de grado · Sociología UAH, 2026",
+    metrica:"lecturas completas", externa:false, ruta:"#/trayectorias"
+  },
+  {
+    id:"hostil", institucion:"UAH", metodo:"CUALITATIVO", badge:"b-cuali",
+    formato:"Mapa interactivo", ejes:["territorio","metodo"],
+    titulo:"Arquitectura hostil: cartografía de la exclusión en Santiago Centro",
+    desc:"Mapa interactivo de los dispositivos hostiles registrados en una investigación con teoría del actor-red: puntos georreferenciados con tipología de dispositivos y sujetos que se busca evitar.",
+    autoria:"Francesca Roco Rojas · Seminario de grado, Sociología UAH, 2024",
+    metrica:"exploraciones del mapa", externa:false, ruta:"#/hostil"
+  },
+  {
+    id:"defender", institucion:"UAH", metodo:"DOCUMENTAL", badge:"b-doc", invitada:true,
+    formato:"Cronología + guía jurídica", ejes:["territorio"],
+    titulo:"Defender la tierra: violencia contra activistas medioambientales y herramientas para su defensa",
+    desc:"Cronología documentada de casos emblemáticos en Chile y Brasil, y guía navegable de mecanismos jurídicos de defensa: qué herramienta sirve ante qué situación.",
+    autoria:"Diego Navarro Gutiérrez · Artículo CESI, 2025",
+    metrica:"consultas a la guía", externa:false, ruta:"#/defender"
+  }
+];
+
+/* Puntos Figura 1 (Roco, 2024). Coordenadas APROXIMADAS pendientes de verificación por la autora. */
+const PUNTOS_HOSTIL = [
+  ["Domeyko & República",-33.4520,-70.6640],["República 290",-33.4508,-70.6628],
+  ["Abate Molina & Sazié",-33.4530,-70.6600],["Paseo peatonal (por precisar)",-33.4390,-70.6500],
+  ["Paseo Ahumada & Moneda",-33.4425,-70.6508],["Enrique Mac Iver 52",-33.4415,-70.6452],
+  ["Mosqueto & Santo Domingo",-33.4360,-70.6441],["Miraflores & Monjitas",-33.4368,-70.6432],
+  ["García Reyes & Catedral",-33.4372,-70.6722],["Avenida Matucana & Rosas",-33.4340,-70.6788],
+  ["Catedral & Cueto",-33.4370,-70.6682],["Carmen & Av. Manuel Antonio Matta",-33.4590,-70.6420],
+  ["Paseo Bulnes 141",-33.4470,-70.6535],["Agustinas 2231",-33.4410,-70.6660],
+  ["Mosqueto 467",-33.4355,-70.6438],["Minvu (Alameda)",-33.4440,-70.6560],
+  ["Av. Santa Rosa 96",-33.4430,-70.6465],["Almirante Montt",-33.4380,-70.6420],
+  ["Santa Lucía 330",-33.4400,-70.6440],["Metro Universidad Católica, salida sur",-33.4450,-70.6404],
+  ["Av. Manuel Antonio Matta 805",-33.4595,-70.6390],["Porvenir 911",-33.4570,-70.6350]
+];
+
+const CASOS = [
+  {fecha:"3 de enero de 2008", nombre:"Matías Catrileo", lugar:"Fundo Santa Margarita, La Araucanía (Chile)", estado:"cerrado",
+   texto:"Estudiante de agronomía y activista mapuche de 23 años, alcanzado por la espalda por una bala disparada por un cabo de Carabineros durante una toma. La justicia militar condenó al funcionario a 3 años y 1 día de libertad vigilada por violencia innecesaria; la Corte Suprema ratificó el fallo en 2015, señalando que la violencia ejercida \u201cfue del todo innecesaria\u201d."},
+  {fecha:"22 de agosto de 2016", nombre:"Macarena Valdés", lugar:"Tranguil, Región de Los Ríos (Chile)", estado:"cerrado",
+   texto:"Activista que lideró la oposición de su comunidad a una central hidroeléctrica de la empresa RP Global. Una autopsia independiente descartó la hipótesis de suicidio, reforzando las sospechas de que su muerte estuvo relacionada con su activismo territorial."},
+  {fecha:"14 de noviembre de 2018", nombre:"Camilo Catrillanca", lugar:"Temucuicui, La Araucanía (Chile)", estado:"cerrado",
+   texto:"Comunero mapuche asesinado por Carabineros. La versión institucional inicial fue desmentida: no estaba armado y las cámaras corporales fueron destruidas para encubrir el hecho. En 2021 el autor material fue condenado a 16 años de prisión y otros seis funcionarios recibieron condenas por encubrimiento."},
+  {fecha:"2018", nombre:"Nazildo dos Santos Brito", lugar:"Pará (Brasil)", estado:"cerrado",
+   texto:"Líder comunitario asesinado tras denunciar los impactos de la agroindustria de palma. Según registros de prensa citados en el artículo, su muerte permanece en la impunidad."},
+  {fecha:"junio de 2022", nombre:"Dom Phillips y Bruno Pereira", lugar:"Valle del Javarí, Amazonía (Brasil)", estado:"cerrado",
+   texto:"Periodista e indigenista asesinados mientras documentaban amenazas contra territorios indígenas, caso que generó condena internacional y evidenció los riesgos de documentar la violencia territorial en la Amazonía."},
+  {fecha:"8 de noviembre de 2024", nombre:"Julia Chuñil", lugar:"Región de Los Ríos (Chile)", estado:"abierto",
+   texto:"Defensora medioambiental mapuche desaparecida. Al cierre del artículo fuente (2025), la causa se encontraba abierta y en investigación."}
+];
+
+const MECANISMOS = [
+  {t:"Acuerdo de Escazú",
+   c:"Primer tratado regional vinculante sobre acceso a la información, participación pública y acceso a la justicia en asuntos ambientales en América Latina y el Caribe, y el primero en el mundo con disposiciones específicas sobre personas defensoras de derechos humanos en asuntos ambientales. Chile lo ratificó en 2022.",
+   q:"Sirve cuando: se niega información ambiental sobre un proyecto, se excluye a la comunidad de la participación en decisiones que la afectan, o se requiere protección estatal como defensor/a ambiental."},
+  {t:"Protocolo de la Esperanza (CEJIL, 2021)",
+   c:"Directrices para la protección de personas defensoras de derechos humanos: estándares de prevención, protección y procuración de justicia que los Estados deberían implementar, con enfoque en las causas estructurales del riesgo.",
+   q:"Sirve cuando: se necesita fundamentar ante autoridades o tribunales qué medidas de protección son exigibles, o articular una estrategia de defensa colectiva frente a hostigamiento."},
+  {t:"Jurisprudencia interamericana: Baraona vs. Chile",
+   c:"La Corte IDH determinó que la sanción penal contra un abogado por denunciar públicamente amenazas al alerce constituyó una violación a la libertad de expresión, al principio de legalidad y a la protección judicial. La Corte estableció que la defensa de los derechos humanos no es incompatible con el ejercicio profesional ni con la función pública.",
+   q:"Sirve cuando: una denuncia ambiental pública deriva en querellas por injurias o calumnias; el estándar interamericano protege la denuncia de asuntos de interés público."}
+];
+
+/* ============ MÉTRICAS (stub) ============
+   registrarEvento() enviará {pieza, evento, ts} a un endpoint de Apps Script → Google Sheets.
+   Sin claves en el cliente. Ver ARQUITECTURA.md. */
+function registrarEvento(pieza, evento){ /* fetch(ENDPOINT,{method:'POST',body:...}) */ console.log("[métrica]",pieza,evento); }
+
+/* ============ ROUTER ============ */
+const app = document.getElementById('app');
+const rutas = { "":vistaHome, "#/":vistaHome, "#/hostil":vistaHostil, "#/defender":vistaDefender,
+                "#/parisi":vistaParisi, "#/sustancia":vistaSustancia,
+                "#/trayectorias":()=>vistaSkeleton("trayectorias") };
+function render(){ (rutas[location.hash]||vistaHome)(); window.scrollTo(0,0); }
+window.addEventListener('hashchange', render);
+
+/* ============ VISTAS ============ */
+function migas(nombre){ return `<div class="wrap crumbs"><a href="#/">Vitrina</a> / <b>${nombre}</b></div>`; }
+
+function vistaHome(){
+  const fichas = PIEZAS.map(p=>`
+    <article class="ficha" data-ejes="${p.ejes.join(' ')}">
+      <div class="cab"><span class="badge ${p.badge}">${p.metodo}</span>
+        ${p.invitada?'<span class="invitada">PIEZA INVITADA · CESI</span>':`<span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">${p.formato}</span>`}</div>
+      <h3>${p.titulo}</h3>
+      <p class="desc">${p.desc}</p>
+      <div class="aut">${p.autoria}</div>
+      <div class="pie"><span class="metr"><b>—</b> ${p.metrica}</span>
+        ${p.externa?'<a class="abrir ext" href="#" onclick="registrarEvento(\''+p.id+'\',\'abrir\')">Abrir pieza</a>'
+                   :`<a class="abrir" href="${p.ruta}">Abrir pieza</a>`}</div>
+    </article>`).join('');
+  app.innerHTML = `
+  <div class="wrap crumbs">Inicio / Investigación / <b>Vitrina de Investigación Interactiva</b></div>
+  <header class="hero wrap">
+    <div class="kicker">Qué hacemos · Piloto 2026</div>
+    <h1>La investigación de la Facultad, en formatos que se pueden usar.</h1>
+    <p class="lede">Cada pieza de esta vitrina nace de una investigación estudiantil real y traduce sus hallazgos a una experiencia interactiva: <em>explorar los datos, recorrer los relatos, poner a prueba la propia interpretación</em>. La difusión no es una etapa posterior a la investigación — es uno de sus formatos.</p>
+    <div class="espectro">
+      <div class="lbl">Cinco piezas, todo el espectro metodológico de la disciplina</div>
+      <div class="track">
+        <span class="nodo" style="left:8%"><i></i><u>Cuantitativo</u></span>
+        <span class="nodo" style="left:42%"><i></i><u>Mixto</u></span>
+        <span class="nodo" style="left:66%"><i></i><u>Cualitativo</u></span>
+        <span class="nodo" style="left:82%"><i></i><u>Cualitativo</u></span>
+        <span class="nodo" style="left:95%"><i></i><u>Documental</u></span>
+      </div>
+      <div class="ends"><span>Datos y modelos</span><span>Relatos y sentidos</span></div>
+    </div>
+  </header>
+  <section class="wrap">
+    <h2>Piezas del piloto</h2>
+    <p class="sub">Organizadas en tres ejes temáticos más un eje transversal de método. Las piezas interactivas complejas se alojan en plataformas externas.</p>
+    <div class="chips">
+      <button class="chip on" data-eje="todos">Todas</button>
+      <button class="chip" data-eje="digital">Vida digital y subjetividad</button>
+      <button class="chip" data-eje="demo">Democracia y nuevos electorados</button>
+      <button class="chip" data-eje="territorio">Territorio, violencia y convivencia</button>
+      <button class="chip trans" data-eje="metodo">⌁ Métodos públicos</button>
+    </div>
+    <div class="grid">${fichas}</div>
+  </section>
+  <section class="proceso"><div class="wrap">
+    <h2>Cómo funciona</h2>
+    <p class="sub">Un proceso replicable: cualquier investigación estudiantil puede entrar al circuito.</p>
+    <div class="pasos">
+      <div class="paso"><div class="n">TESIS</div><h4>Investigación finalizada</h4><p>Un trabajo aprobado, con autorización escrita de sus autoras/es y resguardos éticos verificados.</p></div>
+      <div class="paso"><div class="n">TRIAJE</div><h4>Un formato por tesis</h4><p>El formato lo eligen los datos, no el espectáculo: app, dashboard, mapa, narrativa o guía según lo que el material permite.</p></div>
+      <div class="paso"><div class="n">TRADUCCIÓN</div><h4>Construcción de la pieza</h4><p>Desarrollo con infraestructura ya probada. Costo directo: $0.</p></div>
+      <div class="paso"><div class="n">CIRCULACIÓN</div><h4>Uso público medido</h4><p>Cada pieza registra sus interacciones de forma anónima y agregada. Informe con indicadores al cierre.</p></div>
+    </div>
+  </div></section>`;
+  document.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+      ch.classList.add('on');
+      const eje=ch.dataset.eje;
+      document.querySelectorAll('.ficha').forEach(f=>{
+        f.classList.toggle('oculta', eje!=='todos' && !f.dataset.ejes.split(' ').includes(eje));
+      });
     });
   });
-});
+}
+
+function vistaHostil(){
+  registrarEvento('hostil','vista');
+  app.innerHTML = `
+  ${migas("Arquitectura hostil")}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge b-cuali">CUALITATIVO</span><span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">Mapa interactivo</span></div>
+    <h1>Arquitectura hostil: cartografía de la exclusión en Santiago Centro</h1>
+    <div class="credito">A partir de: Roco Rojas, F. (2024). <i>Infraestructuras violentas y habitar urbano: higienización del peligro y arquitectura hostil</i>. Seminario de grado, Sociología UAH. Profesora guía: Graciela Luneke.</div>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <p class="txt">Púas, fierros en diagonal, rejas y estructuras metálicas instaladas para que ciertas personas no puedan detenerse, sentarse o pernoctar. La investigación registró estos dispositivos en Santiago Centro y entrevistó a quienes los instalan, mostrando cómo la búsqueda de <b>limpieza y orden</b> — ligada a emociones como el asco y el temor — moviliza la exclusión de personas en situación de calle, comerciantes ambulantes, manifestantes y patinadores.</p>
+    <h3 class="sec">El mapa</h3>
+    <div id="mapa"></div>
+    <p class="mapnote">Ubicaciones aproximadas, reconstruidas desde la Figura 1 de la investigación. <b>Pendiente de verificación por la autora.</b> La clasificación de cada punto (tipo de dispositivo y sujeto evitado) se integrará desde la base de datos original.</p>
+    <h3 class="sec">Cada sujeto, su dispositivo</h3>
+    <p class="txt">Uno de los hallazgos centrales: los dispositivos son específicos para cada grupo que se busca evitar.</p>
+    <table class="datos">
+      <tr><th>Sujeto que se busca evitar</th><th>Dispositivo característico</th><th>Dónde predomina</th></tr>
+      <tr><td>Personas en situación de calle</td><td>Alambres de púas y fierros en diagonal</td><td>Viviendas y locales comerciales</td></tr>
+      <tr><td>Personas catalogadas como delincuentes</td><td>Fierros con punta</td><td>Locales comerciales</td></tr>
+      <tr><td>Vendedores ambulantes</td><td>Púas</td><td>Locales comerciales</td></tr>
+      <tr><td>Manifestantes</td><td>Fierros puntudos (protección de cortinas)</td><td>Locales comerciales</td></tr>
+      <tr><td>Patinadores</td><td>Estructuras metálicas en diagonal</td><td>Superficies y esquinas</td></tr>
+    </table>
+    <h3 class="sec">Lo que muestra la investigación</h3>
+    <p class="txt">La mayor concentración de dispositivos se encontró en el sector nororiente, entre Metro Bellas Artes y La Moneda (14 de los 22 registrados). La arquitectura hostil opera como <b>mediadora de conflictos urbanos</b>: interrumpe la interacción entre quienes instalan y quienes reciben estos dispositivos, reemplazando el trato directo por la exclusión material — una forma de <b>violencia infraestructural</b> que se entrelaza con la frustración hacia autoridades percibidas como ausentes.</p>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+  const mapa = L.map('mapa').setView([-33.4450,-70.6550], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {attribution:'© OpenStreetMap', maxZoom:18}).addTo(mapa);
+  PUNTOS_HOSTIL.forEach(([dir,lat,lng])=>{
+    L.circleMarker([lat,lng],{radius:7,color:'#C8102E',fillColor:'#C8102E',fillOpacity:.75,weight:2})
+      .addTo(mapa)
+      .bindPopup(`<b>${dir}</b><br><span style="font-size:12px">Dispositivo registrado (Roco, 2024)<br>Ubicación aproximada · clasificación pendiente</span>`)
+      .on('click',()=>registrarEvento('hostil','punto'));
+  });
+}
+
+function vistaDefender(){
+  registrarEvento('defender','vista');
+  const casos = CASOS.map(c=>`
+    <li class="${c.estado==='abierto'?'abierto':''}">
+      <div class="fecha">${c.fecha}</div>
+      <h4>${c.nombre}</h4>
+      <p style="font-size:12.5px;color:var(--piedra);margin-bottom:5px">${c.lugar}</p>
+      <p>${c.texto}</p>
+      <span class="estado ${c.estado==='abierto'?'e-abierto':'e-cerrado'}">${c.estado==='abierto'?'CAUSA ABIERTA':'REGISTRO DOCUMENTADO'}</span>
+    </li>`).join('');
+  const mecs = MECANISMOS.map((m,i)=>`
+    <div class="mecanismo" id="mec${i}">
+      <button onclick="document.getElementById('mec${i}').classList.toggle('open');registrarEvento('defender','mecanismo')">${m.t}</button>
+      <div class="cuerpo"><p>${m.c}</p><div class="cuando"><b>¿Cuándo sirve?</b> ${m.q.replace('Sirve cuando: ','')}</div></div>
+    </div>`).join('');
+  app.innerHTML = `
+  ${migas("Defender la tierra")}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge b-doc">DOCUMENTAL</span><span class="invitada">PIEZA INVITADA · CESI</span></div>
+    <h1>Defender la tierra: violencia contra activistas medioambientales y herramientas para su defensa</h1>
+    <div class="credito">A partir de: Navarro Gutiérrez, D. (2025). <i>Mecanismos jurídicos para la defensa de activistas medioambientales en Latinoamérica: un breve catastro de la violencia en Chile y Brasil</i>. Congreso Estudiantil de Sociología Interdisciplinaria.</div>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <p class="txt">Según Global Witness, en 2023 el 85% de los asesinatos de activistas medioambientales del mundo ocurrió en América Latina. Esta pieza documenta casos emblemáticos en Chile y Brasil y traduce el análisis jurídico del artículo en una guía navegable: qué herramientas de defensa existen y ante qué situación sirve cada una.</p>
+    <div class="aviso abierto"><b>Nota de actualidad:</b> esta pieza se basa en fuentes judiciales y de prensa citadas en el artículo original (cierre 2025). Los casos con causa abierta pueden haber evolucionado; el estado de cada caso se verificará antes de la publicación definitiva y en cada actualización.</div>
+    <div class="tabs">
+      <button class="tab on" onclick="cambiarTab(this,'t-cron')">Cronología de casos</button>
+      <button class="tab" onclick="cambiarTab(this,'t-guia')">Guía de mecanismos de defensa</button>
+    </div>
+    <div id="t-cron"><ul class="tl">${casos}</ul></div>
+    <div id="t-guia" style="display:none">
+      <p class="txt" style="margin-top:20px">Tres herramientas centrales identificadas en el análisis, con su uso práctico:</p>
+      ${mecs}
+    </div>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+}
+function cambiarTab(btn,id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('t-cron').style.display = id==='t-cron'?'block':'none';
+  document.getElementById('t-guia').style.display = id==='t-guia'?'block':'none';
+}
+
+
+function barras(datos, max){
+  return datos.map(([lab,val,txt])=>`
+    <div class="barrow"><span class="lab">${lab}</span>
+      <span class="pista"><i style="width:${Math.round(val/max*100)}%"></i></span>
+      <span class="val">${txt??val}</span></div>`).join('');
+}
+
+function vistaParisi(){
+  registrarEvento('parisi','vista');
+  app.innerHTML = `
+  ${migas("Tecnopopulismo en Facebook")}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge b-mixto">MIXTO</span><span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">Exploración interactiva</span></div>
+    <h1>Tecnopopulismo en Facebook: la estrategia de Franco Parisi</h1>
+    <div class="credito">A partir de: Bravo Carmona, A. (2026). <i>Estrategia en Facebook de Franco Parisi. Un caso de tecnopopulismo en la campaña presidencial de 2025</i>. Seminario de grado, Sociología UAH. Profesor guía: Alexis Cortés.</div>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <p class="txt">¿Cómo se construye un liderazgo tecnopopulista en redes sociales? La investigación analizó 220 publicaciones y 200 comentarios del período legal de campaña (26 de octubre – 16 de noviembre de 2025), combinando análisis de contenido y estadística descriptiva. El hallazgo central: una estrategia de <b>autolegitimación</b> que combina estilo cercano con antagonismo selectivo, produciendo un <b>fenómeno espejo</b> — el seguidor se proyecta en el líder y, al votar por él, siente que vota por sí mismo.</p>
+
+    <h3 class="sec">Anatomía del contenido</h3>
+    <div class="stats">
+      <div class="stat"><b>62,7%</b><span>de las publicaciones son videos (34 seg – 4 min)</span></div>
+      <div class="stat"><b>52,7%</b><span>usa un estilo comunicativo cercano y cotidiano</span></div>
+      <div class="stat"><b>82,3%</b><span>tiene a Parisi como protagonista único</span></div>
+    </div>
+    <p class="txt">Predomina el <b>infoentretenimiento</b>: formatos breves, música en tendencia, mensaje diseñado para consumo inmediato. Tonalidad discursiva de las 220 publicaciones:</p>
+    ${barras([["Cercano",116],["Institucional",35],["Técnico",27],["Coloquial",23],["Humorístico",19]],116)}
+
+    <h3 class="sec">El antagonismo es selectivo, no constante</h3>
+    <p class="txt">Contra la intuición sobre los liderazgos populistas, el 65,5% de las publicaciones <b>no</b> presenta antagonismo. Cuando aparece, es casi siempre político — y se concentra en las temáticas de autovalidación y crítica al establishment, donde el conflicto legitima la figura del líder:</p>
+    ${barras([["Sin antagonismo",144],["Antagonismo político",63],["Contra medios y encuestas",11],["Antagonismo económico",2]],144)}
+    <p class="txt">La estrategia alterna momentos de <i>tregua</i> (respaldo ciudadano como zona de cohesión) con confrontación dosificada — y usa fragmentos de televisión y debates, donde el excandidato controla la narrativa al seleccionar solo los instantes de confrontación.</p>
+
+    <h3 class="sec">Economía de los afectos</h3>
+    <p class="txt">¿Qué contenido produce qué emoción? Promedios de reacciones por temática (selecciona una reacción):</p>
+    <div class="subtabs">
+      <button class="subtab on" onclick="afecto(this,'g')">👍 Me gusta (aprobación)</button>
+      <button class="subtab" onclick="afecto(this,'e')">💛 Me encanta (afinidad)</button>
+      <button class="subtab" onclick="afecto(this,'i')">😠 Me enoja (indignación)</button>
+    </div>
+    <div id="af-g">${barras([["Propuestas programáticas",9175,"9.175"],["Migración",8567,"8.567"],["Convocatorias",7817,"7.817"],["Seguridad",3440,"3.440"],["Cooperación electoral",2868,"2.868"]],9175)}</div>
+    <div id="af-e" style="display:none">${barras([["Convocatoria",1121,"1.121"],["Autovalidación",1084,"1.084"],["Respaldo ciudadano",974,"974"],["Bienestar económico",425,"425"],["Seguridad",296,"296"]],1121)}</div>
+    <div id="af-i" style="display:none">${barras([["Crítica al establishment",92,"92"],["Migración",13,"13"],["Autovalidación",10,"10"],["Campaña electoral",1,"1"]],92)}</div>
+    <p class="txt" style="margin-top:12px">La lectura: la <b>aprobación</b> se concentra en propuestas y participación; la <b>indignación</b> se dispara exactamente donde hay antagonismo (crítica al establishment). La confrontación funciona como motor de indignación mientras el respaldo ciudadano consolida la afinidad — el equilibrio que sostiene la comunidad.</p>
+
+    <h3 class="sec">El fenómeno espejo: cómo responde la comunidad</h3>
+    <p class="txt">Códigos más frecuentes en los 200 comentarios analizados. Los seguidores no solo consumen el discurso: lo replican, convierten los ataques al líder en pruebas de su aptitud, y fusionan la validación técnica ("es doctor en economía") con el lazo afectivo:</p>
+    ${barras([["Apoyo por atributo personal",30],["Afectividad positiva",28],["Saturación afectiva",28],["Validación del antagonismo",27],["Validación de credenciales",27],["Apoyo a medidas propuestas",25],["Rechazo político",14],["Reinterpretación",14]],30)}
+    <div class="nota-shiny">Esta es la versión curatorial de la pieza. El dashboard completo — exploración por publicación, cruces de variables y series temporales — se construirá en R/Shiny durante el piloto y se enlazará desde aquí.</div>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+}
+function afecto(btn,id){
+  document.querySelectorAll('.subtab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  ['g','e','i'].forEach(x=>document.getElementById('af-'+x).style.display = x===id?'block':'none');
+  registrarEvento('parisi','afecto');
+}
+
+function vistaSustancia(){
+  registrarEvento('sustancia','vista');
+  app.innerHTML = `
+  ${migas("Sustancia")}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge b-cuanti">CUANTITATIVO</span><span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">App pedagógica · operativa</span></div>
+    <h1>Sustancia: aprender a interpretar estadística con datos reales</h1>
+    <div class="credito">A partir de: seminario de grado sobre socialización digital, hábitus tecnológico y bienestar en estudiantes de primer año (n=276). Sociología UAH, 2026.</div>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <p class="txt">Sustancia convierte los resultados de una investigación real en un entrenamiento de interpretación estadística: la app presenta datos y modelos publicados, el usuario escribe su interpretación, y una evaluación automatizada la clasifica en cinco niveles de profundidad interpretativa — de la lectura literal a la inferencia crítica — con retroalimentación inmediata.</p>
+    
+    <!-- CONTENEDOR DE LOS DOS BOTONES -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+      <a class="btn" href="${ENLACE_SUSTANCIA}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','abrir')">Abrir Sustancia ↗</a>
+      <a class="btn" style="background-color: transparent; border: 1px solid currentColor;" href="${ENLACE_SUSTANCIA_PROYECTO}" target="_blank" rel="noopener" onclick="registrarEvento('sustancia','conoce_mas')">Conoce más ↗</a>
+    </div>
+
+    <h3 class="sec">La investigación detrás de la app</h3>
+    <p class="txt">El estudio identificó tres perfiles de hábitus tecnológico en los estudiantes encuestados:</p>
+    <div class="stats">
+      <div class="stat"><b>43,3%</b><span>Moderado-regulado: uso acotado con prácticas de autorregulación</span></div>
+      <div class="stat"><b>30,6%</b><span>Hiperconectado-crítico: alta conexión con distancia reflexiva</span></div>
+      <div class="stat"><b>26,1%</b><span>Saturado-delegativo: uso intensivo con delegación tecnológica</span></div>
+    </div>
+    <p class="txt">Y un hallazgo contraintuitivo que estructura los ejercicios de la app: <b>no es el tiempo de pantalla lo que predice el deterioro del bienestar, sino el uso compulsivo</b> (β=1,07; p&lt;0,001), junto al género femenino (β=1,76; p&lt;0,001) — los únicos predictores significativos del modelo. Interpretar correctamente esa diferencia (horas vs. compulsividad; correlación vs. mecanismo) es exactamente el tipo de destreza que Sustancia entrena.</p>
+
+    <h3 class="sec">Por qué es una pieza de la vitrina</h3>
+    <p class="txt">Sustancia es la prueba de concepto del piloto: demuestra que una tesis puede circular no como texto que se lee, sino como experiencia que se usa — y registra automáticamente cada interacción, alimentando los indicadores comprometidos.</p>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+}
+
+function vistaSkeleton(id){
+  const p = PIEZAS.find(x=>x.id===id);
+  const detalle = {necesita:"la versión definitiva del documento (la autora está realizando ajustes finales) y la revisión de los términos del consentimiento informado original", plan:"Tipología navegable de trayectorias hacia el voto, mapa temático de marcos discursivos y explorador de citas anonimizadas — solo dentro de lo que el consentimiento original permita."};
+  app.innerHTML = `
+  ${migas(p.titulo)}
+  <div class="wrap pieza-head">
+    <div class="badges"><span class="badge ${p.badge}">${p.metodo}</span><span style="font-size:11px;color:var(--piedra);letter-spacing:.06em;text-transform:uppercase">${p.formato}</span></div>
+    <h1>${p.titulo}</h1>
+    <div class="credito">${p.autoria}</div>
+  </div>
+  <section class="wrap" style="padding-top:10px">
+    <span class="estado-tag">EN CONSTRUCCIÓN</span>
+    <p class="txt">${p.desc}</p>
+    <div class="skeleton">
+      <h4>Estado de la pieza</h4>
+      <p><b>Pendiente:</b> ${detalle.necesita}.</p>
+      <p><b>Plan de traducción:</b> ${detalle.plan}</p>
+      <p><b>Resguardos:</b> autorización escrita de la autora, licencia CC BY-NC-SA, anonimización verificada donde corresponda.</p>
+    </div>
+    <a class="volver" href="#/">Volver a la vitrina</a>
+  </section>`;
+}
+
+render();
 </script>
 </body>
 </html>
