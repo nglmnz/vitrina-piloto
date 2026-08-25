@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vitrina · investigación latinoamericana transformada en experiencias públicas, interactivas y accesibles." />
+  <title>Vitrina · Investigación que se puede explorar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#070b12;
+      --bg-soft:#0d131d;
+      --panel:#121925;
+      --panel-2:#182131;
+      --text:#f1f3f4;
+      --muted:#9aa6b5;
+      --line:rgba(255,255,255,.11);
+      --line-strong:rgba(255,255,255,.18);
+      --accent:#75b8ff;
+      --accent-2:#c993f0;
+      --good:#79d3b3;
+      --warm:#f1b4a6;
+      --shadow:0 28px 80px rgba(0,0,0,.35);
+      --display:"Fraunces", Georgia, serif;
+      --ui:"DM Sans", system-ui, sans-serif;
+      --ease:cubic-bezier(.16,1,.3,1);
+    }
+
+    html[data-theme="light"]{
+      --bg:#efede9;
+      --bg-soft:#e6e2dc;
+      --panel:#f8f6f2;
+      --panel-2:#eeeae4;
+      --text:#11141a;
+      --muted:#68707c;
+      --line:rgba(17,20,26,.11);
+      --line-strong:rgba(17,20,26,.18);
+      --accent:#3e71a6;
+      --accent-2:#9462a9;
+      --good:#2b836b;
+      --warm:#b66556;
+      --shadow:0 28px 70px rgba(36,33,29,.14);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--ui);
+      line-height:1.55;
+      overflow-x:hidden;
+      transition:background .4s ease,color .4s ease;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+
+    /* CURSOR */
+    #cursorDot,#cursorRing{
+      position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+    }
+    #cursorDot{width:7px;height:7px;border-radius:50%;background:var(--text)}
+    #cursorRing{
+      width:38px;height:38px;border:1px solid color-mix(in srgb,var(--text) 35%,transparent);
+      border-radius:50%;transition:width .25s var(--ease),height .25s var(--ease),border-color .25s;
+    }
+    body.cursor-hover #cursorDot{transform:translate(-50%,-50%) scale(0)}
+    body.cursor-hover #cursorRing{width:62px;height:62px;border-color:var(--accent)}
+    @media (hover:none){#cursorDot,#cursorRing{display:none}}
+
+    /* TOP BAR */
+    .topline{
+      position:fixed;inset:0 0 auto 0;z-index:1000;height:66px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+      border-bottom:1px solid transparent;
+      transition:.35s ease;
+    }
+    .topline.scrolled{
+      background:color-mix(in srgb,var(--bg) 80%,transparent);
+      backdrop-filter:blur(18px);
+      border-color:var(--line);
+    }
+    .brand{font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem}
+    .brand span{color:var(--accent)}
+    .nav{display:flex;align-items:center;gap:1.5rem}
+    .nav a{font-size:.73rem;color:var(--muted);transition:color .2s}
+    .nav a:hover{color:var(--text)}
+    .control{
+      border:1px solid var(--line);background:var(--panel);
+      color:var(--text);height:34px;min-width:34px;padding:0 .7rem;
+      border-radius:999px;cursor:pointer;transition:.25s ease;
+    }
+    .control:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+    .control-group{display:flex;gap:.35rem;align-items:center}
+    .lang.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;position:relative;overflow:hidden;
+      display:grid;grid-template-columns:1.02fr .98fr;align-items:end;
+      padding:9rem 5vw 4rem;
+      background:
+        radial-gradient(circle at 78% 22%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 27%),
+        radial-gradient(circle at 24% 70%, color-mix(in srgb,var(--accent) 12%,transparent), transparent 33%),
+        var(--bg);
+    }
+    .grid-field{
+      position:absolute;inset:0;opacity:.26;pointer-events:none;
+      background-image:
+        linear-gradient(var(--line) 1px,transparent 1px),
+        linear-gradient(90deg,var(--line) 1px,transparent 1px);
+      background-size:52px 52px;
+      mask-image:radial-gradient(circle at 55% 48%,#000 0%,transparent 78%);
+    }
+    .hero-copy{position:relative;z-index:4;max-width:760px}
+    .eyebrow{
+      display:flex;align-items:center;gap:.8rem;
+      font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--accent);margin-bottom:1.3rem;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:currentColor}
+    h1{
+      font-family:var(--display);font-size:clamp(3.7rem,8vw,8.6rem);
+      line-height:.9;font-weight:500;letter-spacing:-.055em;margin:0;
+    }
+    h1 em{color:var(--accent-2);font-weight:400}
+    .hero-sub{
+      max-width:610px;font-family:var(--display);font-size:clamp(1.15rem,2vw,1.55rem);
+      color:var(--muted);line-height:1.35;margin:2rem 0 0;
+    }
+    .hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+    .pill{
+      display:inline-flex;align-items:center;gap:.55rem;padding:.72rem 1rem;
+      border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 88%,transparent);
+      color:var(--text);font-size:.72rem;font-weight:700;cursor:pointer;transition:.25s ease;
+    }
+    .pill:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+    .pill.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+    /* RIBBON / REFERENCE INSPIRED */
+    .hero-art{position:relative;min-height:520px;display:grid;place-items:center}
+    .orb{position:absolute;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.32),transparent 42%),linear-gradient(135deg,#bfe1f8,#cdb7ed,#f2b5ad);filter:blur(1px);opacity:.24}
+    .ribbon{
+      position:relative;width:min(710px,92vw);height:230px;transform:rotate(-4deg);
+      filter:drop-shadow(0 24px 32px rgba(0,0,0,.16));
+    }
+    .ribbon span{
+      position:absolute;width:64px;height:188px;border-radius:9px 9px 4px 4px;
+      top:20px;box-shadow:inset -8px -8px 15px rgba(0,0,0,.09),inset 8px 8px 12px rgba(255,255,255,.18);
+      transform:skewY(-19deg) rotate(-12deg);
+      transition:transform .35s var(--ease);
+    }
+    .ribbon span:nth-child(1){left:10px;background:#9bbfdd}
+    .ribbon span:nth-child(2){left:52px;background:#d89daf}
+    .ribbon span:nth-child(3){left:94px;background:#cdb7ef}
+    .ribbon span:nth-child(4){left:136px;background:#e7b39d}
+    .ribbon span:nth-child(5){left:178px;background:#9ab8d7}
+    .ribbon span:nth-child(6){left:220px;background:#d88fb0}
+    .ribbon span:nth-child(7){left:262px;background:#c2a9e7}
+    .ribbon span:nth-child(8){left:304px;background:#e0a58e}
+    .ribbon span:nth-child(9){left:346px;background:#93b5d3}
+    .ribbon span:nth-child(10){left:388px;background:#cf8ca9}
+    .ribbon span:nth-child(11){left:430px;background:#c1a5e6}
+    .ribbon span:nth-child(12){left:472px;background:#e4ab95}
+    .ribbon span:nth-child(13){left:514px;background:#91b5d4}
+    .ribbon span:nth-child(14){left:556px;background:#cb8fae}
+    .ribbon span:nth-child(15){left:598px;background:#c6ace7}
+    .hero-art:hover .ribbon span{transform:skewY(-19deg) rotate(-12deg) translateY(-8px)}
+    .floating-data{position:absolute;inset:auto 5% 2% auto;display:grid;gap:.35rem;z-index:3}
+    .data-chip{
+      display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;border:1px solid var(--line);
+      background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(10px);font-size:.65rem;
+    }
+    .data-chip b{color:var(--accent)}
+
+    /* DEPTH NAV */
+    .depth{
+      position:relative;z-index:10;margin:-20px 5vw 0;padding:1rem;
+      border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 94%,transparent);
+      backdrop-filter:blur(20px);box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr auto;
+      gap:1rem;align-items:center;border-radius:18px;
+    }
+    .depth-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .depth-track{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+    .depth-step{position:relative;border:1px solid var(--line);background:transparent;color:var(--muted);padding:.68rem .8rem;cursor:pointer;text-align:left;border-radius:12px;transition:.2s}
+    .depth-step small{display:block;font-size:.59rem;text-transform:uppercase;letter-spacing:.1em}
+    .depth-step strong{display:block;margin-top:.2rem;font-size:.75rem;color:inherit}
+    .depth-step.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+    .depth-help{font-size:.7rem;color:var(--muted);max-width:190px}
+
+    /* SECTIONS */
+    .section{padding:7rem 5vw}
+    .section.alt{background:var(--bg-soft)}
+    .section.light{background:var(--panel);color:var(--text)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:2rem;border-bottom:1px solid var(--line);padding-bottom:1.2rem;margin-bottom:2rem}
+    .section-kicker{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+    h2{font-family:var(--display);font-size:clamp(2rem,4vw,4rem);font-weight:500;letter-spacing:-.035em;line-height:1;margin:.4rem 0 0}
+    .section-meta{font-size:.7rem;color:var(--muted)}
+
+    /* FILTERS */
+    .filters{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.7rem}
+    .filter{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.52rem .78rem;border-radius:999px;font-size:.68rem;cursor:pointer;transition:.2s}
+    .filter.active,.filter:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+    /* GRID */
+    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
+    .card{
+      position:relative;grid-column:span 4;min-height:390px;overflow:hidden;border:1px solid var(--line);
+      background:linear-gradient(160deg,var(--panel),color-mix(in srgb,var(--panel-2) 75%,transparent));
+      cursor:pointer;transition:transform .38s var(--ease),border-color .25s,box-shadow .38s;
+    }
+    .card.feat{grid-column:span 8;min-height:460px}
+    .card:hover{transform:translateY(-7px);border-color:var(--line-strong);box-shadow:var(--shadow)}
+    .card::after{
+      content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,color-mix(in srgb,var(--card-accent) 18%,transparent),transparent 28%);
+      pointer-events:none;
+    }
+    .card-top{display:flex;justify-content:space-between;align-items:start;gap:1rem;padding:1rem 1rem 0;position:relative;z-index:2}
+    .card-tag{font-size:.61rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:700}
+    .inst{font-size:.6rem;padding:.25rem .5rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+    .card-body{position:relative;z-index:2;padding:1.1rem;display:flex;flex-direction:column;height:100%}
+    .card-title{font-family:var(--display);font-size:clamp(1.45rem,2.5vw,2.2rem);line-height:1.02;max-width:620px}
+    .feat .card-title{font-size:clamp(2rem,4vw,4rem)}
+    .card-desc{color:var(--muted);max-width:620px;margin-top:.9rem;font-size:.86rem}
+    .card-bottom{margin-top:auto;display:flex;align-items:end;justify-content:space-between;gap:1rem;padding-top:2.2rem}
+    .finding{max-width:430px;font-family:var(--display);font-style:italic;font-size:1rem;line-height:1.25}
+    .open{font-size:.7rem;font-weight:700;color:var(--accent);white-space:nowrap}
+    .mini-bars{position:absolute;right:1.15rem;bottom:1.1rem;display:flex;gap:3px;align-items:end;opacity:.8}
+    .mini-bars span{width:7px;border-radius:3px 3px 0 0;background:var(--card-accent)}
+    .mini-bars span:nth-child(1){height:22px;opacity:.45}
+    .mini-bars span:nth-child(2){height:45px;opacity:.65}
+    .mini-bars span:nth-child(3){height:32px;opacity:.52}
+    .mini-bars span:nth-child(4){height:60px;opacity:.8}
+    .mini-bars span:nth-child(5){height:37px;opacity:.58}
+
+    /* DATA LENS */
+    .lens{
+      margin-top:1rem;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;
+      background:var(--panel);overflow:hidden;
+    }
+    .lens-cell{padding:1.6rem;border-right:1px solid var(--line);min-height:180px;transition:.25s}
+    .lens-cell:last-child{border-right:0}
+    .lens-cell:hover{background:var(--panel-2)}
+    .lens-num{font-family:var(--display);font-size:2.2rem;color:var(--accent)}
+    .lens-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;margin-top:.6rem}
+    .lens-text{font-size:.78rem;color:var(--muted);margin-top:.45rem}
+
+    /* INSTITUTIONS */
+    .institutions{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+    .inst-card{padding:1.5rem;border-right:1px solid var(--line);min-height:170px;transition:.2s}
+    .inst-card:last-child{border-right:0}
+    .inst-card:hover{background:var(--panel-2)}
+    .inst-sigla{font-family:var(--display);font-size:2.25rem}
+    .inst-name{font-size:.68rem;color:var(--muted);margin-top:.4rem}
+    .inst-country{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-top:1rem}
+    .inst-n{font-size:.68rem;color:var(--muted);margin-top:1.5rem}
+
+    /* PROCESS */
+    .process{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+    .step{padding:1.7rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:220px}
+    .step-n{font-family:var(--display);font-size:3.1rem;color:color-mix(in srgb,var(--accent) 25%,transparent)}
+    .step-title{font-weight:700;font-size:.77rem;text-transform:uppercase;letter-spacing:.1em;margin-top:1rem}
+    .step-text{font-size:.79rem;color:var(--muted);margin-top:.6rem}
+
+    /* CTA */
+    .cta{
+      display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;
+      padding:6rem 5vw;background:
+      linear-gradient(125deg,color-mix(in srgb,#a8d9ed 18%,var(--bg)),color-mix(in srgb,#e5b2db 13%,var(--bg)) 58%,var(--bg));
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+    }
+    .cta h2{max-width:760px}
+    .cta p{max-width:700px;color:var(--muted);margin-top:1rem}
+
+    /* FOOTER */
+    footer{padding:2rem 5vw;display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;color:var(--muted);font-size:.65rem;border-top:1px solid var(--line)}
+
+    /* MODAL */
+    .modal{
+      position:fixed;inset:0;z-index:2000;display:none;place-items:center;padding:5vw;
+      background:rgba(3,6,10,.62);backdrop-filter:blur(18px)
+    }
+    .modal.open{display:grid}
+    .modal-card{
+      width:min(1080px,96vw);max-height:88vh;overflow:auto;background:var(--panel);
+      border:1px solid var(--line-strong);box-shadow:0 40px 120px rgba(0,0,0,.45);position:relative
+    }
+    .modal-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.1rem;border-bottom:1px solid var(--line)}
+    .close{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:50%;width:34px;height:34px;cursor:pointer}
+    .modal-grid{display:grid;grid-template-columns:1.1fr .9fr}
+    .modal-main{padding:2rem;border-right:1px solid var(--line)}
+    .modal-main h3{font-family:var(--display);font-size:clamp(2rem,4vw,4rem);line-height:1;margin:.4rem 0 1rem}
+    .modal-main .lead{font-size:1rem;color:var(--muted);max-width:650px}
+    .insight{margin-top:2rem;padding:1.1rem 1.2rem;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent)}
+    .insight strong{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:.45rem}
+    .modal-side{padding:1.4rem}
+    .side-block{padding:1rem 0;border-bottom:1px solid var(--line)}
+    .side-label{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .side-value{font-size:.78rem;margin-top:.35rem}
+    .depth-modes{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.8rem}
+    .mode{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.45rem .55rem;border-radius:999px;font-size:.63rem;cursor:pointer}
+    .mode.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+    .evidence{
+      margin-top:1rem;display:grid;gap:.6rem
+    }
+    .evidence-row{display:grid;grid-template-columns:110px 1fr;gap:.7rem;font-size:.72rem}
+    .evidence-row span:first-child{color:var(--muted)}
+    .fake-chart{margin-top:1.4rem;height:140px;display:flex;align-items:end;gap:8px;padding:1rem;border:1px solid var(--line);background:var(--bg-soft)}
+    .fake-chart i{flex:1;background:linear-gradient(to top,var(--accent),var(--accent-2));height:var(--h);border-radius:4px 4px 1px 1px;opacity:.78}
+    .disclaimer{font-size:.63rem;color:var(--muted);margin-top:1rem}
+
+    /* TOAST */
+    .toast{
+      position:fixed;left:50%;bottom:1.2rem;transform:translate(-50%,20px);opacity:0;z-index:5000;
+      padding:.65rem .9rem;border:1px solid var(--line);background:var(--panel);font-size:.68rem;
+      pointer-events:none;transition:.25s var(--ease)
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;padding-top:8rem}
+      .hero-art{min-height:360px}
+      .depth{grid-template-columns:1fr}
+      .depth-help{max-width:none}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .card,.card.feat{grid-column:span 1}
+      .feat .card-title{font-size:2.3rem}
+      .institutions{grid-template-columns:repeat(2,1fr)}
+      .inst-card:nth-child(2){border-right:0}
+      .inst-card{border-bottom:1px solid var(--line)}
+      .process{grid-template-columns:repeat(2,1fr)}
+      .modal-grid{grid-template-columns:1fr}
+      .modal-main{border-right:0;border-bottom:1px solid var(--line)}
+      .nav a{display:none}
+    }
+
+    @media (max-width: 680px){
+      .hero{padding-left:1.2rem;padding-right:1.2rem}
+      .section,.cta,.topline,footer{padding-left:1.2rem;padding-right:1.2rem}
+      .hero-art{display:none}
+      h1{font-size:clamp(3.2rem,17vw,5.4rem)}
+      .depth{margin:-12px 1.2rem 0}
+      .depth-track{grid-template-columns:repeat(2,1fr)}
+      .cards{grid-template-columns:1fr}
+      .lens{grid-template-columns:1fr}
+      .lens-cell{border-right:0;border-bottom:1px solid var(--line)}
+      .institutions{grid-template-columns:1fr}
+      .inst-card{border-right:0}
+      .process{grid-template-columns:1fr}
+      .cta{grid-template-columns:1fr}
+      .modal{padding:0}
+      .modal-card{width:100%;max-height:100vh}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+    }
+  </style>
+</head>
+
+<body>
+  <div id="cursorDot"></div><div id="cursorRing"></div>
+
+  <header class="topline" id="topline">
+    <a href="#" class="brand">Vitrina<span>.</span></a>
+    <nav class="nav">
+      <a href="#investigacion" data-i18n="navResearch">Investigación</a>
+      <a href="#profundidad" data-i18n="navDepth">Profundidad</a>
+      <a href="#instituciones" data-i18n="navInstitutions">Instituciones</a>
+      <a href="#proceso" data-i18n="navProcess">Proceso</a>
+      <div class="control-group">
+        <button class="control lang active" data-lang="es">ES</button>
+        <button class="control lang" data-lang="pt">PT</button>
+        <button class="control" id="themeToggle" aria-label="Cambiar tema">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="grid-field"></div>
+      <div class="hero-copy">
+        <div class="eyebrow" data-i18n="eyebrow">Plataforma editorial de investigación latinoamericana</div>
+        <h1 data-i18n-html="heroTitle">La investigación<br>también puede <em>explorarse.</em></h1>
+        <p class="hero-sub" data-i18n="heroSub">
+          Vitrina transforma artículos, tesis y datos de investigación en experiencias públicas que permiten leer, comparar, preguntar y volver a mirar.
+        </p>
+        <div class="hero-actions">
+          <a class="pill primary" href="#investigacion" data-i18n="explore">Explorar investigación ↓</a>
+          <button class="pill" id="randomPiece" data-i18n="surprise">Sorpréndeme ↗</button>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb"></div>
+        <div class="ribbon">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="floating-data">
+          <div class="data-chip"><b>01</b> pregunta</div>
+          <div class="data-chip"><b>02</b> evidencia</div>
+          <div class="data-chip"><b>03</b> contexto</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="depth" id="profundidad">
+      <div class="depth-label" data-i18n="depthLabel">Profundidad de lectura</div>
+      <div class="depth-track">
+        <button class="depth-step active" data-depth="idea">
+          <small>01</small><strong data-i18n="depth1">Idea</strong>
+        </button>
+        <button class="depth-step" data-depth="evidence">
+          <small>02</small><strong data-i18n="depth2">Evidencia</strong>
+        </button>
+        <button class="depth-step" data-depth="method">
+          <small>03</small><strong data-i18n="depth3">Método</strong>
+        </button>
+        <button class="depth-step" data-depth="data">
+          <small>04</small><strong data-i18n="depth4">Datos</strong>
+        </button>
+      </div>
+      <div class="depth-help" id="depthHelp" data-i18n="depthHelp">
+        Empieza por la idea central. Luego abre capas para ver qué la sostiene.
+      </div>
+    </section>
+
+    <section class="section" id="investigacion">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker" data-i18n="researchKicker">Vitrina · piezas</div>
+          <h2 data-i18n="researchTitle">Leer los datos desde distintas formas.</h2>
+        </div>
+        <div class="section-meta" id="countLabel">6 piezas</div>
+      </div>
+
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="all" data-i18n="all">Todas</button>
+        <button class="filter" data-filter="tesis" data-i18n="fTesis">Tesis interactiva</button>
+        <button class="filter" data-filter="visualizacion" data-i18n="fViz">Visualización</button>
+        <button class="filter" data-filter="dashboard" data-i18n="fDash">Dashboard</button>
+        <button class="filter" data-filter="narrativa" data-i18n="fNarr">Narrativa</button>
+        <button class="filter" data-filter="documental" data-i18n="fDoc">Documental</button>
+        <button class="filter" data-filter="cobertura" data-i18n="fCov">Cobertura</button>
+      </div>
+
+      <div class="cards" id="cards"></div>
+
+      <div class="lens">
+        <div class="lens-cell">
+          <div class="lens-num">01</div>
+          <div class="lens-title" data-i18n="lens1Title">Mismo objeto, otra entrada</div>
+          <div class="lens-text" data-i18n="lens1Text">Una investigación puede comenzar como hallazgo, mapa, historia, contraste o pregunta.</div>
+        </div>
+        <div class="lens-cell">
+          <div class="lens-num">02</div>
+          <div class="lens-title" data-i18n="lens2Title">La forma también enseña</div>
+          <div class="lens-text" data-i18n="lens2Text">La organización visual cambia qué relaciones aparecen primero y qué preguntas se vuelven posibles.</div>
+        </div>
+        <div class="lens-cell">
+          <div class="lens-num">03</div>
+          <div class="lens-title" data-i18n="lens3Title">Profundidad sin jerga</div>
+          <div class="lens-text" data-i18n="lens3Text">La interfaz permite entrar desde una lectura rápida y avanzar hacia método, variables y evidencia.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="instituciones">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker" data-i18n="instKicker">Red de producción</div>
+          <h2 data-i18n="instTitle">La investigación no vive sola.</h2>
+        </div>
+      </div>
+      <div class="institutions" id="institutionsGrid"></div>
+    </section>
+
+    <section class="section light" id="proceso">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker" data-i18n="processKicker">Del artículo a la experiencia</div>
+          <h2 data-i18n="processTitle">Traducir no es recortar. Es reorganizar.</h2>
+        </div>
+      </div>
+      <div class="process">
+        <div class="step"><div class="step-n">01</div><div class="step-title" data-i18n="s1Title">Pregunta</div><div class="step-text" data-i18n="s1Text">Extraemos la pregunta que puede mover una conversación fuera del paper.</div></div>
+        <div class="step"><div class="step-n">02</div><div class="step-title" data-i18n="s2Title">Estructura</div><div class="step-text" data-i18n="s2Text">Ordenamos conceptos, variables, hallazgos y contexto en una arquitectura navegable.</div></div>
+        <div class="step"><div class="step-n">03</div><div class="step-title" data-i18n="s3Title">Interacción</div><div class="step-text" data-i18n="s3Text">La audiencia filtra, compara, abre capas y decide cuánto quiere profundizar.</div></div>
+        <div class="step"><div class="step-n">04</div><div class="step-title" data-i18n="s4Title">Retorno</div><div class="step-text" data-i18n="s4Text">La pieza deja visible su procedencia y permite volver al estudio original.</div></div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <div class="section-kicker" data-i18n="ctaKicker">Convocatoria</div>
+        <h2 data-i18n="ctaTitle">Saca tu investigación del repositorio y conviértela en una experiencia.</h2>
+        <p data-i18n="ctaText">Vitrina propone una mediación donde el público no recibe una versión simplificada: entra a una investigación por rutas distintas.</p>
+      </div>
+      <a class="pill primary" href="mailto:vitrina@investigacion.cl" data-i18n="contact">Conversemos →</a>
+    </section>
+  </main>
+
+  <footer>
+    <div>Vitrina<span style="color:var(--accent)">.</span> · <span data-i18n="footer1">Piloto 2026</span></div>
+    <div data-i18n="footer2">Plataforma editorial independiente · Multi-institucional · Sin fines de lucro</div>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <article class="modal-card">
+      <div class="modal-top">
+        <div class="section-kicker" id="modalTag">Tesis interactiva</div>
+        <button class="close" id="closeModal" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-main">
+          <h3 id="modalTitle">Sustancia</h3>
+          <p class="lead" id="modalDesc"></p>
+          <div class="insight">
+            <strong data-i18n="centralFinding">Hallazgo central</strong>
+            <div id="modalFinding"></div>
+          </div>
+          <div class="fake-chart" id="fakeChart" aria-label="Visualización ilustrativa"></div>
+          <div class="disclaimer" data-i18n="chartNote">Visualización de interfaz de demostración: el gráfico real se reemplaza por la evidencia del estudio correspondiente.</div>
+        </div>
+        <aside class="modal-side">
+          <div class="side-block">
+            <div class="side-label" data-i18n="by">Autoría</div>
+            <div class="side-value" id="modalAuthor"></div>
+          </div>
+          <div class="side-block">
+            <div class="side-label" data-i18n="institution">Institución</div>
+            <div class="side-value" id="modalInst"></div>
+          </div>
+          <div class="side-block">
+            <div class="side-label" data-i18n="readingMode">Modo de lectura</div>
+            <div class="depth-modes">
+              <button class="mode active" data-modal-depth="idea">Idea</button>
+              <button class="mode" data-modal-depth="evidence">Evidencia</button>
+              <button class="mode" data-modal-depth="method">Método</button>
+              <button class="mode" data-modal-depth="data">Datos</button>
+            </div>
+          </div>
+          <div class="side-block">
+            <div class="side-label" data-i18n="whatChanges">Qué cambia al abrir otra capa</div>
+            <div class="evidence" id="modalEvidence"></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const PIECES = [
+      {
+        id:'sustancia', tipo:'tesis', feat:true, tag:'Tesis interactiva', inst:'UAH',
+        title:'Sustancia',
+        desc:'Habitus tecnológico y conexión cuerpo-mente en estudiantes universitarios chilenos.',
+        finding:'El uso compulsivo predice deterioro en salud mental. El tiempo de pantalla, no.',
+        autor:'Ángel Darío Muñoz Rañiman', year:2026, accent:'#79d3b3'
+      },
+      {
+        id:'alas', tipo:'cobertura', tag:'Cobertura especial', inst:'Vitrina',
+        title:'ALAS 2026: América Latina se piensa a sí misma',
+        desc:'Despacho desde el Congreso de la Asociación Latinoamericana de Sociología, Río de Janeiro.',
+        finding:'La sociología latinoamericana busca nuevas formas de hablar en voz alta.',
+        autor:'Ángel Darío Muñoz Rañiman', year:2026, accent:'#f1b4a6'
+      },
+      {
+        id:'arq', tipo:'visualizacion', tag:'Visualización geoespacial', inst:'UAH',
+        title:'Arquitectura hostil en Santiago',
+        desc:'Mapa interactivo del diseño urbano como instrumento de exclusión social.',
+        finding:'El espacio público no es neutral: excluye por diseño.',
+        autor:'Francesca Roco Rojas', year:2026, accent:'#75b8ff'
+      },
+      {
+        id:'tecno', tipo:'dashboard', tag:'Dashboard político', inst:'UAH',
+        title:'Tecnopopulismo en Chile',
+        desc:'Análisis computacional del discurso populista en plataformas digitales chilenas.',
+        finding:'La comunicación populista se adapta a los algoritmos, no al revés.',
+        autor:'Antonia Bravo Carmona', year:2026, accent:'#c993f0'
+      },
+      {
+        id:'derecha', tipo:'narrativa', tag:'Narrativa crítica', inst:'UAH',
+        title:'Jóvenes, género y la nueva derecha',
+        desc:'Cómo mujeres jóvenes construyen identidad política en el giro conservador latinoamericano.',
+        finding:'El antifeminismo no es ausencia de política: es política activa.',
+        autor:'Gabriela Mardones Gómez', year:2026, accent:'#e0a17f'
+      },
+      {
+        id:'bosque', tipo:'documental', tag:'Documental', inst:'UAH',
+        title:'Defender la tierra',
+        desc:'Registro de la violencia sistemática contra defensores del medio ambiente en Chile y Brasil.',
+        finding:'Defender el territorio sigue siendo uno de los actos más peligrosos en América Latina.',
+        autor:'Diego Navarro Gutiérrez', year:2026, accent:'#8ab6a2'
+      }
+    ];
+
+    const INSTITUCIONES = [
+      {sigla:'UAH', nombre:'Universidad Alberto Hurtado', pais:'Chile', n:5},
+      {sigla:'USACH', nombre:'Universidad de Santiago de Chile', pais:'Chile', n:1},
+      {sigla:'UdeChile', nombre:'Universidad de Chile', pais:'Chile', n:0},
+      {sigla:'Vitrina', nombre:'Producción propia', pais:'—', n:1}
+    ];
+
+    const I18N = {
+      es:{
+        navResearch:'Investigación',navDepth:'Profundidad',navInstitutions:'Instituciones',navProcess:'Proceso',
+        eyebrow:'Plataforma editorial de investigación latinoamericana',
+        heroTitle:'La investigación<br>también puede <em>explorarse.</em>',
+        heroSub:'Vitrina transforma artículos, tesis y datos de investigación en experiencias públicas que permiten leer, comparar, preguntar y volver a mirar.',
+        explore:'Explorar investigación ↓',surprise:'Sorpréndeme ↗',
+        depthLabel:'Profundidad de lectura',depth1:'Idea',depth2:'Evidencia',depth3:'Método',depth4:'Datos',
+        depthHelp:'Empieza por la idea central. Luego abre capas para ver qué la sostiene.',
+        researchKicker:'Vitrina · piezas',researchTitle:'Leer los datos desde distintas formas.',
+        all:'Todas',fTesis:'Tesis interactiva',fViz:'Visualización',fDash:'Dashboard',fNarr:'Narrativa',fDoc:'Documental',fCov:'Cobertura',
+        lens1Title:'Mismo objeto, otra entrada',lens1Text:'Una investigación puede comenzar como hallazgo, mapa, historia, contraste o pregunta.',
+        lens2Title:'La forma también enseña',lens2Text:'La organización visual cambia qué relaciones aparecen primero y qué preguntas se vuelven posibles.',
+        lens3Title:'Profundidad sin jerga',lens3Text:'La interfaz permite entrar desde una lectura rápida y avanzar hacia método, variables y evidencia.',
+        instKicker:'Red de producción',instTitle:'La investigación no vive sola.',
+        processKicker:'Del artículo a la experiencia',processTitle:'Traducir no es recortar. Es reorganizar.',
+        s1Title:'Pregunta',s1Text:'Extraemos la pregunta que puede mover una conversación fuera del paper.',
+        s2Title:'Estructura',s2Text:'Ordenamos conceptos, variables, hallazgos y contexto en una arquitectura navegable.',
+        s3Title:'Interacción',s3Text:'La audiencia filtra, compara, abre capas y decide cuánto quiere profundizar.',
+        s4Title:'Retorno',s4Text:'La pieza deja visible su procedencia y permite volver al estudio original.',
+        ctaKicker:'Convocatoria',ctaTitle:'Saca tu investigación del repositorio y conviértela en una experiencia.',
+        ctaText:'Vitrina propone una mediación donde el público no recibe una versión simplificada: entra a una investigación por rutas distintas.',
+        contact:'Conversemos →',footer1:'Piloto 2026',footer2:'Plataforma editorial independiente · Multi-institucional · Sin fines de lucro',
+        centralFinding:'Hallazgo central',chartNote:'Visualización de interfaz de demostración: el gráfico real se reemplaza por la evidencia del estudio correspondiente.',
+        by:'Autoría',institution:'Institución',readingMode:'Modo de lectura',whatChanges:'Qué cambia al abrir otra capa'
+      },
+      pt:{
+        navResearch:'Pesquisa',navDepth:'Profundidade',navInstitutions:'Instituições',navProcess:'Processo',
+        eyebrow:'Plataforma editorial de pesquisa latino-americana',
+        heroTitle:'A pesquisa<br>também pode ser <em>explorada.</em>',
+        heroSub:'A Vitrina transforma artigos, teses e dados de pesquisa em experiências públicas que permitem ler, comparar, perguntar e voltar a olhar.',
+        explore:'Explorar pesquisa ↓',surprise:'Surpreenda-me ↗',
+        depthLabel:'Profundidade de leitura',depth1:'Ideia',depth2:'Evidência',depth3:'Método',depth4:'Dados',
+        depthHelp:'Comece pela ideia central. Depois abra camadas para ver o que a sustenta.',
+        researchKicker:'Vitrina · peças',researchTitle:'Ler os dados a partir de diferentes formas.',
+        all:'Todas',fTesis:'Tese interativa',fViz:'Visualização',fDash:'Dashboard',fNarr:'Narrativa',fDoc:'Documentário',fCov:'Cobertura',
+        lens1Title:'Mesmo objeto, outra entrada',lens1Text:'Uma pesquisa pode começar como descoberta, mapa, história, contraste ou pergunta.',
+        lens2Title:'A forma também ensina',lens2Text:'A organização visual muda quais relações aparecem primeiro e quais perguntas se tornam possíveis.',
+        lens3Title:'Profundidade sem jargão',lens3Text:'A interface permite entrar por uma leitura rápida e avançar para método, variáveis e evidências.',
+        instKicker:'Rede de produção',instTitle:'A pesquisa não vive sozinha.',
+        processKicker:'Do artigo à experiência',processTitle:'Traduzir não é cortar. É reorganizar.',
+        s1Title:'Pergunta',s1Text:'Extraímos a pergunta capaz de mover uma conversa para fora do paper.',
+        s2Title:'Estrutura',s2Text:'Organizamos conceitos, variáveis, achados e contexto em uma arquitetura navegável.',
+        s3Title:'Interação',s3Text:'O público filtra, compara, abre camadas e decide quanto quer aprofundar.',
+        s4Title:'Retorno',s4Text:'A peça torna sua origem visível e permite voltar ao estudo original.',
+        ctaKicker:'Chamada',ctaTitle:'Tire sua pesquisa do repositório e transforme-a em uma experiência.',
+        ctaText:'A Vitrina propõe uma mediação em que o público não recebe uma versão simplificada: entra em uma pesquisa por diferentes caminhos.',
+        contact:'Vamos conversar →',footer1:'Piloto 2026',footer2:'Plataforma editorial independente · Multi-institucional · Sem fins lucrativos',
+        centralFinding:'Achado central',chartNote:'Visualização de interface de demonstração: o gráfico real é substituído pelas evidências do estudo correspondente.',
+        by:'Autoria',institution:'Instituição',readingMode:'Modo de leitura',whatChanges:'O que muda ao abrir outra camada'
+      }
+    };
+
+    const DEPTH_TEXT = {
+      idea:['Uma ideia clara permite entrar sem conhecer a linguagem acadêmica.','A peça começa pelo problema e pelo achado, não pelo jargão.'],
+      evidence:['A evidência torna visível de onde vem a afirmação.','Gráficos, contrastes e magnitudes aparecem como objetos que podem ser interrogados.'],
+      method:['O método explica como a afirmação foi construída.','A interface pode revelar desenho, amostra, variáveis e decisões analíticas.'],
+      data:['Os dados deixam de ser um fim e viram matéria para pensar.','Abrir esta camada permite observar distribuições, relações e limites.']
+    };
+
+    const els = {
+      cards:document.getElementById('cards'),
+      count:document.getElementById('countLabel'),
+      modal:document.getElementById('modal'),
+      modalTag:document.getElementById('modalTag'),
+      modalTitle:document.getElementById('modalTitle'),
+      modalDesc:document.getElementById('modalDesc'),
+      modalFinding:document.getElementById('modalFinding'),
+      modalAuthor:document.getElementById('modalAuthor'),
+      modalInst:document.getElementById('modalInst'),
+      modalEvidence:document.getElementById('modalEvidence'),
+      fakeChart:document.getElementById('fakeChart'),
+      toast:document.getElementById('toast'),
+      depthHelp:document.getElementById('depthHelp')
+    };
+
+    let lang = 'es';
+    let currentDepth = 'idea';
+    let activeFilter = 'all';
+    let activePiece = null;
+
+    function t(key){ return I18N[lang][key] || key; }
+
+    function setLanguage(next){
+      lang = next;
+      document.documentElement.lang = next;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.dataset.i18n;
+        if(I18N[next][key]) el.textContent=I18N[next][key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+        const key=el.dataset.i18nHtml;
+        if(I18N[next][key]) el.innerHTML=I18N[next][key];
+      });
+      document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));
+      renderInstitutions();
+      renderCards(activeFilter);
+      if(activePiece) fillModal(activePiece);
+      updateDepthHelp();
+    }
+
+    function renderCards(filter='all'){
+      activeFilter=filter;
+      const list = filter==='all' ? PIECES : PIECES.filter(p=>p.tipo===filter);
+      els.count.textContent = `${list.length} ${lang==='pt'?'peça':'pieza'}${list.length!==1?'s':''}`;
+      els.cards.innerHTML=list.map(p=>`
+        <article class="card ${p.feat?'feat':''}" style="--card-accent:${p.accent}" data-id="${p.id}">
+          <div class="card-top">
+            <span class="card-tag">${p.tag}</span><span class="inst">${p.inst}</span>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="card-title">${p.title}</div>
+              <div class="card-desc">${p.desc}</div>
+            </div>
+            <div class="card-bottom">
+              <div class="finding">“${p.finding}”</div>
+              <div class="open">${lang==='pt'?'Abrir peça':'Abrir pieza'} ↗</div>
+            </div>
+          </div>
+          <div class="mini-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        </article>
+      `).join('') || `<div style="grid-column:1/-1;padding:3rem;color:var(--muted)">—</div>`;
+      document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openModal(c.dataset.id)));
+    }
+
+    function renderInstitutions(){
+      document.getElementById('institutionsGrid').innerHTML=INSTITUCIONES.map(i=>`
+        <div class="inst-card">
+          <div class="inst-sigla">${i.sigla}</div>
+          <div class="inst-name">${i.nombre}</div>
+          <div class="inst-country">${i.pais}</div>
+          <div class="inst-n">${i.n ? i.n+' pieza'+(i.n!==1?'s':'') : '—'}</div>
+        </div>`).join('');
+    }
+
+    function chartValues(seed){
+      const base = (seed.charCodeAt(0)+seed.length)%9;
+      return Array.from({length:8},(_,i)=>20+((base*13+i*19)%68));
+    }
+
+    function renderChart(piece, depth){
+      const vals = chartValues(piece.id + depth);
+      els.fakeChart.innerHTML=vals.map(v=>`<i style="--h:${v}%"></i>`).join('');
+    }
+
+    function fillModal(piece){
+      activePiece=piece;
+      els.modalTag.textContent=piece.tag;
+      els.modalTitle.textContent=piece.title;
+      els.modalDesc.textContent=piece.desc;
+      els.modalFinding.textContent=piece.finding;
+      els.modalAuthor.textContent=piece.autor;
+      els.modalInst.textContent=piece.inst;
+      renderChart(piece,currentDepth);
+      updateModalDepth(currentDepth);
+    }
+
+    function updateModalDepth(depth){
+      currentDepth=depth;
+      document.querySelectorAll('[data-modal-depth]').forEach(b=>b.classList.toggle('active',b.dataset.modalDepth===depth));
+      const [a,b]=DEPTH_TEXT[depth];
+      els.modalEvidence.innerHTML=`
+        <div class="evidence-row"><span>${lang==='pt'?'Entrada':'Entrada'}</span><strong>${a}</strong></div>
+        <div class="evidence-row"><span>${lang==='pt'?'Camada':'Capa'}</span><strong>${b}</strong></div>`;
+      if(activePiece) renderChart(activePiece,depth);
+    }
+
+    function openModal(id){
+      const piece=PIECES.find(p=>p.id===id);
+      if(!piece)return;
+      fillModal(piece);
+      els.modal.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+
+    function closeModal(){
+      els.modal.classList.remove('open');
+      document.body.style.overflow='';
+    }
+
+    function updateDepthHelp(){
+      const map={
+        idea: lang==='pt'?'Comece pela ideia central. Depois abra camadas para ver o que a sustenta.':'Empieza por la idea central. Luego abre capas para ver qué la sostiene.',
+        evidence: lang==='pt'?'Veja as evidências que sustentam o achado.':'Mira las evidencias que sostienen el hallazgo.',
+        method: lang==='pt'?'Abra o desenho da pesquisa e as decisões analíticas.':'Abre el diseño de investigación y las decisiones analíticas.',
+        data: lang==='pt'?'Entre nos dados: distribuições, relações e limites.':'Entra en los datos: distribuciones, relaciones y límites.'
+      };
+      els.depthHelp.textContent=map[currentDepth];
+    }
+
+    function toast(msg){
+      els.toast.textContent=msg;els.toast.classList.add('show');
+      clearTimeout(window.__toast);window.__toast=setTimeout(()=>els.toast.classList.remove('show'),1800);
+    }
+
+    /* nav */
+    window.addEventListener('scroll',()=>document.getElementById('topline').classList.toggle('scrolled',scrollY>24));
+
+    /* theme */
+    document.getElementById('themeToggle').addEventListener('click',()=>{
+      const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
+      document.documentElement.dataset.theme=next;
+      document.getElementById('themeToggle').textContent=next==='dark'?'☾':'☀';
+      localStorage.setItem('vitrina-theme',next);
+      toast(next==='dark'?'Tema oscuro':'Tema claro');
+    });
+
+    const savedTheme=localStorage.getItem('vitrina-theme');
+    if(savedTheme){
+      document.documentElement.dataset.theme=savedTheme;
+      document.getElementById('themeToggle').textContent=savedTheme==='dark'?'☾':'☀';
+    }
+
+    /* language */
+    document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.lang)));
+
+    /* filters */
+    document.getElementById('filters').addEventListener('click',e=>{
+      const b=e.target.closest('.filter');if(!b)return;
+      document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      renderCards(b.dataset.filter);
+    });
+
+    /* depth strip */
+    document.querySelectorAll('.depth-step').forEach(b=>b.addEventListener('click',()=>{
+      currentDepth=b.dataset.depth;
+      document.querySelectorAll('.depth-step').forEach(x=>x.classList.toggle('active',x===b));
+      updateDepthHelp();
+      document.querySelectorAll('.depth-step').forEach((x,i)=>x.style.transform=x===b?'translateY(-2px)':'');
+      toast(lang==='pt'?`Camada: ${b.innerText.split('\n')[1]}`:`Capa: ${b.innerText.split('\n')[1]}`);
+    }));
+
+    /* random */
+    document.getElementById('randomPiece').addEventListener('click',()=>{
+      const p=PIECES[Math.floor(Math.random()*PIECES.length)];
+      openModal(p.id);
+    });
+
+    /* modal */
+    document.getElementById('closeModal').addEventListener('click',closeModal);
+    els.modal.addEventListener('click',e=>{if(e.target===els.modal)closeModal()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+    document.querySelectorAll('[data-modal-depth]').forEach(b=>b.addEventListener('click',()=>updateModalDepth(b.dataset.modalDepth)));
+
+    /* cursor */
+    const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+    if(window.matchMedia('(hover:hover)').matches){
+      window.addEventListener('mousemove',e=>{
+        dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+        ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+      });
+      document.querySelectorAll('a,button,.card').forEach(el=>{
+        el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    renderCards();
+    renderInstitutions();
+    updateDepthHelp();
+  </script>
+</body>
+</html>
