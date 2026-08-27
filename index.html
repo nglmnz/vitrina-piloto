@@ -250,42 +250,21 @@
     .lens-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;margin-top:.6rem}
     .lens-text{font-size:.78rem;color:var(--muted);margin-top:.45rem}
 
-    /* INSTITUTIONS & NET BANNER */
-    .net-container{display:grid;grid-template-columns: 2fr 1fr;gap: 1.5rem;align-items: stretch;}
-    .institutions{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);background:var(--panel);}
-    .inst-card{padding:1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:170px;transition:.2s}
-    .inst-card:nth-child(even){border-right:0;}
-    .inst-card:hover{background:var(--panel-2)}
-    .inst-sigla{font-family:var(--display);font-size:2.25rem}
-    .inst-name{font-size:.68rem;color:var(--muted);margin-top:.4rem}
-    .inst-country{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-top:1rem}
-    .inst-n{font-size:.68rem;color:var(--muted);margin-top:1.5rem}
-
-    /* GIF BANNER CONTAINER */
-    .net-banner{
+    /* FULL BANNER REPLACEMENT */
+    .full-banner{
       border:1px solid var(--line);
       background:var(--panel);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      padding:1.5rem;
-      text-align:center;
+      border-radius:12px;
       overflow:hidden;
-      position:relative;
-    }
-    .net-banner img{
       width:100%;
-      height:100%;
-      object-fit:cover;
-      border-radius:8px;
-      max-height:260px;
-      border:1px solid var(--line);
+      box-shadow:var(--shadow);
     }
-    .net-banner p{
-      font-size:.75rem;
-      color:var(--muted);
-      margin-top:.8rem;
+    .full-banner img{
+      width:100%;
+      height:auto;
+      max-height:450px;
+      object-fit:cover;
+      display:block;
     }
 
     /* PROCESS */
@@ -358,9 +337,6 @@
       .cards{grid-template-columns:repeat(2,1fr)}
       .card,.card.feat{grid-column:span 1}
       .feat .card-title{font-size:2.3rem}
-      .net-container{grid-template-columns:1fr}
-      .institutions{grid-template-columns:repeat(2,1fr)}
-      .process{grid-template-columns:repeat(2,1fr)}
       .modal-grid{grid-template-columns:1fr}
       .modal-main{border-right:0;border-bottom:1px solid var(--line)}
       .nav a{display:none}
@@ -376,8 +352,6 @@
       .cards{grid-template-columns:1fr}
       .lens{grid-template-columns:1fr}
       .lens-cell{border-right:0;border-bottom:1px solid var(--line)}
-      .institutions{grid-template-columns:1fr}
-      .inst-card{border-right:0}
       .process{grid-template-columns:1fr}
       .cta{grid-template-columns:1fr}
       .modal{padding:0}
@@ -507,12 +481,8 @@
         </div>
       </div>
       
-      <div class="net-container">
-        <div class="institutions" id="institutionsGrid"></div>
-        <div class="net-banner">
-          <img src="VITRINA.gif" alt="Red de producción animada" />
-          <p>Flujo colaborativo interinstitucional</p>
-        </div>
+      <div class="full-banner">
+        <img src="VITRINA.gif" alt="Banner Red de producción" />
       </div>
     </section>
 
@@ -638,13 +608,6 @@
       }
     ];
 
-    const INSTITUCIONES = [
-      {sigla:'UAH', nombre:'Universidad Alberto Hurtado', pais:'Chile', n:5},
-      {sigla:'USACH', nombre:'Universidad de Santiago de Chile', pais:'Chile', n:1},
-      {sigla:'UdeChile', nombre:'Universidad de Chile', pais:'Chile', n:0},
-      {sigla:'Vitrina', nombre:'Producción propia', pais:'—', n:1}
-    ];
-
     const I18N = {
       es:{
         navResearch:'Investigación',navDepth:'Profundidad',navInstitutions:'Instituciones',navProcess:'Proceso',
@@ -740,7 +703,6 @@
         if(I18N[next][key]) el.innerHTML=I18N[next][key];
       });
       document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));
-      renderInstitutions();
       renderCards(activeFilter);
       if(activePiece) fillModal(activePiece);
       updateDepthHelp();
@@ -769,16 +731,6 @@
         </article>
       `).join('') || `<div style="grid-column:1/-1;padding:3rem;color:var(--muted)">—</div>`;
       document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openModal(c.dataset.id)));
-    }
-
-    function renderInstitutions(){
-      document.getElementById('institutionsGrid').innerHTML=INSTITUCIONES.map(i=>`
-        <div class="inst-card">
-          <div class="inst-sigla">${i.sigla}</div>
-          <div class="inst-name">${i.nombre}</div>
-          <div class="inst-country">${i.pais}</div>
-          <div class="inst-n">${i.n ? i.n+' pieza'+(i.n!==1?'s':'') : '—'}</div>
-        </div>`).join('');
     }
 
     function chartValues(seed){
@@ -905,7 +857,6 @@
     }
 
     renderCards();
-    renderInstitutions();
     updateDepthHelp();
   </script>
 </body>
