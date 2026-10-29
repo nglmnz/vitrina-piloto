@@ -361,6 +361,19 @@
     @media (prefers-reduced-motion: reduce){
       *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
     }
+  
+    .card{display:flex;flex-direction:column;min-width:0}
+    .card-top{flex:0 0 auto}
+    .card-body{height:auto;flex:1;min-width:0}
+    .card-bottom{flex-direction:column;align-items:flex-start;gap:1rem;padding-top:2rem}
+    .finding{max-width:100%;overflow-wrap:anywhere}
+    .open{align-self:flex-end}
+    .mini-bars{display:none}
+    .card:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+    .card-status{font-size:.68rem;color:var(--muted);margin-bottom:.7rem}
+    #projectLink{margin-top:1.2rem}
+    [hidden]{display:none!important}
+    @media(max-width:680px){.section-head{align-items:start;flex-direction:column;gap:1rem}.modal-main{padding:1.3rem}.control{padding:0 .55rem}}
   </style>
 </head>
 
@@ -375,8 +388,9 @@
       <a href="#instituciones" data-i18n="navInstitutions">Instituciones</a>
       <a href="#proceso" data-i18n="navProcess">Proceso</a>
       <div class="control-group">
-        <button class="control lang active" data-lang="es">ES</button>
-        <button class="control lang" data-lang="pt">PT</button>
+        <button class="control lang active" data-lang="es" aria-label="Español">ES</button>
+        <button class="control lang" data-lang="pt" aria-label="Português">PT</button>
+        <button class="control lang" data-lang="en" aria-label="English">EN</button>
         <button class="control" id="themeToggle" aria-label="Cambiar tema">☾</button>
       </div>
     </nav>
@@ -405,9 +419,9 @@
           <span></span><span></span><span></span><span></span><span></span>
         </div>
         <div class="floating-data">
-          <div class="data-chip"><b>01</b> pregunta</div>
-          <div class="data-chip"><b>02</b> evidencia</div>
-          <div class="data-chip"><b>03</b> contexto</div>
+          <div class="data-chip"><b>01</b> <span data-i18n="question">pregunta</span></div>
+          <div class="data-chip"><b>02</b> <span data-i18n="evidence">evidencia</span></div>
+          <div class="data-chip"><b>03</b> <span data-i18n="context">contexto</span></div>
         </div>
       </div>
     </section>
@@ -449,6 +463,7 @@
         <button class="filter" data-filter="dashboard" data-i18n="fDash">Dashboard</button>
         <button class="filter" data-filter="narrativa" data-i18n="fNarr">Narrativa</button>
         <button class="filter" data-filter="documental" data-i18n="fDoc">Documental</button>
+        <button class="filter" data-filter="proyecto" data-i18n="fProject">Investigación aplicada</button>
         <button class="filter" data-filter="cobertura" data-i18n="fCov">Cobertura</button>
       </div>
 
@@ -530,7 +545,8 @@
             <strong data-i18n="centralFinding">Hallazgo central</strong>
             <div id="modalFinding"></div>
           </div>
-          <div class="fake-chart" id="fakeChart" aria-label="Visualización ilustrativa"></div>
+          <div id="fakeChart" hidden></div>
+          <a id="projectLink" class="pill" hidden target="_blank" rel="noopener noreferrer"></a>
           <div class="disclaimer" data-i18n="chartNote">Visualización de interfaz de demostración: el gráfico real se reemplaza por la evidencia del estudio correspondiente.</div>
         </div>
         <aside class="modal-side">
@@ -545,10 +561,10 @@
           <div class="side-block">
             <div class="side-label" data-i18n="readingMode">Modo de lectura</div>
             <div class="depth-modes">
-              <button class="mode active" data-modal-depth="idea">Idea</button>
-              <button class="mode" data-modal-depth="evidence">Evidencia</button>
-              <button class="mode" data-modal-depth="method">Método</button>
-              <button class="mode" data-modal-depth="data">Datos</button>
+              <button class="mode active" data-modal-depth="idea" data-i18n="depth1">Idea</button>
+              <button class="mode" data-modal-depth="evidence" data-i18n="depth2">Evidencia</button>
+              <button class="mode" data-modal-depth="method" data-i18n="depth3">Método</button>
+              <button class="mode" data-modal-depth="data" data-i18n="depth4">Datos</button>
             </div>
           </div>
           <div class="side-block">
@@ -668,6 +684,17 @@
       data:['Os dados deixam de ser um fim e viram matéria para pensar.','Abrir esta camada permite observar distribuições, relações e limites.']
     };
 
+
+    I18N.en = {"navResearch":"Research","navDepth":"Reading depth","navInstitutions":"Institutions","navProcess":"Process","eyebrow":"Latin American research editorial platform","heroTitle":"Research<br>can also be <em>explored.</em>","heroSub":"Vitrina turns papers, theses and research data into public experiences that invite people to read, compare, ask questions and look again.","explore":"Explore research ↓","surprise":"Surprise me ↗","depthLabel":"Reading depth","depth1":"Idea","depth2":"Evidence","depth3":"Method","depth4":"Data","depthHelp":"Start with the central idea. Then explore the evidence behind it.","researchKicker":"Vitrina · stories","researchTitle":"Different ways to explore research.","all":"All","fTesis":"Interactive thesis","fViz":"Visualization","fDash":"Dashboard","fNarr":"Narrative","fDoc":"Documentary","fCov":"Coverage","fProject":"Applied research","lens1Title":"One subject, different starting points","lens1Text":"A research story can begin with a finding, a map, a story, a comparison or a question.","lens2Title":"Form also teaches","lens2Text":"Visual organization shapes which relationships become visible first and which questions become possible.","lens3Title":"Depth without jargon","lens3Text":"Start with a quick read and move on to methods, variables and evidence.","instKicker":"Production network","instTitle":"Research does not happen in isolation.","processKicker":"From paper to experience","processTitle":"Translation means reorganizing knowledge.","s1Title":"Question","s1Text":"We identify the question that can spark a conversation beyond the paper.","s2Title":"Structure","s2Text":"We organize concepts, variables, findings and context into a navigable structure.","s3Title":"Interaction","s3Text":"Readers filter, compare, open layers and choose how deeply to explore.","s4Title":"Sources","s4Text":"Each story shows where it comes from and provides a path back to the original study.","ctaKicker":"Research communication services","ctaTitle":"Turn your research into an experience people can explore.","ctaText":"We create research stories, interactive visualizations and multimedia coverage for researchers and teams. Each proposal is tailored to your materials, audience and editorial and technical needs.","contact":"Request a proposal →","footer1":"2026 pilot","footer2":"Independent editorial platform · Research communication","centralFinding":"Editorial summary","chartNote":"Pilot content: the full study, verified evidence and original sources are still being incorporated.","by":"Author","institution":"Institution / project","readingMode":"Reading mode","whatChanges":"About this reading layer","openPiece":"Open story","piece":"story","pieces":"stories","entry":"Purpose","layer":"Layer","close":"Close","theme":"Change theme","dark":"Dark theme","light":"Light theme","banner":"Vitrina production network","question":"question","evidence":"evidence","context":"context","visit":"Explore project ↗","helpEvidence":"Explore the evidence behind the finding.","helpMethod":"Explore the research design and analytical decisions.","helpData":"Explore distributions, relationships and limitations.","pageTitle":"Vitrina · Research you can explore","meta":"Latin American research transformed into public, interactive and accessible experiences.","pending":"Content in preparation"};
+    Object.assign(I18N.es, {"ctaKicker":"Difusión de investigaciones","ctaTitle":"Convierte tu investigación en una experiencia que otras personas puedan explorar.","ctaText":"Creamos relatos web, visualizaciones interactivas y coberturas multimedia para investigadores y equipos. Cada propuesta se cotiza según los materiales, el público y el alcance editorial y técnico.","contact":"Solicitar propuesta →","footer2":"Plataforma editorial independiente · Difusión de investigaciones","centralFinding":"Síntesis editorial","chartNote":"Contenido piloto: estamos incorporando el estudio completo, la evidencia verificada y sus fuentes originales.","institution":"Institución / proyecto","openPiece":"Abrir pieza","piece":"pieza","pieces":"piezas","entry":"Propósito","layer":"Capa","close":"Cerrar","theme":"Cambiar tema","dark":"Tema oscuro","light":"Tema claro","banner":"Red de producción de Vitrina","question":"pregunta","evidence":"evidencia","context":"context","visit":"Explorar proyecto ↗","fProject":"Investigación aplicada","helpEvidence":"Mira las evidencias que sostienen el hallazgo.","helpMethod":"Abre el diseño de investigación y las decisiones analíticas.","helpData":"Explora distribuciones, relaciones y límites.","pageTitle":"Vitrina · Investigación que se puede explorar","meta":"Investigación latinoamericana transformada en experiencias públicas, interactivas y accesibles.","pending":"Contenido en preparación"});
+    Object.assign(I18N.pt, {"ctaKicker":"Divulgação de pesquisas","ctaTitle":"Transforme sua pesquisa em uma experiência que outras pessoas possam explorar.","ctaText":"Criamos narrativas web, visualizações interativas e coberturas multimídia para pesquisadores e equipes. Cada proposta considera os materiais, o público e o escopo editorial e técnico.","contact":"Solicitar proposta →","footer2":"Plataforma editorial independente · Divulgação de pesquisas","centralFinding":"Síntese editorial","chartNote":"Conteúdo piloto: estamos incorporando o estudo completo, as evidências verificadas e suas fontes originais.","institution":"Instituição / projeto","openPiece":"Abrir peça","piece":"peça","pieces":"peças","entry":"Propósito","layer":"Camada","close":"Fechar","theme":"Mudar tema","dark":"Tema escuro","light":"Tema claro","banner":"Rede de produção da Vitrina","question":"pergunta","evidence":"evidência","context":"context","visit":"Explorar projeto ↗","fProject":"Pesquisa aplicada","helpEvidence":"Explore as evidências que sustentam o achado.","helpMethod":"Explore o desenho da pesquisa e as decisões analíticas.","helpData":"Explore distribuições, relações e limites.","pageTitle":"Vitrina · Pesquisa que pode ser explorada","meta":"Pesquisa latino-americana transformada em experiências públicas, interativas e acessíveis.","pending":"Conteúdo em preparação"});
+    const PIECE_EN = {"sustancia":{"tag":"Interactive thesis","title":"Sustancia","desc":"Technological habitus and the mind–body connection among Chilean university students.","finding":"Compulsive use predicts poorer mental health. Screen time does not."},"alas":{"tag":"Special coverage","title":"ALAS: Latin America reflects on itself","desc":"A multimedia story from the Latin American Sociology Association congress. Photographs and video are being prepared.","finding":"A space for encounters, debates and perspectives from Latin American sociology."},"arq":{"tag":"Geospatial visualization","title":"Hostile architecture in Santiago","desc":"An interactive map of urban design as an instrument of social exclusion.","finding":"Public space is not neutral: exclusion can be built into its design."},"tecno":{"tag":"Political dashboard","title":"Technopopulism in Chile","desc":"Computational analysis of populist discourse on Chilean digital platforms.","finding":"Populist communication adapts to algorithms, not the other way around."},"derecha":{"tag":"Critical narrative","title":"Young people, gender and the new right","desc":"How young women construct political identities amid Latin America's conservative turn.","finding":"Antifeminism is not an absence of politics: it is active politics."},"bosque":{"tag":"Documentary","title":"Defending the land","desc":"Documenting systematic violence against environmental defenders in Chile and Brazil.","finding":"Defending territory remains one of the most dangerous activities in Latin America."},"trama":{"tag":"Applied research","title":"TRAMA","desc":"Sociotechnical infrastructure for circular territories: practices, actors, material flows and territorial governance.","finding":"How can digital infrastructure support situated economic practices without stripping away their context?"}};
+    const DEPTH_LOCAL = {"es":{"idea":["Una idea clara permite entrar sin conocer el lenguaje académico.","La pieza comienza por el problema y su relevancia."],"evidence":["Esta capa reúne la evidencia que sostiene una afirmación.","Los resultados de cada estudio se incorporarán tras su revisión."],"method":["El método explica cómo se construyó el conocimiento.","Aquí se documentarán diseño, muestra y decisiones analíticas."],"data":["Esta capa permite volver a los datos y sus fuentes.","Se indicarán disponibilidad, restricciones y límites de interpretación."]},"en":{"idea":["A clear idea provides an entry point without specialist terminology.","The story begins with the problem and why it matters."],"evidence":["This layer brings together the evidence behind a claim.","Study results will be added after editorial verification."],"method":["Methods explain how knowledge was produced.","This layer will document design, sampling and analytical decisions."],"data":["This layer provides a route back to data and sources.","Availability, access restrictions and limitations will be documented."]}};
+    DEPTH_LOCAL.pt = DEPTH_TEXT;
+    PIECES.push({id:'trama',tipo:'proyecto',tag:'Investigación aplicada',inst:'TRAMA',title:'TRAMA',desc:'Infraestructura sociotécnica para territorios circulares: prácticas, actores, flujos materiales y gobernanza territorial.',finding:'¿Cómo pueden las infraestructuras digitales transformar prácticas económicas situadas sin descontextualizarlas?',autor:'Ángel Darío Muñoz Rañiman',year:2026,accent:'#79d3b3',url:'https://nglmnz.github.io/trama/'});
+    Object.assign(PIECES.find(p=>p.id==='alas'), {title:'ALAS: América Latina se piensa a sí misma',desc:'Crónica multimedia del Congreso de la Asociación Latinoamericana de Sociología. Fotografías y video en preparación.',finding:'Un espacio de encuentros, debates y perspectivas de la sociología latinoamericana.'});
+    function localized(piece){return lang==='en' ? {...piece,...PIECE_EN[piece.id]} : piece;}
+
     const els = {
       cards:document.getElementById('cards'),
       count:document.getElementById('countLabel'),
@@ -692,7 +719,15 @@
     function t(key){ return I18N[lang][key] || key; }
 
     function setLanguage(next){
+      if(!I18N[next]) next='es';
       lang = next;
+      try{localStorage.setItem('vitrina-lang',lang);}catch(e){}
+      document.title=t('pageTitle');
+      document.querySelector('meta[name="description"]').content=t('meta');
+      document.getElementById('themeToggle').setAttribute('aria-label',t('theme'));
+      document.getElementById('closeModal').setAttribute('aria-label',t('close'));
+      document.querySelector('.full-banner img').alt=t('banner');
+      document.querySelectorAll('.lang').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===next)));
       document.documentElement.lang = next;
       document.querySelectorAll('[data-i18n]').forEach(el=>{
         const key=el.dataset.i18n;
@@ -711,40 +746,40 @@
     function renderCards(filter='all'){
       activeFilter=filter;
       const list = filter==='all' ? PIECES : PIECES.filter(p=>p.tipo===filter);
-      els.count.textContent = `${list.length} ${lang==='pt'?'peça':'pieza'}${list.length!==1?'s':''}`;
-      els.cards.innerHTML=list.map(p=>`
-        <article class="card ${p.feat?'feat':''}" style="--card-accent:${p.accent}" data-id="${p.id}">
+      els.count.textContent = `${list.length} ${t(list.length===1?'piece':'pieces')}`;
+      els.cards.innerHTML=list.map(localized).map(p=>`
+        <article class="card ${p.feat?'feat':''}" style="--card-accent:${p.accent}" data-id="${p.id}" role="button" tabindex="0">
           <div class="card-top">
             <span class="card-tag">${p.tag}</span><span class="inst">${p.inst}</span>
           </div>
           <div class="card-body">
             <div>
+              <div class="card-status">${p.url ? t("fProject") : t("pending")}</div>
               <div class="card-title">${p.title}</div>
               <div class="card-desc">${p.desc}</div>
             </div>
             <div class="card-bottom">
-              <div class="finding">“${p.finding}”</div>
-              <div class="open">${lang==='pt'?'Abrir peça':'Abrir pieza'} ↗</div>
+              <div class="finding">${p.finding}</div>
+              <div class="open">${t('openPiece')} ↗</div>
             </div>
           </div>
           <div class="mini-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         </article>
       `).join('') || `<div style="grid-column:1/-1;padding:3rem;color:var(--muted)">—</div>`;
-      document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openModal(c.dataset.id)));
+      document.querySelectorAll('.card').forEach(c=>{
+        c.addEventListener('click',()=>openModal(c.dataset.id));
+        c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(c.dataset.id);}});
+      });
     }
 
-    function chartValues(seed){
-      const base = (seed.charCodeAt(0)+seed.length)%9;
-      return Array.from({length:8},(_,i)=>20+((base*13+i*19)%68));
-    }
-
-    function renderChart(piece, depth){
-      const vals = chartValues(piece.id + depth);
-      els.fakeChart.innerHTML=vals.map(v=>`<i style="--h:${v}%"></i>`).join('');
-    }
+    function renderChart(){els.fakeChart.innerHTML='';}
 
     function fillModal(piece){
-      activePiece=piece;
+      activePiece=PIECES.find(p=>p.id===piece.id);
+      piece=localized(activePiece);
+      const link=document.getElementById('projectLink');
+      link.hidden=!piece.url;
+      if(piece.url){link.href=piece.url;link.textContent=t('visit');}
       els.modalTag.textContent=piece.tag;
       els.modalTitle.textContent=piece.title;
       els.modalDesc.textContent=piece.desc;
@@ -758,10 +793,10 @@
     function updateModalDepth(depth){
       currentDepth=depth;
       document.querySelectorAll('[data-modal-depth]').forEach(b=>b.classList.toggle('active',b.dataset.modalDepth===depth));
-      const [a,b]=DEPTH_TEXT[depth];
+      const [a,b]=DEPTH_LOCAL[lang][depth];
       els.modalEvidence.innerHTML=`
-        <div class="evidence-row"><span>${lang==='pt'?'Entrada':'Entrada'}</span><strong>${a}</strong></div>
-        <div class="evidence-row"><span>${lang==='pt'?'Camada':'Capa'}</span><strong>${b}</strong></div>`;
+        <div class="evidence-row"><span>${t('entry')}</span><strong>${a}</strong></div>
+        <div class="evidence-row"><span>${t('layer')}</span><strong>${b}</strong></div>`;
       if(activePiece) renderChart(activePiece,depth);
     }
 
@@ -770,12 +805,15 @@
       if(!piece)return;
       fillModal(piece);
       els.modal.classList.add('open');
+      window.vitrinaPreviousFocus=document.activeElement;
+      document.getElementById('closeModal').focus();
       document.body.style.overflow='hidden';
     }
 
     function closeModal(){
       els.modal.classList.remove('open');
       document.body.style.overflow='';
+      window.vitrinaPreviousFocus?.focus();
     }
 
     function updateDepthHelp(){
@@ -785,7 +823,7 @@
         method: lang==='pt'?'Abra o desenho da pesquisa e as decisões analíticas.':'Abre el diseño de investigación y las decisiones analíticas.',
         data: lang==='pt'?'Entre nos dados: distribuições, relações e limites.':'Entra en los datos: distribuciones, relaciones y limites.'
       };
-      els.depthHelp.textContent=map[currentDepth];
+      els.depthHelp.textContent=t({idea:'depthHelp',evidence:'helpEvidence',method:'helpMethod',data:'helpData'}[currentDepth]);
     }
 
     function toast(msg){
@@ -801,11 +839,11 @@
       const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
       document.documentElement.dataset.theme=next;
       document.getElementById('themeToggle').textContent=next==='dark'?'☾':'☀';
-      localStorage.setItem('vitrina-theme',next);
-      toast(next==='dark'?'Tema oscuro':'Tema claro');
+      try{localStorage.setItem('vitrina-theme',next);}catch(e){}
+      toast(t(next));
     });
 
-    const savedTheme=localStorage.getItem('vitrina-theme');
+    let savedTheme;try{savedTheme=localStorage.getItem('vitrina-theme');}catch(e){}
     if(savedTheme){
       document.documentElement.dataset.theme=savedTheme;
       document.getElementById('themeToggle').textContent=savedTheme==='dark'?'☾':'☀';
@@ -828,7 +866,7 @@
       document.querySelectorAll('.depth-step').forEach(x=>x.classList.toggle('active',x===b));
       updateDepthHelp();
       document.querySelectorAll('.depth-step').forEach((x,i)=>x.style.transform=x===b?'translateY(-2px)':'');
-      toast(lang==='pt'?`Camada: ${b.innerText.split('\n')[1]}`:`Capa: ${b.innerText.split('\n')[1]}`);
+      toast(`${t('layer')}: ${b.querySelector('strong').textContent}`);
     }));
 
     /* random */
@@ -856,8 +894,10 @@
       });
     }
 
-    renderCards();
-    updateDepthHelp();
+    let savedLang='es';
+    try{savedLang=localStorage.getItem('vitrina-lang')||'es';}catch(e){}
+    const requestedLang=new URLSearchParams(location.search).get('lang');
+    setLanguage(requestedLang || savedLang);
   </script>
 </body>
 </html>
