@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/ANGEL/Downloads/index%20(6).html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaime Rojas Castillo — Derechos humanos y pueblos originarios</title>
+<meta name="description" content="Portafolio de investigación de Jaime Rojas Castillo. Pieza interactiva: Las escuelas residenciales indígenas en Canadá (UNIVERSITAS, 2026).">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Jaime Rojas Castillo — Derechos humanos y pueblos originarios_files/css2" rel="stylesheet">
+<style>
+:root{
+  --ink:#22303C;
+  --ink-soft:#44525F;
+  --paper:#FBFAF6;
+  --paper-2:#F3F0E8;
+  --line:#E1DCD0;
+  --memorial:#C65A1E;      /* naranjo Every Child Matters, ajustado a contraste AA */
+  --memorial-soft:#F6E3D3;
+  --gray:#5C6670;
+  --max:960px;
+  --serif:'Spectral', Georgia, serif;
+  --sans:'Inter', system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65}
+img{max-width:100%}
+a{color:var(--memorial);text-decoration:none;border-bottom:1px solid var(--memorial-soft)}
+a:hover{border-bottom-color:var(--memorial)}
+:focus-visible{outline:3px solid var(--memorial);outline-offset:2px;border-radius:2px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--memorial)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;color:var(--ink)}
+h2{font-size:1.9rem;margin:.4rem 0 1rem}
+h3{font-size:1.25rem;margin:0 0 .5rem}
+p+p{margin-top:.8rem}
+.muted{color:var(--gray)}
+section{padding:64px 0;border-top:1px solid var(--line)}
+
+/* ---------- Nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.nav-name{font-family:var(--serif);font-weight:700;font-size:1.02rem;margin-right:auto}
+nav a{border:none;color:var(--ink-soft);font-size:.85rem;font-weight:500}
+nav a:hover{color:var(--memorial)}
+
+/* ---------- Hero ---------- */
+header.hero{padding:76px 0 60px;border:none}
+.hero h1{font-size:clamp(2.1rem,5vw,3.1rem);max-width:20ch}
+.hero .lede{font-family:var(--serif);font-size:1.2rem;color:var(--ink-soft);max-width:52ch;margin-top:1rem}
+.hero-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:1.6rem}
+.chip{font-size:.78rem;font-weight:500;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+
+/* ---------- Trayectoria ---------- */
+.cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:1.4rem}
+.cv-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px}
+.cv-card ul{list-style:none;margin-top:.6rem}
+.cv-card li{padding:.45rem 0;border-top:1px solid var(--paper-2);font-size:.95rem}
+.cv-card li:first-child{border-top:none}
+.todo{color:var(--memorial);font-size:.8rem;font-weight:600}
+
+/* ---------- Pieza ---------- */
+.pieza-head{background:var(--ink);color:var(--paper);margin-top:64px}
+.pieza-head .wrap{padding-top:70px;padding-bottom:70px}
+.pieza-head .eyebrow{color:#F0A264}
+.pieza-head h2{color:var(--paper);font-size:clamp(1.7rem,4vw,2.5rem);max-width:24ch}
+.pieza-head p{color:#C8CFD6;max-width:60ch;margin-top:1rem}
+.aviso{margin-top:1.6rem;border-left:3px solid var(--memorial);padding:10px 16px;background:rgba(198,90,30,.12);font-size:.9rem;color:#E7DCD2;max-width:60ch}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:1.6rem}
+.stat{background:#fff;padding:22px 20px}
+.stat b{display:block;font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--ink)}
+.stat span{font-size:.82rem;color:var(--gray)}
+.stat.mem b{color:var(--memorial)}
+
+/* memorial 215 */
+.memorial{margin-top:2.2rem}
+.dots{display:grid;grid-template-columns:repeat(auto-fill,minmax(14px,1fr));gap:6px;max-width:640px;margin-top:1rem}
+.dots i{display:block;aspect-ratio:1;background:var(--memorial);border-radius:2px;opacity:0;transition:opacity .8s ease}
+.dots.on i{opacity:.85}
+@media (prefers-reduced-motion:reduce){.dots i{transition:none;opacity:.85}}
+
+/* timeline */
+.tl-filter{display:flex;gap:8px;flex-wrap:wrap;margin:1.2rem 0 1.6rem}
+.tl-filter button{font-family:var(--sans);font-size:.8rem;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink-soft);border-radius:999px;padding:7px 14px;cursor:pointer}
+.tl-filter button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tl{list-style:none;position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--ink) 0 62%,var(--memorial) 68% 100%);border-radius:2px}
+.tl li{position:relative;padding:0 0 8px 12px;margin-bottom:6px}
+.tl li::before{content:"";position:absolute;left:-24px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--ink);border:2px solid var(--paper)}
+.tl li.rec::before{background:var(--memorial)}
+.tl li.hidden{display:none}
+.tl button.ev{width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:var(--sans);padding:10px 8px;border-radius:8px}
+.tl button.ev:hover{background:var(--paper-2)}
+.tl .yr{font-family:var(--serif);font-weight:700;font-size:1.05rem;margin-right:10px}
+.tl .ti{font-weight:600;font-size:.95rem;color:var(--ink)}
+.tl .tag{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:8px;color:var(--gray)}
+.tl li.rec .tag{color:var(--memorial)}
+.tl .det{display:none;padding:4px 8px 12px;font-size:.92rem;color:var(--ink-soft);max-width:62ch}
+.tl li.open .det{display:block}
+.tl li.open button.ev{background:var(--paper-2)}
+
+/* ejes */
+.ejes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:1.4rem}
+details.eje{background:#fff;border:1px solid var(--line);border-radius:10px;padding:0}
+details.eje summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:600;font-family:var(--serif);font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.eje summary::after{content:"+";font-family:var(--sans);color:var(--memorial);font-size:1.2rem;font-weight:600}
+details.eje[open] summary::after{content:"–"}
+details.eje .body{padding:0 20px 18px;font-size:.93rem;color:var(--ink-soft)}
+
+/* llamados */
+.bar{display:flex;height:46px;border-radius:8px;overflow:hidden;margin-top:1.4rem;border:1px solid var(--line)}
+.bar button{border:none;cursor:pointer;font-family:var(--sans);font-weight:700;color:#fff;font-size:.85rem;transition:filter .15s}
+.bar button:hover{filter:brightness(1.12)}
+.b-c{background:#2E6E4E}.b-p{background:#C65A1E}.b-d{background:#8A6A4F}.b-n{background:#5C6670}
+.leg{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:.8rem;color:var(--gray)}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+#llamado-info{margin-top:1rem;background:#fff;border:1px solid var(--line);border-left:4px solid var(--memorial);border-radius:8px;padding:16px 18px;font-size:.93rem;min-height:64px}
+
+/* glosario / cita */
+details.glo{border-top:1px solid var(--line);padding:12px 4px}
+details.glo summary{cursor:pointer;font-weight:600;font-size:.98rem;list-style:none}
+details.glo summary::before{content:"›";display:inline-block;margin-right:10px;color:var(--memorial);transition:transform .15s}
+details.glo[open] summary::before{transform:rotate(90deg)}
+details.glo p{margin:.5rem 0 .3rem 22px;font-size:.92rem;color:var(--ink-soft);max-width:64ch}
+.cita-box{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:20px;margin-top:1.2rem;font-size:.9rem}
+.cita-box code{font-family:ui-monospace,monospace;font-size:.82rem;display:block;margin-top:.6rem;color:var(--ink-soft);user-select:all}
+.copy-btn{margin-top:10px;font-family:var(--sans);font-size:.8rem;font-weight:600;background:var(--ink);color:#fff;border:none;border-radius:6px;padding:8px 14px;cursor:pointer}
+
+footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:.85rem;color:var(--gray)}
+@media(max-width:720px){.cv-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav aria-label="Principal">
+  <div class="nav-in">
+    <span class="nav-name">Jaime Rojas Castillo</span>
+    <a href="file:///C:/Users/ANGEL/Downloads/index%20(6).html#perfil">Perfil</a>
+    <a href="file:///C:/Users/ANGEL/Downloads/index%20(6).html#trayectoria">Trayectoria</a>
+    <a href="file:///C:/Users/ANGEL/Downloads/index%20(6).html#pieza">Investigación interactiva</a>
+    <a href="file:///C:/Users/ANGEL/Downloads/index%20(6).html#citar">Citar</a>
+  </div>
+</nav>
+
+<header class="hero wrap" id="perfil">
+  <span class="eyebrow">Investigación · Derechos humanos · Pueblos originarios</span>
+  <h1>Jaime Rojas Castillo</h1>
+  <p class="lede">Doctor en Estudios Avanzados en Derechos Humanos (Universidad Carlos III de Madrid). Investigador en derechos humanos y pueblos originarios en el Área de Análisis Legal de Asesoría Técnica Parlamentaria, Biblioteca del Congreso Nacional de Chile.</p>
+  <div class="hero-meta">
+    <span class="chip">Grupo de Investigación Globalización, Procesos de Integración y Cooperación Internacional — UC3M</span>
+    <a class="chip" href="https://orcid.org/0000-0001-8939-8630" target="_blank" rel="noopener">ORCID 0000-0001-8939-8630</a>
+  </div>
+</header>
+
+<section id="trayectoria">
+  <div class="wrap">
+    <span class="eyebrow">Trayectoria</span>
+    <h2>Formación y líneas de trabajo</h2>
+    <div class="cv-grid">
+      <div class="cv-card">
+        <h3>Formación</h3>
+        <ul>
+          <li>Doctorado en Estudios Avanzados en Derechos Humanos — Universidad Carlos III de Madrid</li>
+          <li><span class="todo">[Completar con Jaime: grados previos, año, tesis doctoral]</span></li>
+        </ul>
+      </div>
+      <div class="cv-card">
+        <h3>Afiliaciones</h3>
+        <ul>
+          <li>Biblioteca del Congreso Nacional de Chile — Asesoría Técnica Parlamentaria, Área de Análisis Legal</li>
+          <li>Grupo de Investigación Globalización, Procesos de Integración y Cooperación Internacional (UC3M)</li>
+        </ul>
+      </div>
+      <div class="cv-card">
+        <h3>Líneas de investigación</h3>
+        <ul>
+          <li>Derechos de los pueblos indígenas en el derecho internacional</li>
+          <li>Justicia transicional, comisiones de verdad y reconciliación</li>
+          <li>Derechos de niñas, niños y jóvenes indígenas</li>
+        </ul>
+      </div>
+      <div class="cv-card">
+        <h3>Publicaciones seleccionadas</h3>
+        <ul>
+          <li>«Las escuelas residenciales indígenas en Canadá» — <i>UNIVERSITAS</i>, n.º 49 (2026), pp. 7–31</li>
+          <li><span class="todo">[Completar con Jaime: otras publicaciones e informes ATP]</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PIEZA INTERACTIVA =============== -->
+<div class="pieza-head" id="pieza">
+  <div class="wrap">
+    <span class="eyebrow">Pieza interactiva · A partir del artículo publicado en UNIVERSITAS n.º 49 (2026)</span>
+    <h2>Las escuelas residenciales indígenas en Canadá</h2>
+    <p>Una historia compartida sobre asimilación forzada y genocidio cultural. Esta pieza traduce a formato interactivo el argumento central del artículo: durante más de un siglo, la ley fue el instrumento que sostuvo la separación de niñas y niños indígenas de sus familias y culturas; hoy, el derecho internacional —la Declaración de la ONU sobre los Derechos de los Pueblos Indígenas— es el parámetro para la reconciliación.</p>
+    <p class="aviso">Aviso de contenido: esta sección aborda violencia contra niñas y niños indígenas, muertes en internados y tumbas sin identificar. Los datos provienen del artículo original y de la Comisión de la Verdad y Reconciliación de Canadá.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">El sistema en cifras</span>
+    <h2>Lo que documentó la Comisión</h2>
+    <div class="stats">
+      <div class="stat"><b>+150.000</b><span>niñas y niños de las Primeras Naciones, Inuit y Métis pasaron por el sistema de internados</span></div>
+      <div class="stat"><b>1831–1996</b><span>desde el primer internado hasta el cierre de la última escuela residencial</span></div>
+      <div class="stat mem"><b>3.213</b><span>fallecimientos reportados por la CVR; la propia Comisión considera la cifra conservadora</span></div>
+      <div class="stat"><b>94</b><span>Llamados a la Acción formulados por la CVR en 2015</span></div>
+    </div>
+
+    <div class="memorial">
+      <h3>215</h3>
+      <p class="muted" style="max-width:60ch">En mayo de 2021 se confirmó el hallazgo de aproximadamente 215 tumbas de niños sin identificar en el sitio de la Escuela Residencial Kamloops. Cada marca representa una de esas tumbas. Al hallazgo siguieron rápidamente anuncios similares en otros sitios.</p>
+      <div class="dots on" id="dots215" role="img" aria-label="215 marcas, una por cada tumba sin identificar hallada en Kamloops en 2021"><i style="transition-delay: 0ms;"></i><i style="transition-delay: 6ms;"></i><i style="transition-delay: 12ms;"></i><i style="transition-delay: 18ms;"></i><i style="transition-delay: 24ms;"></i><i style="transition-delay: 30ms;"></i><i style="transition-delay: 36ms;"></i><i style="transition-delay: 42ms;"></i><i style="transition-delay: 48ms;"></i><i style="transition-delay: 54ms;"></i><i style="transition-delay: 60ms;"></i><i style="transition-delay: 66ms;"></i><i style="transition-delay: 72ms;"></i><i style="transition-delay: 78ms;"></i><i style="transition-delay: 84ms;"></i><i style="transition-delay: 90ms;"></i><i style="transition-delay: 96ms;"></i><i style="transition-delay: 102ms;"></i><i style="transition-delay: 108ms;"></i><i style="transition-delay: 114ms;"></i><i style="transition-delay: 120ms;"></i><i style="transition-delay: 126ms;"></i><i style="transition-delay: 132ms;"></i><i style="transition-delay: 138ms;"></i><i style="transition-delay: 144ms;"></i><i style="transition-delay: 150ms;"></i><i style="transition-delay: 156ms;"></i><i style="transition-delay: 162ms;"></i><i style="transition-delay: 168ms;"></i><i style="transition-delay: 174ms;"></i><i style="transition-delay: 180ms;"></i><i style="transition-delay: 186ms;"></i><i style="transition-delay: 192ms;"></i><i style="transition-delay: 198ms;"></i><i style="transition-delay: 204ms;"></i><i style="transition-delay: 210ms;"></i><i style="transition-delay: 216ms;"></i><i style="transition-delay: 222ms;"></i><i style="transition-delay: 228ms;"></i><i style="transition-delay: 234ms;"></i><i style="transition-delay: 240ms;"></i><i style="transition-delay: 246ms;"></i><i style="transition-delay: 252ms;"></i><i style="transition-delay: 258ms;"></i><i style="transition-delay: 264ms;"></i><i style="transition-delay: 270ms;"></i><i style="transition-delay: 276ms;"></i><i style="transition-delay: 282ms;"></i><i style="transition-delay: 288ms;"></i><i style="transition-delay: 294ms;"></i><i style="transition-delay: 300ms;"></i><i style="transition-delay: 306ms;"></i><i style="transition-delay: 312ms;"></i><i style="transition-delay: 318ms;"></i><i style="transition-delay: 324ms;"></i><i style="transition-delay: 330ms;"></i><i style="transition-delay: 336ms;"></i><i style="transition-delay: 342ms;"></i><i style="transition-delay: 348ms;"></i><i style="transition-delay: 354ms;"></i><i style="transition-delay: 360ms;"></i><i style="transition-delay: 366ms;"></i><i style="transition-delay: 372ms;"></i><i style="transition-delay: 378ms;"></i><i style="transition-delay: 384ms;"></i><i style="transition-delay: 390ms;"></i><i style="transition-delay: 396ms;"></i><i style="transition-delay: 402ms;"></i><i style="transition-delay: 408ms;"></i><i style="transition-delay: 414ms;"></i><i style="transition-delay: 420ms;"></i><i style="transition-delay: 426ms;"></i><i style="transition-delay: 432ms;"></i><i style="transition-delay: 438ms;"></i><i style="transition-delay: 444ms;"></i><i style="transition-delay: 450ms;"></i><i style="transition-delay: 456ms;"></i><i style="transition-delay: 462ms;"></i><i style="transition-delay: 468ms;"></i><i style="transition-delay: 474ms;"></i><i style="transition-delay: 480ms;"></i><i style="transition-delay: 486ms;"></i><i style="transition-delay: 492ms;"></i><i style="transition-delay: 498ms;"></i><i style="transition-delay: 504ms;"></i><i style="transition-delay: 510ms;"></i><i style="transition-delay: 516ms;"></i><i style="transition-delay: 522ms;"></i><i style="transition-delay: 528ms;"></i><i style="transition-delay: 534ms;"></i><i style="transition-delay: 540ms;"></i><i style="transition-delay: 546ms;"></i><i style="transition-delay: 552ms;"></i><i style="transition-delay: 558ms;"></i><i style="transition-delay: 564ms;"></i><i style="transition-delay: 570ms;"></i><i style="transition-delay: 576ms;"></i><i style="transition-delay: 582ms;"></i><i style="transition-delay: 588ms;"></i><i style="transition-delay: 594ms;"></i><i style="transition-delay: 600ms;"></i><i style="transition-delay: 606ms;"></i><i style="transition-delay: 612ms;"></i><i style="transition-delay: 618ms;"></i><i style="transition-delay: 624ms;"></i><i style="transition-delay: 630ms;"></i><i style="transition-delay: 636ms;"></i><i style="transition-delay: 642ms;"></i><i style="transition-delay: 648ms;"></i><i style="transition-delay: 654ms;"></i><i style="transition-delay: 660ms;"></i><i style="transition-delay: 666ms;"></i><i style="transition-delay: 672ms;"></i><i style="transition-delay: 678ms;"></i><i style="transition-delay: 684ms;"></i><i style="transition-delay: 690ms;"></i><i style="transition-delay: 696ms;"></i><i style="transition-delay: 702ms;"></i><i style="transition-delay: 708ms;"></i><i style="transition-delay: 714ms;"></i><i style="transition-delay: 720ms;"></i><i style="transition-delay: 726ms;"></i><i style="transition-delay: 732ms;"></i><i style="transition-delay: 738ms;"></i><i style="transition-delay: 744ms;"></i><i style="transition-delay: 750ms;"></i><i style="transition-delay: 756ms;"></i><i style="transition-delay: 762ms;"></i><i style="transition-delay: 768ms;"></i><i style="transition-delay: 774ms;"></i><i style="transition-delay: 780ms;"></i><i style="transition-delay: 786ms;"></i><i style="transition-delay: 792ms;"></i><i style="transition-delay: 798ms;"></i><i style="transition-delay: 804ms;"></i><i style="transition-delay: 810ms;"></i><i style="transition-delay: 816ms;"></i><i style="transition-delay: 822ms;"></i><i style="transition-delay: 828ms;"></i><i style="transition-delay: 834ms;"></i><i style="transition-delay: 840ms;"></i><i style="transition-delay: 846ms;"></i><i style="transition-delay: 852ms;"></i><i style="transition-delay: 858ms;"></i><i style="transition-delay: 864ms;"></i><i style="transition-delay: 870ms;"></i><i style="transition-delay: 876ms;"></i><i style="transition-delay: 882ms;"></i><i style="transition-delay: 888ms;"></i><i style="transition-delay: 894ms;"></i><i style="transition-delay: 900ms;"></i><i style="transition-delay: 906ms;"></i><i style="transition-delay: 912ms;"></i><i style="transition-delay: 918ms;"></i><i style="transition-delay: 924ms;"></i><i style="transition-delay: 930ms;"></i><i style="transition-delay: 936ms;"></i><i style="transition-delay: 942ms;"></i><i style="transition-delay: 948ms;"></i><i style="transition-delay: 954ms;"></i><i style="transition-delay: 960ms;"></i><i style="transition-delay: 966ms;"></i><i style="transition-delay: 972ms;"></i><i style="transition-delay: 978ms;"></i><i style="transition-delay: 984ms;"></i><i style="transition-delay: 990ms;"></i><i style="transition-delay: 996ms;"></i><i style="transition-delay: 1002ms;"></i><i style="transition-delay: 1008ms;"></i><i style="transition-delay: 1014ms;"></i><i style="transition-delay: 1020ms;"></i><i style="transition-delay: 1026ms;"></i><i style="transition-delay: 1032ms;"></i><i style="transition-delay: 1038ms;"></i><i style="transition-delay: 1044ms;"></i><i style="transition-delay: 1050ms;"></i><i style="transition-delay: 1056ms;"></i><i style="transition-delay: 1062ms;"></i><i style="transition-delay: 1068ms;"></i><i style="transition-delay: 1074ms;"></i><i style="transition-delay: 1080ms;"></i><i style="transition-delay: 1086ms;"></i><i style="transition-delay: 1092ms;"></i><i style="transition-delay: 1098ms;"></i><i style="transition-delay: 1104ms;"></i><i style="transition-delay: 1110ms;"></i><i style="transition-delay: 1116ms;"></i><i style="transition-delay: 1122ms;"></i><i style="transition-delay: 1128ms;"></i><i style="transition-delay: 1134ms;"></i><i style="transition-delay: 1140ms;"></i><i style="transition-delay: 1146ms;"></i><i style="transition-delay: 1152ms;"></i><i style="transition-delay: 1158ms;"></i><i style="transition-delay: 1164ms;"></i><i style="transition-delay: 1170ms;"></i><i style="transition-delay: 1176ms;"></i><i style="transition-delay: 1182ms;"></i><i style="transition-delay: 1188ms;"></i><i style="transition-delay: 1194ms;"></i><i style="transition-delay: 1200ms;"></i><i style="transition-delay: 1206ms;"></i><i style="transition-delay: 1212ms;"></i><i style="transition-delay: 1218ms;"></i><i style="transition-delay: 1224ms;"></i><i style="transition-delay: 1230ms;"></i><i style="transition-delay: 1236ms;"></i><i style="transition-delay: 1242ms;"></i><i style="transition-delay: 1248ms;"></i><i style="transition-delay: 1254ms;"></i><i style="transition-delay: 1260ms;"></i><i style="transition-delay: 1266ms;"></i><i style="transition-delay: 1272ms;"></i><i style="transition-delay: 1278ms;"></i><i style="transition-delay: 1284ms;"></i></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Elemento central de la pieza</span>
+    <h2>La ley como instrumento: de la asimilación a la reconciliación</h2>
+    <p class="muted" style="max-width:64ch">La línea cambia de color donde cambia la función del derecho. Durante 150 años la ley aseguró la asimilación forzada; desde 2006, el proceso de reconciliación también se construye por vía legislativa. Toca cada hito para ver el detalle.</p>
+
+    <div class="tl-filter" role="group" aria-label="Filtrar cronología">
+      <button aria-pressed="false" data-f="all">Todo</button>
+      <button aria-pressed="false" data-f="asi">Asimilación</button>
+      <button aria-pressed="false" data-f="res">Resistencia</button>
+      <button aria-pressed="true" data-f="rec">Reconciliación</button>
+    </div>
+
+    <ul class="tl" id="tl"><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1831</span><span class="ti">Se inaugura el primer internado para indígenas</span><span class="tag">Asimilación</span></button><div class="det">El modelo se inspira en los internados para nativos americanos de Estados Unidos y en enfoques de las colonias británicas en África y Australia.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1857</span><span class="ti">Gradual Civilization Act</span><span class="tag">Asimilación</span></button><div class="det">Promueve la adopción de costumbres coloniales usando el sufragio como herramienta: leer y escribir, hablar inglés o francés y adoptar un apellido aprobado por el gobierno, con la consecuente pérdida del estatuto indígena.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1869</span><span class="ti">Ley de emancipación gradual</span><span class="tag">Asimilación</span></button><div class="det">Refuerza la asimilación: toda persona indígena debía declarar el nombre y apellido con que sería «emancipada», junto a su esposa e hijos, perdiendo su estatus.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1876</span><span class="ti">Indian Act</span><span class="tag">Asimilación</span></button><div class="det">Otorga al gobierno el poder de legislar sobre los indígenas y sus tierras, determinar quiénes son indígenas y cuáles son sus derechos. En nombre de la «protección», permitió gobernar y controlar a las Primeras Naciones, y luego a Inuit y Métis.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1880</span><span class="ti">Financiamiento estatal en todo Canadá</span><span class="tag">Asimilación</span></button><div class="det">Hacia la década de 1880 los internados ya contaban con financiamiento del gobierno federal, con la intención explícita de separar a los niños de sus familias y romper con su cultura.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1884</span><span class="ti">Prohibición del Potlatch y la danza Tamanawas</span><span class="tag">Asimilación</span></button><div class="det">La enmienda a la Indian Act sanciona con hasta seis meses de prisión participar en estas celebraciones, o incluso alentar a otros a organizarlas.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1920</span><span class="ti">Asistencia obligatoria (7 a 15 años)</span><span class="tag">Asimilación</span></button><div class="det">La enmienda a la Indian Act obliga a todo niño indígena a asistir a la escuela designada. Los padres arriesgaban multa o prisión; el «Oficial de ausentismo» podía arrestar al menor sin orden judicial. Ese año, Duncan Campbell Scott declaró que el objetivo era que «no exista un solo indígena en Canadá que no haya sido absorbido por el cuerpo político».</div></li><li data-c="res" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1931</span><span class="ti">Petitorio de la Liga de Indios</span><span class="tag">Resistencia</span></button><div class="det">Las nacientes organizaciones de las Primeras Naciones exigen más escuelas diurnas, maestros calificados, exámenes médicos previos y reducir el trabajo infantil a medio día. Las familias también resistían no enviando a sus hijos o no devolviéndolos cuando escapaban.</div></li><li data-c="asi" class="hidden"><button class="ev" aria-expanded="false"><span class="yr">1996</span><span class="ti">Cierra la última escuela residencial</span><span class="tag">Asimilación</span></button><div class="det">Pese a que Canadá había ratificado la Convención sobre los Derechos del Niño en 1991, el sistema operó hasta la última década del siglo XX.</div></li><li data-c="rec" class="rec"><button class="ev" aria-expanded="false"><span class="yr">2006</span><span class="ti">Acuerdo de Solución para las Escuelas Residenciales</span><span class="tag">Reconciliación</span></button><div class="det">Tras las acciones judiciales impulsadas por el coraje de las y los sobrevivientes, gobierno, iglesias y pueblos indígenas acuerdan una resolución que incluye la creación de la Comisión de la Verdad y Reconciliación.</div></li><li data-c="rec" class="rec"><button class="ev" aria-expanded="false"><span class="yr">2008</span><span class="ti">Disculpas oficiales · Comienza la CVR</span><span class="tag">Reconciliación</span></button><div class="det">El gobierno reconoce ante el ex estudiantado que el sistema buscó separarlos de sus familias y culturas, fundado en una supuesta inferioridad de sus creencias. La Comisión trabaja hasta 2015.</div></li><li data-c="rec" class="rec open"><button class="ev" aria-expanded="true"><span class="yr">2015</span><span class="ti">Informe Final: 94 Llamados a la Acción</span><span class="tag">Reconciliación</span></button><div class="det">La CVR concluye que el sistema fue el fundamento de una política de genocidio cultural y define la DNUDPI como el marco para la reconciliación nacional.</div></li><li data-c="rec" class="rec"><button class="ev" aria-expanded="false"><span class="yr">2019</span><span class="ti">Ley sobre niños, jóvenes y familias indígenas</span><span class="tag">Reconciliación</span></button><div class="det">Responde al Llamado a la Acción 4: reconoce el trauma intergeneracional, prioriza la permanencia de niñas y niños en sus familias y entornos culturalmente apropiados, y fortalece la decisión de los propios pueblos.</div></li><li data-c="rec" class="rec"><button class="ev" aria-expanded="false"><span class="yr">2021</span><span class="ti">Kamloops · Ley de la Declaración · Día Nacional</span><span class="tag">Reconciliación</span></button><div class="det">El hallazgo de ~215 tumbas sin identificar da relevancia global a los Llamados 71–76. Ese mismo año la DNUDPI se sanciona como ley federal y se instituye el 30 de septiembre como Día Nacional de la Verdad y la Reconciliación.</div></li><li data-c="rec" class="rec"><button class="ev" aria-expanded="false"><span class="yr">2023</span><span class="ti">Plan de Acción 2023–2028</span><span class="tag">Reconciliación</span></button><div class="det">Diseñado en colaboración con los pueblos indígenas: 181 medidas distribuidas en cinco capítulos, aunque con críticas por plazos de consulta insuficientes y falta de detalle en la implementación.</div></li></ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Estructura del artículo</span>
+    <h2>Tres ejes de análisis</h2>
+    <div class="ejes">
+      <details class="eje" open="">
+        <summary>1 · Las escuelas como instrumento</summary>
+        <div class="body"><p>Las Escuelas Residenciales fueron establecidas por el gobierno de Canadá y administradas principalmente por las iglesias Anglicana, Presbiteriana, Unida y Católica Romana. Su transición contemplaba tres etapas —separación, socialización y asimilación— y su objetivo era romper el vínculo de los estudiantes con su lengua, su familia y su comunidad. La CVR calificó esta política como genocidio cultural.</p></div>
+      </details>
+      <details class="eje" open="">
+        <summary>2 · La Comisión de la Verdad y Reconciliación</summary>
+        <div class="body"><p>Establecida a partir del Acuerdo de Solución de 2006, trabajó entre 2008 y 2015 recogiendo testimonios de sobrevivientes, creando un registro histórico del sistema y documentando sus impactos intergeneracionales en cinco áreas: bienestar, educación, lengua y cultura, salud y justicia. Su Informe Final formuló 94 Llamados a la Acción.</p></div>
+      </details>
+      <details class="eje" open="">
+        <summary>3 · Las respuestas legislativas</summary>
+        <div class="body"><p>El artículo analiza cómo Canadá ha respondido por vía legal: la Ley sobre niños, jóvenes y familias de las Primeras Naciones, Inuit y Métis (2019), la sanción de la DNUDPI como ley federal (2021) con su Plan de Acción 2023–2028 de 181 medidas, y el Día Nacional de la Verdad y la Reconciliación cada 30 de septiembre.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">A diez años del Informe Final</span>
+    <h2>¿Cuánto se ha cumplido de los 94 Llamados a la Acción?</h2>
+    <p class="muted" style="max-width:62ch">Seguimiento de la organización Indigenous Watchdog al 1 de mayo de 2025, citado en el artículo. Toca cada segmento de la barra.</p>
+    <div class="bar" id="bar" role="group" aria-label="Estado de los 94 Llamados a la Acción"><button class="b-c" aria-label="Cumplidos: 14 de 94" style="flex: 14 1 0%;">14</button><button class="b-p" aria-label="En progreso: 45 de 94" style="flex: 45 1 0%;">45</button><button class="b-d" aria-label="Detenidos: 21 de 94" style="flex: 21 1 0%;">21</button><button class="b-n" aria-label="No iniciados: 14 de 94" style="flex: 14 1 0%;">14</button></div>
+    <div class="leg">
+      <span><i style="background:#2E6E4E"></i>Cumplidos</span>
+      <span><i style="background:#C65A1E"></i>En progreso</span>
+      <span><i style="background:#8A6A4F"></i>Detenidos</span>
+      <span><i style="background:#5C6670"></i>No iniciados</span>
+    </div>
+    <div id="llamado-info" aria-live="polite"><b>Cumplidos — 14 de 94 (15%)</b><br>14 de los 94 Llamados a la Acción se consideran cumplidos al 1 de mayo de 2025, entre ellos hitos como el Día Nacional de la Verdad y la Reconciliación.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Conceptos clave</span>
+    <h2>Glosario mínimo</h2>
+    <details class="glo" open=""><summary>Genocidio cultural</summary><p>Actos cometidos con el propósito deliberado de eliminar la cultura de un grupo mediante prácticas destructivas y obstructivas sistemáticas (Martínez Cobos). La CVR concluyó que el sistema de escuelas residenciales fue el fundamento de una política de este tipo: destrucción de instituciones políticas y sociales, confiscación de tierras, prohibición de lenguas y prácticas culturales, y desintegración de las familias.</p></details>
+    <details class="glo" open=""><summary>DNUDPI</summary><p>Declaración de las Naciones Unidas sobre los Derechos de los Pueblos Indígenas (2007). Establece las normas mínimas para la supervivencia, la dignidad y el bienestar de los pueblos indígenas. La CVR la definió como el marco para la reconciliación; Canadá la sancionó como ley federal en junio de 2021.</p></details>
+    <details class="glo" open=""><summary>Primeras Naciones, Inuit y Métis</summary><p>Los tres pueblos que la Constitución canadiense de 1982 agrupa bajo el término «aborígenes». Las Primeras Naciones cuentan con más de 630 reservas y más de 60 lenguas; los Inuit habitan Inuit Nunangat; los Métis surgieron como pueblo diferenciado en el noroeste histórico.</p></details>
+    <details class="glo"><summary>Llamados a la Acción</summary><p>Las 94 recomendaciones del Informe Final de la CVR (2015), dirigidas no solo a los gobiernos sino también a iglesias, tribunales, medios de comunicación, empresas y al sistema educativo, con el objetivo de transformar las estructuras que sostuvieron la asimilación.</p></details>
+  </div>
+</section>
+
+<section id="citar">
+  <div class="wrap">
+    <span class="eyebrow">Trazabilidad</span>
+    <h2>Leer y citar el original</h2>
+    <p style="max-width:64ch">Esta pieza es una traducción divulgativa y no reemplaza al artículo. El texto completo, con su aparato crítico, está disponible en acceso abierto en la revista <i>UNIVERSITAS</i> de la Universidad Carlos III de Madrid.</p>
+    <div class="cita-box">
+      <b>Cita sugerida</b>
+      <code id="cita-txt">Rojas Castillo, Jaime. «Las escuelas residenciales indígenas en Canadá. Una historia compartida sobre asimilación forzada y genocidio cultural». UNIVERSITAS, n.º 49 (2026): 7–31. https://doi.org/10.20318/universitas.2026.10525</code>
+      <button class="copy-btn" id="copiar">Copiar cita</button>
+      <span id="copiado" class="muted" style="margin-left:10px;font-size:.8rem"></span>
+    </div>
+    <p style="margin-top:1rem"><a href="https://e-revistas.uc3m.es/index.php/UNIV/es/article/view/10525" target="_blank" rel="noopener">Ver el artículo completo en UNIVERSITAS →</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Pieza elaborada con autorización del autor. Traducción divulgativa a partir de Rojas Castillo (2026); los datos citados corresponden al artículo y sus fuentes (CVR de Canadá, NCTR, Indigenous Watchdog).</p>
+    <p style="margin-top:.5rem">Portafolio construido como página estática de archivo único · GitHub Pages.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Memorial 215 ---------- */
+const dots = document.getElementById('dots215');
+for(let i=0;i<215;i++){const d=document.createElement('i');d.style.transitionDelay=(i*6)+'ms';dots.appendChild(d);}
+new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){dots.classList.add('on');o.disconnect();}})},{threshold:.2}).observe(dots);
+
+/* ---------- Cronología ---------- */
+const eventos=[
+ {y:1831,c:'asi',t:'Se inaugura el primer internado para indígenas',d:'El modelo se inspira en los internados para nativos americanos de Estados Unidos y en enfoques de las colonias británicas en África y Australia.'},
+ {y:1857,c:'asi',t:'Gradual Civilization Act',d:'Promueve la adopción de costumbres coloniales usando el sufragio como herramienta: leer y escribir, hablar inglés o francés y adoptar un apellido aprobado por el gobierno, con la consecuente pérdida del estatuto indígena.'},
+ {y:1869,c:'asi',t:'Ley de emancipación gradual',d:'Refuerza la asimilación: toda persona indígena debía declarar el nombre y apellido con que sería «emancipada», junto a su esposa e hijos, perdiendo su estatus.'},
+ {y:1876,c:'asi',t:'Indian Act',d:'Otorga al gobierno el poder de legislar sobre los indígenas y sus tierras, determinar quiénes son indígenas y cuáles son sus derechos. En nombre de la «protección», permitió gobernar y controlar a las Primeras Naciones, y luego a Inuit y Métis.'},
+ {y:1884,c:'asi',t:'Prohibición del Potlatch y la danza Tamanawas',d:'La enmienda a la Indian Act sanciona con hasta seis meses de prisión participar en estas celebraciones, o incluso alentar a otros a organizarlas.'},
+ {y:1880,c:'asi',t:'Financiamiento estatal en todo Canadá',d:'Hacia la década de 1880 los internados ya contaban con financiamiento del gobierno federal, con la intención explícita de separar a los niños de sus familias y romper con su cultura.'},
+ {y:1920,c:'asi',t:'Asistencia obligatoria (7 a 15 años)',d:'La enmienda a la Indian Act obliga a todo niño indígena a asistir a la escuela designada. Los padres arriesgaban multa o prisión; el «Oficial de ausentismo» podía arrestar al menor sin orden judicial. Ese año, Duncan Campbell Scott declaró que el objetivo era que «no exista un solo indígena en Canadá que no haya sido absorbido por el cuerpo político».'},
+ {y:1931,c:'res',t:'Petitorio de la Liga de Indios',d:'Las nacientes organizaciones de las Primeras Naciones exigen más escuelas diurnas, maestros calificados, exámenes médicos previos y reducir el trabajo infantil a medio día. Las familias también resistían no enviando a sus hijos o no devolviéndolos cuando escapaban.'},
+ {y:1996,c:'asi',t:'Cierra la última escuela residencial',d:'Pese a que Canadá había ratificado la Convención sobre los Derechos del Niño en 1991, el sistema operó hasta la última década del siglo XX.'},
+ {y:2006,c:'rec',t:'Acuerdo de Solución para las Escuelas Residenciales',d:'Tras las acciones judiciales impulsadas por el coraje de las y los sobrevivientes, gobierno, iglesias y pueblos indígenas acuerdan una resolución que incluye la creación de la Comisión de la Verdad y Reconciliación.'},
+ {y:2008,c:'rec',t:'Disculpas oficiales · Comienza la CVR',d:'El gobierno reconoce ante el ex estudiantado que el sistema buscó separarlos de sus familias y culturas, fundado en una supuesta inferioridad de sus creencias. La Comisión trabaja hasta 2015.'},
+ {y:2015,c:'rec',t:'Informe Final: 94 Llamados a la Acción',d:'La CVR concluye que el sistema fue el fundamento de una política de genocidio cultural y define la DNUDPI como el marco para la reconciliación nacional.'},
+ {y:2019,c:'rec',t:'Ley sobre niños, jóvenes y familias indígenas',d:'Responde al Llamado a la Acción 4: reconoce el trauma intergeneracional, prioriza la permanencia de niñas y niños en sus familias y entornos culturalmente apropiados, y fortalece la decisión de los propios pueblos.'},
+ {y:2021,c:'rec',t:'Kamloops · Ley de la Declaración · Día Nacional',d:'El hallazgo de ~215 tumbas sin identificar da relevancia global a los Llamados 71–76. Ese mismo año la DNUDPI se sanciona como ley federal y se instituye el 30 de septiembre como Día Nacional de la Verdad y la Reconciliación.'},
+ {y:2023,c:'rec',t:'Plan de Acción 2023–2028',d:'Diseñado en colaboración con los pueblos indígenas: 181 medidas distribuidas en cinco capítulos, aunque con críticas por plazos de consulta insuficientes y falta de detalle en la implementación.'}
+];
+eventos.sort((a,b)=>a.y-b.y);
+const nombres={asi:'Asimilación',res:'Resistencia',rec:'Reconciliación'};
+const tlEl=document.getElementById('tl');
+eventos.forEach(e=>{
+  const li=document.createElement('li');
+  li.dataset.c=e.c; if(e.c==='rec')li.classList.add('rec');
+  li.innerHTML=`<button class="ev" aria-expanded="false"><span class="yr">${e.y}</span><span class="ti">${e.t}</span><span class="tag">${nombres[e.c]}</span></button><div class="det">${e.d}</div>`;
+  li.querySelector('button').addEventListener('click',()=>{
+    const open=li.classList.toggle('open');
+    li.querySelector('button').setAttribute('aria-expanded',open);
+  });
+  tlEl.appendChild(li);
+});
+document.querySelectorAll('.tl-filter button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tl-filter button').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    const f=b.dataset.f;
+    document.querySelectorAll('#tl li').forEach(li=>{
+      li.classList.toggle('hidden', f!=='all' && li.dataset.c!==f);
+    });
+  });
+});
+
+/* ---------- Llamados a la Acción ---------- */
+const llamados=[
+ {k:'b-c',n:14,l:'Cumplidos',d:'14 de los 94 Llamados a la Acción se consideran cumplidos al 1 de mayo de 2025, entre ellos hitos como el Día Nacional de la Verdad y la Reconciliación.'},
+ {k:'b-p',n:45,l:'En progreso',d:'45 Llamados registran avances en curso: es el grupo más numeroso, lo que muestra un proceso abierto cuyo resultado depende de voluntad política sostenida y financiamiento.'},
+ {k:'b-d',n:21,l:'Detenidos',d:'21 Llamados se encuentran detenidos: iniciativas que comenzaron pero cuyo avance se estancó.'},
+ {k:'b-n',n:14,l:'No iniciados',d:'14 Llamados no registran ninguna acción, a diez años del Informe Final de la CVR.'}
+];
+const bar=document.getElementById('bar'), info=document.getElementById('llamado-info');
+llamados.forEach(s=>{
+  const b=document.createElement('button');
+  b.className=s.k; b.style.flex=s.n; b.textContent=s.n;
+  b.setAttribute('aria-label',`${s.l}: ${s.n} de 94`);
+  b.addEventListener('click',()=>{info.innerHTML=`<b>${s.l} — ${s.n} de 94 (${Math.round(s.n/94*100)}%)</b><br>${s.d}`;});
+  bar.appendChild(b);
+});
+
+/* ---------- Copiar cita ---------- */
+document.getElementById('copiar').addEventListener('click',()=>{
+  navigator.clipboard.writeText(document.getElementById('cita-txt').textContent.trim()).then(()=>{
+    document.getElementById('copiado').textContent='Copiada ✓';
+    setTimeout(()=>document.getElementById('copiado').textContent='',2500);
+  });
+});
+</script>
+
+
+</body></html>
