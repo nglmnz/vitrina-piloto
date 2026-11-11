@@ -28,3 +28,12 @@ exclude:
   - "**/*.doc"
   - "**/*.xlsx"
   - "**/*.csv"
+  - '*.pdf'
+  - '*.docx'
+  - '*.doc'
+  - '*.xlsx'
+  - '*.csv'
+  - "1.-+(FINAL)+LAS+ESCUELAS+RESIDENCIALES+INDÍGENAS+EN+CANADÁ+Una+historia+compartida+sobre+asimilación+forzada+y+genocidio+cultural.pdf"
+  - "Diego_Navarro_Artículo_CESI.docx"
+  - "Epidemiología_y_Sociología.docx"
+  - "Scraping y simulación.R"
