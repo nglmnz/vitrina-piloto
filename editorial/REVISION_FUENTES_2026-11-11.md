@@ -1,6 +1,6 @@
 # Incorporación de fuentes y primera edición de lecturas
 
-Base documental: commit `761fd482c2373684e82078c02edaa716a80e9965` (add tesis). Las lecturas son versiones editoriales, no textos aprobados por sus autores. El sitio identifica ese estado y enlaza cada documento. Las fuentes no se modifican.
+Base documental: commit `761fd482c2373684e82078c02edaa716a80e9965` (add tesis). Las lecturas son versiones editoriales, no textos aprobados por sus autores. El sitio identifica ese estado y muestra referencias bibliográficas sin enlaces de descarga. Las fuentes no se modifican.
 
 | Fuente | Salida | Evidencia / alcance | Pendiente |
 | --- | --- | --- | --- |
@@ -26,9 +26,15 @@ Base documental: commit `761fd482c2373684e82078c02edaa716a80e9965` (add tesis). 
 1. Demostrar con la tesis de Ángel y la de Antonia dos rutas: relato con límites explícitos y comparación interactiva con denominadores visibles.
 2. Llevar las cinco lecturas a revisión de autoría: fidelidad, permisos de reproducción y aprobación de la versión editorial. Registrar correcciones por fuente y commit.
 3. Solicitar a una contraparte de Deusto una investigación candidata y una persona revisora para el piloto propuesto. No presentar colaboración institucional como acordada.
-4. Probar comprensión con lectores: distinguir muestra total de base analítica; distinguir asociación de causalidad; recuperar una fuente sin ayuda. Registrar resultados antes de prometer impacto.
+4. Probar comprensión con lectores: distinguir muestra total de base analítica; distinguir asociación de causalidad; identificar el respaldo bibliográfico sin ayuda. Registrar resultados antes de prometer impacto.
 5. Completar la ficha de Dinika y Sloane con el PDF ya disponible. Gabriela sigue pendiente de fuente; ALAS de material de cobertura. TRAMA conserva su enlace al proyecto.
 
 ## Alcance técnico
 
 `stories.js` concentra contenido, citas y series verificadas; `article.js` conserva el renderizador compartido y el estado provisional de fichas sin fuente. Cinco lecturas completas; tres fichas existentes en preparación/proyecto. La interfaz mantiene ES/PT/EN; los nuevos artículos se identifican como escritos en español. No se simulan traducciones. Cada pieza usa su propia URL. Se retiran las barras decorativas de las tarjetas para no sugerir datos inexistentes.
+
+## Corrección de acceso a originales
+
+Se retiran las descargas de las páginas y los nombres de archivo del contenido público estructurado. `_config.yml` excluye originales y documentación de trabajo de GitHub Pages. La metodología de ESTRUCTURA_CARPETAS.md.pdf y trazabilidad.pdf reserva las fuentes para almacenamiento privado y publica crédito, cita e ID de pieza.
+
+**Limitación pendiente:** el repositorio es público. Las exclusiones de Pages no son control de acceso a GitHub: los originales subidos por el usuario siguen accesibles en el repositorio y su historial. La separación completa requiere trasladar y respaldar las fuentes en almacenamiento privado y resolver la exposición histórica; no basta con borrar archivos o enlaces. No se ha reescrito el historial ni cambiado la visibilidad del repositorio.

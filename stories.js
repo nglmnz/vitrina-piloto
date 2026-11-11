@@ -28,12 +28,10 @@ const STORIES = {
     "closing": "La pregunta que queda abierta es cómo acompañar prácticas digitales que se vuelven difíciles de regular. Para una universidad, esta lectura puede abrir una conversación sobre bienestar y vida cotidiana; evaluar una intervención requeriría otro diseño.",
     "sources": [
       {
-        "file": "sg_final_v01.docx",
         "label": "Método: pp. 14–15 de la versión de revisión; instrumento e índices, pp. 17–18.",
         "page": null
       },
       {
-        "file": "sg_final_v01.docx",
         "label": "Tabla 9, p. 31 de la versión de revisión; limitaciones, p. 36.",
         "page": null
       }
@@ -68,12 +66,10 @@ const STORIES = {
     "closing": "La pregunta editorial cambia: además de identificar contra quién se habla, conviene observar cómo se invita a sentirse cerca. Para responder qué efecto produce esa cercanía harían falta otras evidencias.",
     "sources": [
       {
-        "file": "Seminario de Grado_Bravo_Carmona.pdf",
         "label": "Diseño y selección del corpus, pp. 10–13 (PDF: mismas páginas).",
         "page": 10
       },
       {
-        "file": "Seminario de Grado_Bravo_Carmona.pdf",
         "label": "Tabla 2: marco de antagonismo y tonalidad discursiva, p. 20 (PDF: p. 20).",
         "page": 20
       }
@@ -158,12 +154,10 @@ const STORIES = {
     "closing": "La próxima vez que un diseño parezca decir “aquí no”, la pregunta puede ser quién tomó esa decisión y qué forma de convivencia produce. Esa es una invitación editorial a observar; no una conclusión adicional del trabajo de campo.",
     "sources": [
       {
-        "file": "Seminario de grado Francesca Roco (1).pdf",
         "label": "Método y técnicas, p. 8 (PDF: p. 8).",
         "page": 8
       },
       {
-        "file": "Seminario de grado Francesca Roco (1).pdf",
         "label": "Resultados y categorías, pp. 9–14; conclusiones, pp. 14–15 (PDF: mismas páginas).",
         "page": 9
       }
@@ -197,12 +191,10 @@ const STORIES = {
     "closing": "El aporte para la conversación pública es tratar la protección como una condición para participar en decisiones colectivas. La cuestión que abre esta lectura es qué instituciones permiten sostener esa participación cuando existe violencia.",
     "sources": [
       {
-        "file": "Diego_Navarro_Artículo_CESI.docx",
         "label": "Introducción y discusión sobre poder y violencia; versión del artículo de 2025.",
         "page": null
       },
       {
-        "file": "Diego_Navarro_Artículo_CESI.docx",
         "label": "Sección 3: Recursos procesales para la defensa de personas defensoras de derechos humanos; discusión del Acuerdo de Escazú y conclusión.",
         "page": null
       }
@@ -236,12 +228,10 @@ const STORIES = {
     "closing": "La invitación a seguir leyendo es reconocer que la memoria tiene destinatarios concretos. En este trabajo, la pregunta por la reparación exige volver a mirar a niñas y niños, sus comunidades y la continuidad de sus vínculos.",
     "sources": [
       {
-        "file": "1.-+(FINAL)+LAS+ESCUELAS+RESIDENCIALES+INDÍGENAS+EN+CANADÁ+Una+historia+compartida+sobre+asimilación+forzada+y+genocidio+cultural.pdf",
         "label": "Resumen e introducción: pp. impresas 7–9; PDF pp. 1–3.",
         "page": 1
       },
       {
-        "file": "1.-+(FINAL)+LAS+ESCUELAS+RESIDENCIALES+INDÍGENAS+EN+CANADÁ+Una+historia+compartida+sobre+asimilación+forzada+y+genocidio+cultural.pdf",
         "label": "Conclusiones: pp. impresas 27–28; PDF pp. 21–22.",
         "page": 21
       }
