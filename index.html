@@ -218,7 +218,7 @@
           </div>
           <div class="card-body">
             <div>
-              <div class="card-status">${p.url ? t("fProject") : t("pending")}</div>
+              <div class="card-status">${p.ready ? t("available") : p.url ? t("fProject") : t("pending")}</div>
               <div class="card-title">${p.title}</div>
               <div class="card-desc">${p.desc}</div>
             </div>
@@ -227,7 +227,7 @@
               <div class="open">${t('openPiece')} ↗</div>
             </div>
           </div>
-          <div class="mini-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+          
         </a>
       `).join('') || `<div style="grid-column:1/-1;padding:3rem;color:var(--muted)">—</div>`;
     }

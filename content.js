@@ -114,3 +114,19 @@
     Object.assign(PIECES.find(p=>p.id==='alas'), {title:'ALAS: América Latina se piensa a sí misma',desc:'Crónica multimedia del Congreso de la Asociación Latinoamericana de Sociología. Fotografías y video en preparación.',finding:'Un espacio de encuentros, debates y perspectivas de la sociología latinoamericana.'});
     function localized(piece){return lang==='en' ? {...piece,...PIECE_EN[piece.id]} : piece;}
 
+
+// Metadatos ajustados a las fuentes incorporadas el 11 de noviembre de 2026.
+const SOURCE_UPDATES = {
+ sustancia:{ready:true},
+ arq:{ready:true,year:2024,tag:'Lectura de tesis',title:'Cuando una superficie decide quién puede quedarse',desc:'Arquitectura hostil, orden y exclusión desde los recorridos y entrevistas de Francesca Roco.',finding:'¿Qué formas de habitar permite —o impide— una decisión de diseño urbano?'},
+ tecno:{ready:true,tag:'Evidencia interactiva',title:'No todo es confrontación',desc:'La cercanía en el Facebook de Parisi: una lectura de la investigación de Antonia Bravo.',finding:'144 de 220 publicaciones seleccionadas no presentan un marco de antagonismo.'},
+ bosque:{ready:true,year:2025,tag:'Lectura de artículo',title:'Defender la tierra, sostener la voz',desc:'Diego Navarro conecta la violencia contra defensores ambientales con la acción colectiva en Chile y Brasil.',finding:'¿Qué ocurre con la participación cuando defender un territorio se vuelve peligroso?'},
+ derecha:{finding:'Pregunta editorial pendiente de contraste con la tesis original.'}
+};
+for(const [id,values] of Object.entries(SOURCE_UPDATES))Object.assign(PIECES.find(p=>p.id===id),values);
+Object.assign(PIECE_EN.arq,{tag:'Thesis reading · Spanish',title:'When a surface decides who can stay',desc:'Hostile architecture, order and exclusion in Francesca Roco’s fieldwork.',finding:'Which ways of inhabiting a space does urban design enable or prevent?'});
+Object.assign(PIECE_EN.tecno,{tag:'Interactive evidence · Spanish',title:'Not everything is confrontation',desc:'Closeness in Parisi’s Facebook campaign: a reading of Antonia Bravo’s research.',finding:'144 of 220 selected posts contain no antagonistic frame.'});
+Object.assign(PIECE_EN.bosque,{tag:'Article reading · Spanish',title:'Defending land, sustaining a voice',desc:'Diego Navarro discusses violence against environmental defenders and collective action in Chile and Brazil.',finding:'What happens to participation when defending a territory becomes dangerous?'});
+PIECE_EN.derecha.finding='Editorial question awaiting verification against the original thesis.';
+PIECES.push({id:'escuelas-residenciales',tipo:'narrativa',ready:true,tag:'Lectura de artículo',inst:'UNIVERSITAS',title:'Una infancia separada de su comunidad',desc:'Jaime Rojas Castillo examina la asimilación forzada y los desafíos de la reparación en Canadá.',finding:'¿Qué exige reparar la ruptura de vínculos con la lengua, la familia y la comunidad?',autor:'Jaime Rojas Castillo',year:2026,accent:'#e0a17f'});
+I18N.es.available='Lectura disponible';I18N.en.available='Reading available · Spanish';I18N.pt.available='Leitura disponível · espanhol';
